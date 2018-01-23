@@ -1,0 +1,3 @@
+[remote "production"]
+  url = bmagga@goldencabinetherbs.com:goldencabinet.git
+  fetch = +refs/heads/*:refs/remotes/production/*

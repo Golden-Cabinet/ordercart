@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RESPONSE Version="2.8">
+  <Envelope>
+    <Command><![CDATA[GetOrders]]></Command>
+    <StatusCode><![CDATA[1000]]></StatusCode>
+    <Provider><![CDATA[Generic]]></Provider>
+    <UpdatedOn><![CDATA[2016-03-18 14:25:15]]></UpdatedOn>
+  </Envelope>
+  <Orders/>
+</RESPONSE>
