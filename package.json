@@ -1,19 +1,46 @@
 {
-  "name": "goldencabinet-app",
-  "version": "1.0.2",
-  "description": "Prescription refill app for Golden Cabinet",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/georgemandis/golden-cabinet.git"
-  },
-  "author": "George Mandis",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/georgemandis/golden-cabinet/issues"
-  },
-  "homepage": "https://github.com/georgemandis/golden-cabinet#readme"
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch-poll": "npm run watch -- --watch-poll",
+        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "npm run production",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    },
+    "devDependencies": {
+        "axios": "^0.16.2",
+        "bootstrap-sass": "^3.3.7",
+        "cross-env": "^5.0.1",
+        "jquery": "^3.2.1",
+        "laravel-mix": "^1.0",
+        "lodash": "^4.17.4",
+        "vue": "^2.1.10"
+    },
+    "dependencies": {
+        "@types/requirejs": "^2.1.31",
+        "bootstrap": "4.0.0-beta",
+        "browserslist": "^2.9.1",
+        "chart.js": "^2.7.1",
+        "datatables.net-responsive": "^2.2.0",
+        "datatables.net-responsive-bs4": "^2.2.0",
+        "dropzone": "^5.2.0",
+        "font-awesome": "^4.7.0",
+        "foundation-icon-fonts": "^0.1.1",
+        "froala-editor": "^2.7.2",
+        "fullcalendar": "^3.7.0",
+        "jquery-datetimepicker": "^2.5.14",
+        "jquery-simple-datetimepicker": "^1.12.0",
+        "moment": "^2.19.4",
+        "npm-font-open-sans": "^1.1.0",
+        "popper.js": "^1.12.9",
+        "pstpn-webfont-montserrat": "0.0.5",
+        "roboto-slab-fontface-kit": "^1.0.2",
+        "semver": "^5.4.1",
+        "typeface-im-fell-english-sc": "0.0.54",
+        "typeface-josefin-sans": "0.0.54",
+        "uglify-js": "^3.1.10",
+        "uuid": "^3.1.0"
+    }
 }

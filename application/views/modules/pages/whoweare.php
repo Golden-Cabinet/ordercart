@@ -1,7 +1,0 @@
-<h3>Who we are</h3>
-
-<p>Golden Cabinet Herbal Pharmacy was founded in 2010 by Casey Aron and Ben Magga. Casey and Ben initially started the pharmacy for the purpose of providing their families and friends with the highest quality, most inexpensive herbal formulas possible. Through this simple beginning, a business began to grow. They found that many others needed and wanted access to a pharmacy like theirs—one that operated on the principles of quality, fair pricing, service and community. So they started Golden Cabinet Herbal Pharmacy with a business plan that emphasized steady and sustainable growth--valuing service, relationships and quality over expansion and large profits. Today, Golden Cabinet provides custom formulas and herbal products to hundreds of practitioners and patients using the same herbs Ben and Casey still use to heal their loved ones.</p>
-
-<h3>What we do</h3>
-
-<p>Golden Cabinet specializes in the preparation of granule formulas from a catalog of over 350 single herbs (and counting), from which practitioners can write both modern and classical formulas. We stock the most important herbs in varying grades and from multiple sources so practitioners can write formulas without compromise. We also carry many rare and hard-to-find herbs, as well as patents and topical products for complete patient care. Click here to read about the products</p>
