@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Product;
 
-class PagesController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,14 @@ class PagesController extends Controller
      */
     public function index()
     {
-        //
+        $products = new Product;
+        $getProducts = $products::all();
+
+        $results = [
+            'results' => $getProducts
+        ];
+
+        return view('dashboard.products.index',$results);
     }
 
     /**
@@ -24,7 +32,7 @@ class PagesController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.products.create'); 
     }
 
     /**
@@ -35,7 +43,9 @@ class PagesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $products = new Product;        
+        
+        return redirect()->route('productsindex')->with('status', 'Product Created!'); 
     }
 
     /**
@@ -57,7 +67,14 @@ class PagesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = new Product;
+        $getProduct = $product::find($id);
+
+        $result = [
+            'result' => $getProduct,
+        ];
+        
+        return view('dashboard.products.edit', $result); 
     }
 
     /**
@@ -69,7 +86,10 @@ class PagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = new Product;
+        $getProduct = $product::find($id);
+
+        return redirect()->route('productsindex')->with('status', 'Product Was Updated!');; 
     }
 
     /**
@@ -80,6 +100,9 @@ class PagesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = new Product;
+        $getProduct = $product::find($id);
+        $getProduct->delete();
+        return redirect()->route('productsindex')->with('status', 'Product Was Deleted!');; 
     }
 }

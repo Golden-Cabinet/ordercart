@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class UsersController extends Controller
 {
@@ -14,7 +15,14 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $users = new User;
+        $getUsers = $users::all();
+
+        $results = [
+            'results' => $getUsers
+        ];
+
+        return view('dashboard.users.index',$results);
     }
 
     /**
@@ -24,7 +32,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.users.create'); 
     }
 
     /**
@@ -35,7 +43,9 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $users = new User;        
+        
+        return redirect()->route('usersindex')->with('status', 'User Created!'); 
     }
 
     /**
@@ -57,7 +67,14 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = new User;
+        $getUser = $user::find($id);
+
+        $result = [
+            'result' => $getUser,
+        ];
+        
+        return view('dashboard.users.edit', $result); 
     }
 
     /**
@@ -69,7 +86,10 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = new User;
+        $getUser = $user::find($id);
+
+        return redirect()->route('usersindex')->with('status', 'User Was Updated!');; 
     }
 
     /**
@@ -80,6 +100,9 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = new User;
+        $getUser = $user::find($id);
+        $getUser->delete();
+        return redirect()->route('usersindex')->with('status', 'User Was Deleted!');; 
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Formula;
 
 class FormulaController extends Controller
 {
@@ -14,7 +15,14 @@ class FormulaController extends Controller
      */
     public function index()
     {
-        //
+        $formulas = new Formula;
+        $getFormulas = $formulas::all();
+
+        $results = [
+            'results' => $getFormulas
+        ];
+
+        return view('dashboard.formulas.index',$results);
     }
 
     /**
@@ -24,7 +32,7 @@ class FormulaController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.formulas.create'); 
     }
 
     /**
@@ -35,7 +43,9 @@ class FormulaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $formulas = new Formula;        
+        
+        return redirect()->route('formulasindex')->with('status', 'Formula Created!'); 
     }
 
     /**
@@ -46,7 +56,43 @@ class FormulaController extends Controller
      */
     public function show($id)
     {
-        //
+        
+    }
+
+    /**
+     * Duplicate the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function duplicate($id)
+    {
+        $formula = new Formula;
+        $getFormula = $formula::find($id);
+
+        $result = [
+            'result' => $getFormula,
+        ];
+        
+        return view('dashboard.formulas.duplicate', $result); 
+    }
+
+    /**
+     * Share the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function share($id)
+    {
+        $formula = new Formula;
+        $getFormula = $formula::find($id);
+
+        $result = [
+            'result' => $getFormula,
+        ];
+        
+        return view('dashboard.formulas.duplicate', $result); 
     }
 
     /**
@@ -57,7 +103,14 @@ class FormulaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $formula = new Formula;
+        $getFormula = $formula::find($id);
+
+        $result = [
+            'result' => $getFormula,
+        ];
+        
+        return view('dashboard.formulas.edit', $result); 
     }
 
     /**
@@ -69,7 +122,10 @@ class FormulaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $formula = new Formula;
+        $getFormula = $formula::find($id);
+
+        return redirect()->route('formulasindex')->with('status', 'Formula Was Updated!'); 
     }
 
     /**
@@ -80,6 +136,9 @@ class FormulaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $formula = new Formula;
+        $getFormula = $formula::find($id);
+        $getFormula->delete();
+        return redirect()->route('formulasindex')->with('status', 'Formula Was Deleted!');; 
     }
 }
