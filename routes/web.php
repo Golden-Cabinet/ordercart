@@ -17,23 +17,23 @@ Route::group(['prefix' => 'dashboard',  'middleware' => 'auth'], function()
     
     // USERS //
     Route::prefix('users')->group(function () {
-       Route::get('/','Admin\UserController@index')->name('usersindex');
-       Route::get('create','Admin\UserController@create');
-       Route::post('store','Admin\UserController@store');
-       Route::get('edit/{id}','Admin\UserController@edit');
-       Route::get('show/{id}','Admin\UserController@show');
-       Route::post('update','Admin\UserController@update');
-       Route::get('delete/{id}','Admin\UserController@destroy');
+       Route::get('/','Admin\UsersController@index')->name('usersindex');
+       Route::get('create','Admin\UsersController@create');
+       Route::post('store','Admin\UsersController@store');
+       Route::get('edit/{id}','Admin\UsersController@edit');
+       Route::get('show/{id}','Admin\UsersController@show');
+       Route::post('update','Admin\UsersController@update');
+       Route::get('delete/{id}','Admin\UsersController@destroy');
     });
 
     // PATIENTS //
     Route::prefix('patients')->group(function () {
-        Route::get('/','Admin\PatientController@index')->name('patientsindex');
-        Route::get('create','Admin\PatientController@create');
-        Route::post('store','Admin\PatientController@store');
-        Route::get('edit/{id}','Admin\PatientController@edit');
-        Route::post('update','Admin\PatientController@update');
-        Route::get('delete/{id}','Admin\PatientController@destroy');
+        Route::get('/','Admin\PatientsController@index')->name('patientsindex');
+        Route::get('create','Admin\PatientsController@create');
+        Route::post('store','Admin\PatientsController@store');
+        Route::get('edit/{id}','Admin\PatientsController@edit');
+        Route::post('update','Admin\PatientsController@update');
+        Route::get('delete/{id}','Admin\PatientsController@destroy');
      });
 
      // ORDERS //
