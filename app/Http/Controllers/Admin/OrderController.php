@@ -105,4 +105,5 @@ class OrderController extends Controller
         $getOrder->delete();
         return redirect()->route('ordersindex')->with('status', 'Order Was Deleted!');; 
     }
+
 }
