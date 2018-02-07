@@ -1,8 +1,10 @@
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg bg-light fixed-top">
+
+
+<nav class="navbar navbar-expand-lg bg-white fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">LOGO HERE</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand" href="/"><img src="/images/header-logo.svg" style="height: 56px"> View Site <i class="fas fa-external-link-alt"></i></a>
+      <button class="navbar-toggler bg-dark btn-dark" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">

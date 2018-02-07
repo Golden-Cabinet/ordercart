@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Store;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,9 +16,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = new Category;
-        $getCategories = $categories::where('deleted',0)->get();
-        
+        // 
     }
 
     /**

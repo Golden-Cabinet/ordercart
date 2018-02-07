@@ -23,8 +23,18 @@ if (location.hostname.substr(-6) != ".local") {
 </script>
 
 <script src="/js/app.js"></script>
+<script src="/js/site.js"></script>
+<script>
+	$(document).ready(function(){
+		$('input[type=search]').addClass('form-control');
+	});
+	
+</script>	
 
-@stack('js')
+
+@stack('js') 
+
+@stack('dataSet')
 </body>
 
 </html>

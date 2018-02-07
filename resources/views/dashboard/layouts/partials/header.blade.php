@@ -10,6 +10,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/site.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <style>
@@ -23,7 +24,7 @@
       }
 
     </style>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
   </head>
 
   <body>

@@ -14,7 +14,7 @@ class PatientsController extends Controller
         $getPatients = $patients::all();
 
         $results = [
-            'results' => $getPatients
+            'patients' => $getPatients
         ];
 
         return view('dashboard.patients.index',$results);

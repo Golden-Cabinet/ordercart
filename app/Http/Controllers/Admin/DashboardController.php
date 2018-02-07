@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Order;
-use App\Patient;
-use App\Formula;
+use App\Dashboard;
 
 class DashboardController extends Controller
 {
@@ -17,23 +15,22 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $orders = new Order;
-        $getOrders = $orders::all();
+        // use Dashboard model
 
-        $patients = new Patient;
-        $getPatients = $patients::all();
+        $dashboard = new Dashboard;
 
-        $formulas = new Formula;
-        $getFormulas = $formulas::all();
+
+        $orders = $dashboard->orders();
+        $patients = $dashboard->patients();
+        $formulas = $dashboard->formulas();
 
         $results = [
-            'orders' => $getOrders,
-            'patients' => $getPatients,
-            'formulas' => $getFormulas
+            'orders' => $orders,
+            'patients' => $patients,
+            'formulas' => $formulas
         ];
 
-        return view('dashboard.home.index', $results);
-        
+        return view('dashboard.home.index', $results);      
         
     }
 
