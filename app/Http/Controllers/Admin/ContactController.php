@@ -18,11 +18,11 @@ class ContactController extends Controller
         $contacts = new Contact;
         $getContacts = $contacts::all();
 
-        $content = [
+        $results = [
             'contacts' => $getContacts,
         ];
 
-        return view('admin.contacts.index');
+        return view('admin.contacts.index',$results);
     }
 
     /**

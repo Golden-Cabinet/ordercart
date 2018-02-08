@@ -19,7 +19,7 @@ class UsersController extends Controller
         $getUsers = $users::all();
 
         $results = [
-            'results' => $getUsers
+            'users' => $getUsers
         ];
 
         return view('dashboard.users.index',$results);

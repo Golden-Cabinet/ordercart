@@ -1,17 +1,17 @@
-<h4>Brands</h4>
-<table id="dashboardBrandsTable" class="ca-dt-bootstrap table table-responsive"></table>
+<h4>Categories</h4>
+<table id="dashboardCategoriesTable" class="ca-dt-bootstrap table table-responsive"></table>
 
 @push('dataSet')
 <script>
         var dataSet = [                
-            @foreach($brands as $brand)
-                ['{{ $brand->name }}'],
-                ['Edit'],            
+            @foreach($categories as $category)
+                ['{{ $category->name }}',
+                'Edit'],            
             @endforeach                
         ];
 
         $(document).ready(function() {
-            $('#dashboardBrandsTable').DataTable( {
+            $('#dashboardCategoriesTable').DataTable( {
                 data: dataSet, 
                 "bLengthChange": false,
                 "pageLength": 10,
@@ -19,11 +19,11 @@
                 "pagingType": "numbers",
                 language: {
                     search: "_INPUT_",
-                    searchPlaceholder: "Search Brands"
+                    searchPlaceholder: "Search Categories"
                 }, 
 
                 columns: [
-                    { title: "Brand" },
+                    { title: "Name" },
                     { title: "Edit"}
                 ],
 

@@ -14,7 +14,7 @@ class BrandController extends Controller
         $getBrands = $brands::all();
 
         $results = [
-            'results' => $getBrands
+            'brands' => $getBrands
         ];
 
         return view('dashboard.brands.index',$results);

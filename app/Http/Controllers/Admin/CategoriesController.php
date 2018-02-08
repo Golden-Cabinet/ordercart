@@ -16,7 +16,14 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        // 
+        $categories = new Category;
+        $getCategories = $categories::all();
+
+        $results = [
+            'categories' => $getCategories,
+        ];
+
+        return view('dashboard.categories.index',$results); 
     }
 
     /**

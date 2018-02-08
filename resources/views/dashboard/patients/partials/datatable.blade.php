@@ -5,10 +5,10 @@
 <script>
         var dataSet = [                
             @foreach($patients as $patient)
-                ['{{ $patient->user()->name }}'],
-                ['{{ $patient->user()->email }}'],
-                ['get the practitioner'],
-                ['Edit'],
+                ['{{ $patient->user()->name }}',
+                '{{ $patient->user()->email }}',
+                'get the practitioner',
+                'Edit'],
             
             @endforeach                
         ];

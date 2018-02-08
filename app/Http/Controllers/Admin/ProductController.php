@@ -19,7 +19,7 @@ class ProductController extends Controller
         $getProducts = $products::all();
 
         $results = [
-            'results' => $getProducts
+            'products' => $getProducts
         ];
 
         return view('dashboard.products.index',$results);

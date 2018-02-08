@@ -70,6 +70,16 @@ Route::group(['prefix' => 'dashboard',  'middleware' => 'auth'], function()
         Route::get('delete/{id}','Admin\ProductController@destroy');
      });
 
+     // PRODUCTS //
+    Route::prefix('categories')->group(function () {
+        Route::get('/','Admin\CategoriesController@index')->name('categoriesindex');
+        Route::get('create','Admin\CategoriesController@create');
+        Route::post('store','Admin\CategoriesController@store');
+        Route::get('edit/{id}','Admin\CategoriesController@edit');
+        Route::post('update','Admin\CategoriesController@update');
+        Route::get('delete/{id}','Admin\CategoriesController@destroy');
+     });
+
      // BRANDS //
     Route::prefix('brands')->group(function () {
         Route::get('/','Admin\BrandController@index')->name('brandsindex');

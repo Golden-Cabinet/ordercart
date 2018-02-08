@@ -19,7 +19,7 @@ class FormulaController extends Controller
         $getFormulas = $formulas::all();
 
         $results = [
-            'results' => $getFormulas
+            'formulas' => $getFormulas
         ];
 
         return view('dashboard.formulas.index',$results);

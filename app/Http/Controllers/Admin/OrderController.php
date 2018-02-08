@@ -19,7 +19,7 @@ class OrderController extends Controller
         $getOrders = $orders::all();
 
         $results = [
-            'results' => $getOrders
+            'orders' => $getOrders
         ];
 
         return view('dashboard.orders.index',$results);

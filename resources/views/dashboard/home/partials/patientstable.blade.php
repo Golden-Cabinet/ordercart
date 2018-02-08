@@ -8,9 +8,9 @@
 <script>
         var dataSet = [                
             @foreach($patients as $patient)
-                ['{{ $patient->user()->name }}'],
-                ['{{ $patient->user()->email }}'],
-                ['Edit'],
+                ['{{ $patient->user()->name }}',
+                '{{ $patient->user()->email }}',
+                'Edit'],
             
             @endforeach                
         ];
