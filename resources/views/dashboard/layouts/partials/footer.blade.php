@@ -1,5 +1,5 @@
 <!-- Bootstrap core JavaScript -->
-
+<div class="w-100"></div>
 <footer class="footer">
 	<img src="/images/golden-cabinet-logo.svg" class='logo-small'>
 	<div id="footer_info_container">

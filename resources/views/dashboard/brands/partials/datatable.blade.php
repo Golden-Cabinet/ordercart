@@ -1,12 +1,12 @@
 <h4>Brands</h4>
-<table id="dashboardBrandsTable" class="ca-dt-bootstrap table table-responsive"></table>
+<table id="dashboardBrandsTable" class="ca-dt-bootstrap table table-responsive" style="width: 100%;"></table>
 
 @push('dataSet')
 <script>
         var dataSet = [                
             @foreach($brands as $brand)
-                ['{{ $brand->name }}'],
-                ['Edit'],            
+                ['{{ $brand->name }}',
+                'Edit'],            
             @endforeach                
         ];
 

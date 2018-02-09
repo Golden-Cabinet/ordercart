@@ -1,5 +1,5 @@
 <h4>Users</h4>
-<table id="dashboardUsersTable" class="ca-dt-bootstrap table table-responsive"></table>
+<table id="dashboardUsersTable" class="ca-dt-bootstrap table table-responsive" style="width: 100%;"></table>
 
 @push('dataSet')
 <script>

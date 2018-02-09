@@ -8,13 +8,13 @@
     
 </div>
 
-<div class="row"  style="min-height: 400px; max-height: 500px; height: inherit !important">
+<div class="row"  style="min-height: 800px; height: inherit !important">
 
-    <div class="col-6 h-150">
+    <div class="col-md-6 h-400">
         @include('dashboard.home.partials.patientstable')
     </div>
     
-    <div class="col-6 h-150">
+    <div class="col-md-6 h-400">
         @include('dashboard.home.partials.formulastable')
     </div>
 

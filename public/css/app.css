@@ -10482,9 +10482,17 @@ select {
       padding: 10px;*/
 }
 
+.paging_numbers {
+  float: right !important;
+}
+
 .paginate_button {
   margin: 5px;
   cursor: pointer;
+  background: grey;
+  color: white;
+  font-size: 1.2rem;
+  padding: 5px 10px;
 }
 
 .paginate_button.disabled {

@@ -21,7 +21,7 @@ class CreatePatientsTable extends Migration
             $table->string('area_code');
             $table->string('phone');
             $table->integer('status');
-            $table->integer('deleted');
+            $table->integer('deleted')->default('0');
             $table->timestamps();
         });
     }

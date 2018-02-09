@@ -1,5 +1,5 @@
 <h4>Products</h4>
-<table id="dashboardProductsTable" class="ca-dt-bootstrap table table-responsive"></table>
+<table id="dashboardProductsTable" class="ca-dt-bootstrap table table-responsive" style="width: 100%;"></table>
 
 @push('dataSet')
 <script>
@@ -7,7 +7,7 @@
             @foreach($products as $product)
                 ['{{ $product->pinyin }}',
                 '{{ $product->common_name }}',
-                '{{ $product->brand()->name }}',
+                '{{ $product->brand_id }}',
                 '{{ $product->concentration }}',
                 '{{ $product->costPerGram }}',
                 'Edit'],

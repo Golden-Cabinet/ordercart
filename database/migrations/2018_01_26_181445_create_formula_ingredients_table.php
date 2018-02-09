@@ -18,7 +18,7 @@ class CreateFormulaIngredientsTable extends Migration
             $table->integer('products_id');
             $table->integer('formulas_id');
             $table->string('weight');
-            $table->integer('deleted');
+            $table->integer('deleted')->default('0');;
             $table->timestamps();
         });
     }

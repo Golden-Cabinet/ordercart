@@ -2,7 +2,7 @@
         <h4 class="float-left w-90">Patients</h4>
         <button class="btn btn-sm btn-primary float-right">Add New Patient</button>
     </div> 
-<table id="dashboardPatientsTable" class="ca-dt-bootstrap table table-responsive"></table>
+<table id="dashboardPatientsTable" class="ca-dt-bootstrap table table-responsive" style="width: 100%;"></table>
 
 @push('dataSet')
 <script>

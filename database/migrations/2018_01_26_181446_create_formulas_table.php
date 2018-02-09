@@ -17,7 +17,7 @@ class CreateFormulasTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('users_id');
-            $table->integer('deleted');
+            $table->integer('deleted')->default('0');;
             $table->timestamps();
         });
     }

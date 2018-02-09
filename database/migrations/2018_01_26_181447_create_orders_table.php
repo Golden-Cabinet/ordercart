@@ -32,7 +32,7 @@ class CreateOrdersTable extends Migration
             $table->text('notes');
             $table->text('instructions');
             $table->integer('status');
-            $table->integer('deleted');
+            $table->integer('deleted')->default('0');;
             $table->timestamps();
         });
     }

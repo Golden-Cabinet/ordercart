@@ -1,5 +1,5 @@
 <h4>Formulas</h4>
-<table id="dashboardFormulasTable" class="ca-dt-bootstrap table table-responsive"></table>
+<table id="dashboardFormulasTable" class="ca-dt-bootstrap table table-responsive" style="width: 100%;"></table>
 
 @push('dataSet')
 <script>

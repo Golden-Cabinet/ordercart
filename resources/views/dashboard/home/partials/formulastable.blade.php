@@ -3,7 +3,7 @@
     <button class="btn btn-sm btn-primary float-right">Add New Formula</button>
 </div>    
 
-<table id="dashboardFormulasTable" class="ca-dt-bootstrap table table-responsive"></table>
+<table id="dashboardFormulasTable" class="ca-dt-bootstrap table table-responsive" style="width: 100%;"></table>
 
 @push('dataSet')
 <script>
