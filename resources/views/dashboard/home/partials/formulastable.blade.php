@@ -1,6 +1,6 @@
 <div class="mb-2">
     <h4 class="float-left w-90">Formulas</h4>
-    <button class="btn btn-sm btn-primary float-right">Add New Formula</button>
+    <a href="/dashboard/formulas/create" class="btn btn-sm btn-primary float-right">Add New Formula</a>
 </div>    
 
 <table id="dashboardFormulasTable" class="ca-dt-bootstrap table table-responsive" style="width: 100%;"></table>
@@ -9,7 +9,9 @@
 <script>
         var dataSet = [                
             @foreach($formulas as $formula)
-                ['{{ $formula->name }}'],
+                ['{{ $formula->name }}',
+                
+                ],
             
             @endforeach                
         ];

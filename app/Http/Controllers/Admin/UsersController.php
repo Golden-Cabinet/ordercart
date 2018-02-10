@@ -56,7 +56,13 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = new User;
+        $getUser = $user::find($id);
+
+        $result = [
+            'result' => $getUser,
+        ];
+        return view('dashboard.users.show', $result); 
     }
 
     /**

@@ -1,6 +1,6 @@
 <div class="mb-2">
         <h4 class="float-left w-90">Patients</h4>
-        <button class="btn btn-sm btn-primary float-right">Add New Patient</button>
+        <a href="/dashboard/patients/create" class="btn btn-sm btn-primary float-right">Add New Patient</a>
     </div> 
 <table id="dashboardPatientsTable" class="ca-dt-bootstrap table table-responsive" style="width: 100%;"></table>
 

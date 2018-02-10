@@ -17,6 +17,10 @@ mix.js('resources/assets/js/app.js', 'public/js')
    mix.scripts([
     'node_modules/datatables.net/js/jquery.dataTables.js',
     'node_modules/ca-datatables-bs4/dist/carbonAtom-dataTables-bootstrap4.min.js',
+    'public/formula_functions.js',
+    'public/json2.js',
+    'public/order_functions.js',
+    'public/page_functions.js',
    ],'public/js/site.js');
 
    mix.styles([

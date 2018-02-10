@@ -1,4 +1,5 @@
-<h4>Patients</h4>
+<h4 class="float-left w-90">Patients</h4>
+<a href="/dashboard/patients/create" class="btn btn-sm btn-primary float-right">Add New Patient</a>
 <table id="dashboardPatientsTable" class="ca-dt-bootstrap table table-responsive" style="width: 100%;"></table>
 
 @push('dataSet')

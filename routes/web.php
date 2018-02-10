@@ -11,6 +11,8 @@
 |
 */
 
+/****  BEGIN ADMIN ROUTES ****/
+
 Route::group(['prefix' => 'dashboard',  'middleware' => 'auth'], function()
 {
     Route::get('/','Admin\DashboardController@index')->name('dashboardindex');
@@ -21,7 +23,7 @@ Route::group(['prefix' => 'dashboard',  'middleware' => 'auth'], function()
        Route::get('create','Admin\UsersController@create');
        Route::post('store','Admin\UsersController@store');
        Route::get('edit/{id}','Admin\UsersController@edit');
-       Route::get('show/{id}','Admin\UsersController@show');
+       Route::get('show/{id}','Admin\UsersController@show'); 
        Route::post('update','Admin\UsersController@update');
        Route::get('delete/{id}','Admin\UsersController@destroy');
     });
@@ -93,5 +95,10 @@ Route::group(['prefix' => 'dashboard',  'middleware' => 'auth'], function()
 });
 
 Auth::routes();
+
+
+/****  BEGIN PUBLIC ROUTES ****/
+Route::get('/','Store\PageController@index')->name('storeindex');
+Route::get('{page}','Store\PageController@page');
 
 //Route::get('/home', 'HomeController@index')->name('home');

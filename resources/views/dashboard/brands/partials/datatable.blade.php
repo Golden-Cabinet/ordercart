@@ -1,4 +1,5 @@
-<h4>Brands</h4>
+<h4 class="float-left w-90">Brands</h4>
+<a href="/dashboard/brands/create" class="btn btn-sm btn-primary float-right">Add New Brand</a>
 <table id="dashboardBrandsTable" class="ca-dt-bootstrap table table-responsive" style="width: 100%;"></table>
 
 @push('dataSet')

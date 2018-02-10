@@ -33,7 +33,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.categories.create'); 
     }
 
     /**

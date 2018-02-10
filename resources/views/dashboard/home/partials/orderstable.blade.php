@@ -1,6 +1,6 @@
 <div class="mb-2">
         <h4 class="float-left w-90">Orders</h4>
-        <button class="btn btn-sm btn-primary float-right">Add New Order</button>
+        <a href="/dashboard/orders/create" class="btn btn-sm btn-primary float-right">Add New Order</a>
     </div> 
 <table id="dashboardOrdersTable" class="ca-dt-bootstrap table table-responsive" style="width: 100%;"></table>
 

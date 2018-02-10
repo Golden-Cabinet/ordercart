@@ -1,4 +1,5 @@
-<h4>Formulas</h4>
+<h4 class="float-left w-90">Formulas</h4>
+<a href="/dashboard/formulas/create" class="btn btn-sm btn-primary float-right">Add New Formula</a>
 <table id="dashboardFormulasTable" class="ca-dt-bootstrap table table-responsive" style="width: 100%;"></table>
 
 @push('dataSet')

@@ -3744,6 +3744,10 @@ jquery-simple-datetimepicker@^1.12.0:
   dependencies:
     jquery ">=1.7.2"
 
+jquery-steps@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/jquery-steps/-/jquery-steps-1.1.0.tgz#0ceee0b0d2e49143981ad120d458ed56ea8e1924"
+
 "jquery@2 - 3", "jquery@>= 1.7.2", jquery@>=1.11.0, jquery@>=1.7, jquery@>=1.7.2, jquery@^3.2.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
@@ -5318,6 +5322,10 @@ pseudomap@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
 
+pstpn-webfont-montserrat@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/pstpn-webfont-montserrat/-/pstpn-webfont-montserrat-0.0.5.tgz#067a2bb726a243c14de29a54206c81577a6945e7"
+
 public-encrypt@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/public-encrypt/-/public-encrypt-4.0.0.tgz#39f699f3a46560dd5ebacbca693caf7c65c18cc6"
@@ -5791,6 +5799,10 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^2.0.0"
     inherits "^2.0.1"
+
+roboto-slab-fontface-kit@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/roboto-slab-fontface-kit/-/roboto-slab-fontface-kit-1.0.2.tgz#3ff66e72096e486cbdacdf7a89cddfe2bbfc89e4"
 
 run-queue@^1.0.0, run-queue@^1.0.3:
   version "1.0.3"
@@ -6605,6 +6617,14 @@ type-is@~1.6.15:
 typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
+
+typeface-im-fell-english-sc@0.0.54:
+  version "0.0.54"
+  resolved "https://registry.yarnpkg.com/typeface-im-fell-english-sc/-/typeface-im-fell-english-sc-0.0.54.tgz#a0774896e5f35f045fb7e4cf2c69fad65545cff4"
+
+typeface-josefin-sans@0.0.54:
+  version "0.0.54"
+  resolved "https://registry.yarnpkg.com/typeface-josefin-sans/-/typeface-josefin-sans-0.0.54.tgz#c7f1c88d9a01605762465139ef9f485b42c306ff"
 
 uglify-es@^3.3.4:
   version "3.3.8"
