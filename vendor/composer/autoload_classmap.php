@@ -37,6 +37,7 @@ return array(
     'App\\Http\\Controllers\\Store\\BrandsController' => $baseDir . '/app/Http/Controllers/Store/BrandsController.php',
     'App\\Http\\Controllers\\Store\\CategoriesController' => $baseDir . '/app/Http/Controllers/Store/CategoriesController.php',
     'App\\Http\\Controllers\\Store\\OrdersController' => $baseDir . '/app/Http/Controllers/Store/OrdersController.php',
+    'App\\Http\\Controllers\\Store\\PageController' => $baseDir . '/app/Http/Controllers/Store/PageController.php',
     'App\\Http\\Controllers\\Store\\ProductTypesController' => $baseDir . '/app/Http/Controllers/Store/ProductTypesController.php',
     'App\\Http\\Controllers\\Store\\ProductsController' => $baseDir . '/app/Http/Controllers/Store/ProductsController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
