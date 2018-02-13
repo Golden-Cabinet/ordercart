@@ -4,7 +4,7 @@
 <div class="row">
     <div class="container">
 
-        <div class="col-md-8" style="margin: auto;">
+        <div class="col-md-10" style="margin: auto;">
 
 
         <h1 class="text-center">OUR PRINCIPLES</h1>

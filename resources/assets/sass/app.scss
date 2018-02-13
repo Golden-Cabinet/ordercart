@@ -66,6 +66,18 @@
       height: 100%;
       margin-bottom: 95px; /* Margin bottom by footer height */
   }
+
+  .homeBG {
+  min-height: 900px;
+  background-image: url(/images/home-title.jpg);
+  background-position: center;
+  background-position-y: 64px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: white;    
+  }
+
   #container {
       width: 100%;
       color: #363636;
@@ -225,20 +237,38 @@
       -webkit-box-sizing: border-box; 
       box-sizing: border-box;
  }
+
+ .btn-gch-blue {
+    color: #395e73;
+    background-color: #395e73;
+    background-image: none;
+    border-color: #395e73;
+ }
+
+ .btn-gch-blue a {
+     color:white;
+ }
+
+ .btn-gch-login {
+    color: white !important;
+    background-color: #AC2430 !important;
+    border-color: #AC2430 !important;  
+ }
+
+ .btn-gch-login :hover {
+    background-color: white;
+    color: #AC2430;
+ }   
+ .btn-gch-light-blue a {
+     color: white;
+ }
   .userMenu {
       margin-left: -17px;
   }
   nav a {
       text-decoration: none;
   }
-  /*nav a:hover {
-      color: #c21130;
-  }*/
-  nav li {
-      display: inline-block;
-      padding: 0;
-      border-right: 1px solid #999999;
-  }
+ 
   .clear {
       clear: both;
   }
@@ -252,305 +282,9 @@
   .well p {
       color: #FF0000;
   }
-  /* HOME PAGE */
-  
-  .home_container {
-      width: 100%;
-      font-family: Arial, Verdana;
-      margin: 0;
-      padding: 1em 2em;
-      min-height: 502px;
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 13pt;
-  /*  min-width: 1000px;*/
-  /*  text-align: justify;*/
-      overflow:hidden;
-    overflow-x: scroll;
-    line-height:1.4em;
-    max-width:100%;
-  }
-  
-  @media (min-width: 728px) {
-    .home_container {
-      margin: 1em auto;
-    }
-  }
-  
-  .home_container ul li{
-    line-height:1.4em;
-  }
-  
-  .home_container h1 {
-      text-align: center;
-      border: none;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: bold;
-    margin-top:2em;
-  }
-  .home_container h2 {
-      text-align: center;
-      border: none;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.2em;
-      color: #565656;
-      font-weight: normal;
-  }
-  .home_container h3 {
-      text-align: center;
-      border: none;
-      font-family: 'Josefin Sans', sans-serif;
-      font-weight: bold;
-  }
-  .home_container h4 {
-      display: inline;
-  }
-  .home_container  {
-      -moz-box-sizing: border-box; 
-      -webkit-box-sizing: border-box; 
-      box-sizing: border-box;
-  }
-  .home_emphasized {
-      font-weight: bold;
-      font-size: 1.1em;
-      font-family: 'Montserrat', sans-serif;
-  }
-  .home_border {
-      width: 100%;
-      margin: 0;
-      padding: 10px;
-      height: 1px;
-      -moz-box-sizing: border-box; 
-      -webkit-box-sizing: border-box; 
-      box-sizing: border-box;
-  }
-  .backstretch {
-      -moz-box-sizing: border-box; 
-      -webkit-box-sizing: border-box; 
-      box-sizing: border-box;
-      width:100%!important;
-      overflow:hidden;
-  }
-  .backstretch img {
-    top: 0 !important;
-  }
-  img { max-width:100%; }
-  /*** HOME TITLE AREA **/
-  
-  #home_title_container {
-      width: 100%;
-      height: 640px;
-      background-size: cover;
-    margin:0;
-  }
-  #home-logo-container {
-      text-align: center;
-      position:absolute;
-      bottom:30%;
-      left:5%;
-      width:90%;
-    max-width:90%;
-      -moz-box-sizing: border-box; 
-      -webkit-box-sizing: border-box; 
-      box-sizing: border-box;
-  }
-  
-  #home-logo-container img {
-  max-width:100%;
-  width:auto;
-  }
-  
-  #home_title_container h2 {
-      margin-left: 35px;
-      font-size: 0.95em;
-      padding-top: 0px;
-  }
-  /*******************/
-  
-  /*** HOME QUOTES ****/
-  
-  .home_quote_container {
-      font-family: 'Josefin Sans', sans-serif;
-      font-size: 16pt;
-  /*  min-width: 1000px;*/
-      width:100%;
-      -moz-box-sizing: border-box; 
-      -webkit-box-sizing: border-box; 
-      box-sizing: border-box;
-  }
-  .home_quote_container {
-      width:80%;
-      margin:0 auto;
-  }
-  .home_quote_container_left {
-      text-align: center;
-      padding: 30px 15px;
-      margin: 10px 0 10px 0;
-      -moz-box-sizing: border-box; 
-      -webkit-box-sizing: border-box; 
-      box-sizing: border-box;
-  }
-  
-  .home_quote_container_right {
-      text-align: center;
-      margin: 10px 0 10px 0;
-      padding: 0px 0 20px 0;
-    font-weight:bold;
-      font-family: 'Roboto Slab', serif;
-      font-size: 14pt;
-      -moz-box-sizing: border-box; 
-      -webkit-box-sizing: border-box; 
-      box-sizing: border-box;
-  }
-  
-  @media (min-width: 728px) {
-    .home_quote_container_right {
-        width: 50%;
-        float: left;
-        text-align: left;
-      font-weight:normal;
-        padding: 45px 0 30px 30px;
-    }
-    .home_quote_container_left {
-        width: 50%;
-        float: right;
-        padding: 30px 30px 30px 0;
-        border-right: 1px solid #999;
-        text-align: right;
-    }
-  }
-  
-  /******************/
-  
-  
-  /** ABOUT US *******/
-  
-  #about_us_container {
-  /*  text-align: justify;*/
-      width: 100%;
-      height: 100%;
-  }
-  #about_us_container p {
-      margin: 1em auto;
-  }
-  
-  #about_us_container a {
-  }
-  
-  /******************/
-  
-  
-  #orders_container {
-  /*  text-align: justify;*/
-      width: 100%;
-      height: 100%;
-  /*  color: #054f00;*/
-      font-size: 16pt;
-  }
-  #orders_container p {
-  /*  width: 600px;*/
-      margin: 2em auto;
-  }
-  #orders_container a {
-    text-decoration:underline;
-  }
-  #orders_container a:hover {
-    text-decoration:none;
-  }
-  .order_centered_container {
-      text-align: center;
-  }
-  #orders_container ul {
-  /*  width: 600px;*/
-  }
-  
-  
-  
-  #orders_list_container {
-  /*  width: 600px;*/
-      margin: 2em auto;
-  }
-  
-  #orders_container h1 {
-      margin-bottom: 30px;
-  }
-  .white_or {
-      color: #FFF;
-      font-weight: bold;
-      font-size: 1.1em;
-      font-family: 'Montserrat', sans-serif;
-      margin: 0 20px 0 20px;
-  }
-  /** CONTACT PAGE **/
-  
-  #contact_container {
-      text-align: center;
-      width: 100%;
-      min-height: 690px;
-      height: 100%;
-      overflow: hidden;
-  /*  color: #004973;*/
-    }
     
-  #contact_container .captcha-control {
-    min-height:160px;
-  }
-  .contact_error_message_container {
-      height: 20px;
-      background-color: #FF0000;
-      color: #FFF !important;
-      padding: 5px;
-      margin: 0 auto;
-  }
-  .contact_error_message_container {
-      height: 20px;
-      color: #FFF !important;
-      font-weight: 400;
-      padding: 5px;
-      margin: 0 auto;
-  }
-  .control-group-inline {
-      padding: 0 0 0 60px;
-  }
-  .control-group-inline .controls {
-      margin-left: 20px;
-      width: 250px;
-  }
-  .control-group-inline .control-label {
-      margin: 0;
-      width: 100px;
-  }
-  .control-group-inline div {
-      float: left;
-  }
-  .control-group textarea {
-      float: left;
-  }
-  #contact_submit_container {
-      padding: 0;
-    text-align:center;
-  }
-  #contact_submit_container input,
-  #contact_submit_container button {
-      float: none;
-      border: none;
-  }
-  
-  #contact_form_container {
-    max-width: 950px;
-      margin: 0 auto;
-  }
-  #contact_form_container p {
-  /*  width: 600px;*/
-      margin:2em auto;
-  /*  text-align:justify;*/
-  }
   
   
-  #faq_container, #location_container {
-  /*  max-width:600px;*/
-    margin:0 auto !important;
-    min-height:0;  
-  }
   
   #location-map {
    width:100%;
@@ -608,32 +342,7 @@
   }
   /*************/
   
-  /** FAQ ***/
   
-  .faq_question {
-      font-weight: bold;
-      padding: 5px;
-      cursor: pointer;
-    margin:1em 0;
-  }
-  
-  @media (min-width: 728px) {
-    .faq_question {
-      margin:0;    
-    }
-  }
-  
-  .faq_closed:before {
-      content: '\21D2\00A0';
-  }
-  .faq_open:before {
-      content: '\21D3\00A0';
-  }
-  .faq_answer {
-      display: none;
-      padding: 5px;
-  }
-  /*************/
   
   /*** BACKEND GLOBAL ***/
   

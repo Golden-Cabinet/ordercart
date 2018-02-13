@@ -1,7 +1,7 @@
 <!-- Navigation -->
 
 
-<nav class="navbar navbar-expand-lg bg-white fixed-top">
+<nav class="navbar navbar-expand-lg bg-white fixed-top no-gutters" style="border-bottom: 1px solid #dedede;">
     <div class="container">
       <a class="navbar-brand" href="/"><img src="/images/header-logo.svg" style="height: 56px"></a>
       <button class="navbar-toggler bg-dark btn-dark" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,31 +10,31 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="/">Home
+            <a class="nav-link mr-2" href="/">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/about">About Us</a>
+            <a class="nav-link mr-2" href="/about">About Us</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/order">Order</a>
+            <a class="nav-link mr-2" href="/order">Order</a>
           </li>    
           <li class="nav-item">
-            <a class="nav-link" href="/location">Location</a>
+            <a class="nav-link mr-2" href="/location">Location</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/faq">FAQ</a>
+            <a class="nav-link mr-2" href="/faq">FAQ</a>
           </li>          
           @if(Auth::check())
           <li class="nav-item">
-              <a class="nav-link" href="/dashboard">My Cabinet</a>
+            <a class="nav-link mr-2" href="/dashboard">My Cabinet</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/policies">Policies &amp; Procedures</a>
+              <a class="nav-link mr-2" href="/policies">Policies &amp; Procedures</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('logout') }}"
+              <a class="nav-link btn btn-outline-error mr-2" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                          document.getElementById('logout-form').submit();">
                 Logout
@@ -46,10 +46,10 @@
             </li>
           @else
           <li class="nav-item">
-              <a class="nav-link" href="/register">Register</a>
+            <a class="nav-link btn btn btn-outline-secondary mr-2" href="/register">Register</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link btn btn-outline-secondary" href="/login">Login</a>
           </li>
           @endif         
 

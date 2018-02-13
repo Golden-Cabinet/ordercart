@@ -17,7 +17,7 @@
       body {
         padding-top: 54px;
       }
-      @media (min-width: 992px) {
+      @media (min-width: 98%) {
         body {
           padding-top: 56px;
         }
@@ -27,4 +27,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
   </head>
 
+  @if(\Route::currentRouteName() == 'storeindex')
+  <body class="homeBG">
+  @else
   <body>
+  @endif
+  

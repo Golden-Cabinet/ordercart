@@ -10,7 +10,7 @@
 <!-- Page Content -->
   <div class="container mt-4 mb-4">
     <div class="row" >
-      <div class="col-lg-12 mt-3" style="min-height: 800px">
+      <div class="col-lg-12 mt-3">
 
         @yield('content')
         
