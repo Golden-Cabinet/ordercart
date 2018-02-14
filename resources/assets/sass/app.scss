@@ -12,6 +12,11 @@
 // Variables
 //@import "variables";
 
+$fa-font-path: "../../../public/fonts/fontawesome/webfonts/" !default;
+@import '../../../public/fonts/fontawesome/scss/fa-regular.scss';
+@import '../../../public/fonts/fontawesome/scss/fa-brands.scss';
+@import '../../../public/fonts/fontawesome/scss/fontawesome.scss';
+
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
