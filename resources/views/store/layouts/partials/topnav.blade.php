@@ -1,8 +1,8 @@
 <!-- Navigation -->
 
 
-<nav class="navbar navbar-expand-lg bg-white fixed-top no-gutters" style="border-bottom: 1px solid #dedede;">
-    <div class="container">
+<nav class="navbar navbar-expand-lg bg-white fixed-top no-gutters" style="border-bottom: 1px solid #dedede; background: #f5f5f5">
+    <div class="container-fluid">
       <a class="navbar-brand" href="/"><img src="/images/header-logo.svg" style="height: 56px"></a>
       <button class="navbar-toggler bg-dark btn-dark" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

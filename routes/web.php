@@ -16,6 +16,9 @@
 Route::group(['prefix' => 'dashboard',  'middleware' => 'auth'], function()
 {
     Route::get('/','Admin\DashboardController@index')->name('dashboardindex');
+
+    // REGISTRATION //
+    Route::get('registration','Admin\RegistrationController@index')->name('registrationindex');
     
     // USERS //
     Route::prefix('users')->group(function () {

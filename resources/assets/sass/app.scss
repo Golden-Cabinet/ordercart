@@ -11,11 +11,9 @@
 
 // Variables
 //@import "variables";
+$fa-font-path: "../../../node_modules/font-awesome/fonts" !default;
+@import 'node_modules/font-awesome/scss/font-awesome.scss';
 
-$fa-font-path: "../../../public/fonts/fontawesome/webfonts/" !default;
-@import '../../../public/fonts/fontawesome/scss/fa-regular.scss';
-@import '../../../public/fonts/fontawesome/scss/fa-brands.scss';
-@import '../../../public/fonts/fontawesome/scss/fontawesome.scss';
 
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
@@ -68,12 +66,16 @@ $fa-font-path: "../../../public/fonts/fontawesome/webfonts/" !default;
       background: #FFFFFF;
       margin: 0;
       padding: 0;
-      height: 100%;
-      margin-bottom: 95px; /* Margin bottom by footer height */
+      min-height: 720px;
+      height: inherit !important;
+      max-height: auto !important;
+      margin-bottom: 105px; /* Margin bottom by footer height */
   }
 
   .homeBG {
-  min-height: 900px;
+  min-height: 720px;
+  height: inherit !important;
+  max-height: auto !important;
   background-image: url(/images/home-title.jpg);
   background-position: center;
   background-position-y: 64px;
@@ -241,6 +243,11 @@ $fa-font-path: "../../../public/fonts/fontawesome/webfonts/" !default;
       -moz-box-sizing: border-box; 
       -webkit-box-sizing: border-box; 
       box-sizing: border-box;
+ }
+
+ .navbar-nav
+ {
+     margin-right: 58%;
  }
 
  .btn-gch-blue {

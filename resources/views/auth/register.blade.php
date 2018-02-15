@@ -59,6 +59,17 @@
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
+                        </div>                        
+
+                        <div class="form-group">
+                            <label for="register-type" class="col-md-4 control-label">I Am A</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control" id="registrar" name="registrar">
+                                    <option value="Practitioner">Practitioner</option>
+                                    <option value="Student">Student</option>
+                                </select>   
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -68,6 +79,7 @@
                                 </button>
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>
