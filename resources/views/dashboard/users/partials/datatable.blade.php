@@ -1,7 +1,8 @@
 <h4 class="float-left w-90">Users</h4>
 <a href="/dashboard/users/create" class="btn btn-sm btn-primary float-right">Add New User</a>
-<table id="dashboardUsersTable" class="ca-dt-bootstrap table table-responsive" style="width: 100%;"></table>
-
+<div class="table-responsive">
+<table id="dashboardUsersTable" class="ca-dt-bootstrap table" style="width: 100%;"></table>
+</div>
 @push('dataSet')
 <script>
         var dataSet = [                

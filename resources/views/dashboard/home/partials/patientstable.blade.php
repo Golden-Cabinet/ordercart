@@ -1,9 +1,10 @@
 <div class="mb-2">
         <h4 class="float-left w-90">Patients</h4>
         <a href="/dashboard/patients/create" class="btn btn-sm btn-primary float-right">Add New Patient</a>
-    </div> 
-<table id="dashboardPatientsTable" class="ca-dt-bootstrap table table-responsive" style="width: 100%;"></table>
-
+    </div>
+<div class="table-responsive">
+<table id="dashboardPatientsTable" class="ca-dt-bootstrap table" style="width: 100%;"></table>
+</div>
 @push('dataSet')
 <script>
         var dataSet = [                
@@ -19,7 +20,7 @@
             $('#dashboardPatientsTable').DataTable( {
                 data: dataSet, 
                 "bLengthChange": false,
-                "pageLength": 25,
+                "pageLength": 10,
                 "bInfo" : false,
                 "pagingType": "numbers",
                 language: {

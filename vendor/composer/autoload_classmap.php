@@ -26,6 +26,7 @@ return array(
     'App\\Http\\Controllers\\Admin\\OrderController' => $baseDir . '/app/Http/Controllers/Admin/OrderController.php',
     'App\\Http\\Controllers\\Admin\\PatientsController' => $baseDir . '/app/Http/Controllers/Admin/PatientsController.php',
     'App\\Http\\Controllers\\Admin\\ProductController' => $baseDir . '/app/Http/Controllers/Admin/ProductController.php',
+    'App\\Http\\Controllers\\Admin\\RegistrationController' => $baseDir . '/app/Http/Controllers/Admin/RegistrationController.php',
     'App\\Http\\Controllers\\Admin\\UsersController' => $baseDir . '/app/Http/Controllers/Admin/UsersController.php',
     'App\\Http\\Controllers\\Api\\ShipStationController' => $baseDir . '/app/Http/Controllers/Api/ShipStationController.php',
     'App\\Http\\Controllers\\Api\\WebGilityController' => $baseDir . '/app/Http/Controllers/Api/WebGilityController.php',

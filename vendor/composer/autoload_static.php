@@ -331,6 +331,7 @@ class ComposerStaticInit5879fdf9f3ecc75f7f93c4e70143b434
         'App\\Http\\Controllers\\Admin\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/OrderController.php',
         'App\\Http\\Controllers\\Admin\\PatientsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PatientsController.php',
         'App\\Http\\Controllers\\Admin\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ProductController.php',
+        'App\\Http\\Controllers\\Admin\\RegistrationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/RegistrationController.php',
         'App\\Http\\Controllers\\Admin\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/UsersController.php',
         'App\\Http\\Controllers\\Api\\ShipStationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/ShipStationController.php',
         'App\\Http\\Controllers\\Api\\WebGilityController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/WebGilityController.php',

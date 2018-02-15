@@ -13081,6 +13081,22 @@ thead {
   max-height: 60px;
 }
 
+@media only screen and (max-width: 991px) {
+  .footer .logo-small {
+    margin: 1em;
+    display: inline-block;
+    max-height: 60px;
+    text-align: center;
+    margin: auto;
+    width: 100%;
+  }
+
+  #footer_info_container {
+    text-align: center !important;
+    float: none !important;
+  }
+}
+
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }
@@ -13293,8 +13309,34 @@ nav {
   box-sizing: border-box;
 }
 
-.navbar-nav {
-  margin-right: 58%;
+@media only screen and (min-width: 992px) {
+  .rightnav {
+    position: absolute;
+    left: 80px;
+    z-index: 9999;
+    width: 100%;
+    background: white;
+  }
+
+  .navtextright1 {
+    position: absolute;
+    right: 250px;
+  }
+
+  .navtextright2 {
+    position: absolute;
+    right: 170px;
+  }
+
+  .navtextright3 {
+    position: absolute;
+    right: 110px;
+  }
+
+  .navtextright4 {
+    position: absolute;
+    right: 194px;
+  }
 }
 
 .btn-gch-blue {
@@ -14026,6 +14068,8 @@ select {
 
 .paging_numbers {
   float: right !important;
+  margin-top: 20px;
+  margin-bottom: 60px;
 }
 
 .paginate_button {

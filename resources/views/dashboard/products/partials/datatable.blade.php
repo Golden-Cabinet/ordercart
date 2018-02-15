@@ -1,6 +1,8 @@
 <h4 class="float-left w-90">Products</h4>
 <a href="/dashboard/products/create" class="btn btn-sm btn-primary float-right">Add New Product</a>
-<table id="dashboardProductsTable" class="ca-dt-bootstrap table table-responsive" style="width: 100%;"></table>
+<div class="table-responsive">
+<table id="dashboardProductsTable" class="ca-dt-bootstrap table"></table>
+</div>
 
 @push('dataSet')
 <script>
