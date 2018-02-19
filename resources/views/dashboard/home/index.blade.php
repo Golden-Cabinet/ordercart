@@ -10,14 +10,22 @@
 
 <div class="row"  style="min-height: 800px; height: inherit !important">
 
-    <div class="col-md-6 h-400">
+    @if(\Auth::user()->user_roles_id != 4)
+    <div class="col-md-6 h-200">
         @include('dashboard.home.partials.patientstable')
     </div>
-    
-    <div class="col-md-6 h-400">
+
+    <div class="col-md-6 h-200">
+        @include('dashboard.home.partials.formulastable')
+    </div>
+    @else
+
+    <div class="col-md-12 h-200">
         @include('dashboard.home.partials.formulastable')
     </div>
 
+    @endif  
+    
 </div>  
 
 

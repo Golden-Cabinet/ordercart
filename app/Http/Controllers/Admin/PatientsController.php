@@ -8,10 +8,25 @@ use App\Patient;
 
 class PatientsController extends Controller
 {
+    protected $roleArray = ['2','3'];
+    
     public function index()
     {
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $patients = new Patient;
-        $getPatients = $patients::all();
+        if(\Auth::user()->user_roles_id == 2)
+        {
+            $getPatients = $patients->adminPatients();
+        }
+
+        if(\Auth::user()->user_roles_id == 3)
+        {
+            $getPatients = $patients->practitionerPatients();
+        }
 
         $results = [
             'patients' => $getPatients
@@ -27,6 +42,11 @@ class PatientsController extends Controller
      */
     public function create()
     {
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         return view('dashboard.patients.create'); 
     }
 
@@ -38,6 +58,11 @@ class PatientsController extends Controller
      */
     public function store(Request $request)
     {
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $patients = new Patient;        
         
         return redirect()->route('patientsindex')->with('status', 'Patient Created!'); 
@@ -51,7 +76,10 @@ class PatientsController extends Controller
      */
     public function show($id)
     {
-        //
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
     }
 
     /**
@@ -62,6 +90,11 @@ class PatientsController extends Controller
      */
     public function edit($id)
     {
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $patient = new Patient;
         $getPatient = $patient::find($id);
 
@@ -81,6 +114,11 @@ class PatientsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $patient = new Patient;
         $getPatient = $patient::find($id);
 
@@ -95,10 +133,11 @@ class PatientsController extends Controller
      */
     public function destroy($id)
     {
-        $patient = new Patient;
-        $getPatient = $patient::find($id);
-        $getPatient->delete();
-
-        return redirect()->route('patientsindex')->with('status', 'Patient Was Deleted!');; 
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
+        return redirect()->route('patientsindex'); 
     }
 }

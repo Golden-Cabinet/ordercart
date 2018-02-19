@@ -17,4 +17,24 @@ class Formula extends Model
     {
         return $this->belongsTo('App\Order');
     }
+
+    // user role specific
+
+    public function adminFormulas()
+    {
+        $getFormulas = self::all();
+        return $getFormulas;
+    }
+
+    public function practitionerFormulas()
+    {
+        $getFormulas = self::where('users_id',\Auth::user()->id);
+        return $getFormulas;
+    }
+    
+    public function studentFormulas()
+    {        
+        $getFormulas = self::where('users_id',\Auth::user()->id);
+        return $getFormulas;
+    }
 }

@@ -22,4 +22,19 @@ class Patient extends Model
     {
         return $this->hasMany('App\Order');
     }
+
+    // user role specific
+
+    public function adminPatients()
+    {
+        $getPatients = self::all();
+        return $getPatients;
+    }
+
+    public function practitionerPatients()
+    {
+        $getPatients = self::where('users_id',\Auth::user()->id);
+        return $getPatients;
+    }
+
 }

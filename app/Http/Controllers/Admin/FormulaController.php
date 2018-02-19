@@ -8,6 +8,8 @@ use App\Formula;
 
 class FormulaController extends Controller
 {
+    protected $roleArray = ['2','3','4'];
+    
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +17,26 @@ class FormulaController extends Controller
      */
     public function index()
     {
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $formulas = new Formula;
-        $getFormulas = $formulas::all();
+        if(\Auth::user()->user_roles_id == 2)
+        {
+            $getFormulas = $formulas->adminFormulas();
+        }
+
+        if(\Auth::user()->user_roles_id == 3)
+        {
+            $getFormulas = $formulas->practitionerFormulas();
+        }
+
+        if(\Auth::user()->user_roles_id == 4)
+        {
+            $getFormulas = $formulas->studentFormulas();
+        }
 
         $results = [
             'formulas' => $getFormulas
@@ -32,6 +52,11 @@ class FormulaController extends Controller
      */
     public function create()
     {
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         return view('dashboard.formulas.create'); 
     }
 
@@ -43,6 +68,11 @@ class FormulaController extends Controller
      */
     public function store(Request $request)
     {
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $formulas = new Formula;        
         
         return redirect()->route('formulasindex')->with('status', 'Formula Created!'); 
@@ -56,7 +86,10 @@ class FormulaController extends Controller
      */
     public function show($id)
     {
-        
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
     }
 
     /**
@@ -67,6 +100,11 @@ class FormulaController extends Controller
      */
     public function duplicate($id)
     {
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $formula = new Formula;
         $getFormula = $formula::find($id);
 
@@ -85,6 +123,11 @@ class FormulaController extends Controller
      */
     public function share($id)
     {
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $formula = new Formula;
         $getFormula = $formula::find($id);
 
@@ -103,6 +146,11 @@ class FormulaController extends Controller
      */
     public function edit($id)
     {
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $formula = new Formula;
         $getFormula = $formula::find($id);
 
@@ -122,6 +170,11 @@ class FormulaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $formula = new Formula;
         $getFormula = $formula::find($id);
 
@@ -136,10 +189,11 @@ class FormulaController extends Controller
      */
     public function destroy($id)
     {
-        $formula = new Formula;
-        $getFormula = $formula::find($id);
-        $getFormula->delete();
-        return redirect()->route('formulasindex')->with('status', 'Formula Was Deleted!');; 
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+         return redirect()->route('formulasindex'); 
     }
 
     /**

@@ -8,9 +8,13 @@
         var dataSet = [                
             @foreach($users as $user)
                 ['{{ $user->name }}',
-                '{{ $user->license_state }}',
-                '{{ $user->user_roles_id }}',
-                'fix me',
+                '{{ \App\AddressState::getStateName($user->license_state) }}',
+                '{{ \App\UserRole::getRole($user->user_roles_id) }}',
+                @if( $user->is_approved == 1)
+                'Approved',
+                @else 
+                'Not Approved',
+                @endif                
                 '{{ $user->email }}',
                 'Edit'],            
             @endforeach                

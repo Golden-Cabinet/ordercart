@@ -13,6 +13,14 @@ class AddressState extends Model
         return $this->belongsTo('App\Address');
     }
 
+    public static function getStateName($stateId)
+    {
+        $state = new self;
+        $getState = $state::find($stateId);
+
+        return $getState['name'];
+    }
+
     public function patientAddress()
     {
         return $this->belongsTo('App\PatientAddress');

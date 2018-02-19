@@ -51,4 +51,23 @@ class User extends Authenticatable
         return $this->hasMany('App\Order');
     }
 
+    // user role specific
+
+    public function adminUsers()
+    {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        } else {
+            return self::where('user_roles_id','!=','5')->get();
+        }
+    }
+
+    public function practitionerDestroyPatientAccounts($id)
+    {
+        $user = self::find($id);
+        $user->destroy();
+        return redirect()->route('patientsindex')->with('status', 'Patient Was Deleted!');;
+    }
+
 }

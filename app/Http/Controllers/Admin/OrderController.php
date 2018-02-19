@@ -8,6 +8,8 @@ use App\Order;
 
 class OrderController extends Controller
 {
+    protected $roleArray = ['2','3','4'];
+    
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +17,26 @@ class OrderController extends Controller
      */
     public function index()
     {
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $orders = new Order;
-        $getOrders = $orders::all();
+        if(\Auth::user()->user_roles_id == 2)
+        {
+            $getOrders = $orders->adminOrders();
+        }
+
+        if(\Auth::user()->user_roles_id == 3)
+        {
+            $getOrders = $orders->practitionerOrders();
+        }
+
+        if(\Auth::user()->user_roles_id == 4)
+        {
+            $getOrders = $orders->studentOrders();
+        }
 
         $results = [
             'orders' => $getOrders
@@ -32,6 +52,11 @@ class OrderController extends Controller
      */
     public function create()
     {
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         return view('dashboard.orders.create'); 
     }
 
@@ -43,6 +68,11 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $orders = new Order;        
         
         return redirect()->route('ordersindex')->with('status', 'Order Created!'); 
@@ -56,7 +86,10 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
     }
 
     /**
@@ -67,6 +100,11 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $order = new Order;
         $getOrder = $order::find($id);
 
@@ -86,6 +124,11 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $order = new Order;
         $getOrder = $order::find($id);
 
@@ -100,10 +143,11 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        $order = new Order;
-        $getOrder = $order::find($id);
-        $getOrder->delete();
-        return redirect()->route('ordersindex')->with('status', 'Order Was Deleted!');; 
+        if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            return redirect()->route('dashboardindex');
+        }
+        return redirect()->route('ordersindex'); 
     }
 
 }

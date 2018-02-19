@@ -12,4 +12,17 @@ class Category extends Model
     {
         return $this->hasMany('App\Product');
     }
+
+    // user role specific
+
+    public function adminCategory()
+    {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        } else {
+            return self::all();
+        }
+
+    }
 }

@@ -27,6 +27,11 @@ class BrandController extends Controller
      */
     public function create()
     {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         return view('dashboard.brands.create'); 
     }
 
@@ -38,6 +43,11 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $brands = new Brand;        
         
         return redirect()->route('brandsindex')->with('status', 'Brand Created!'); 
@@ -51,7 +61,10 @@ class BrandController extends Controller
      */
     public function show($id)
     {
-        //
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
     }
 
     /**
@@ -62,6 +75,11 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $brand = new Brand;
         $getBrand = $brand::get($id);
 
@@ -81,6 +99,11 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $brand = new Brand;
         $getBrand = $brand::get($id);
 
@@ -95,6 +118,11 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         return redirect()->route('brandsindex')->with('status', 'Brand Was Deleted!');; 
     }
 }

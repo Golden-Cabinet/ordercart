@@ -9,24 +9,71 @@ use App\Patient;
 
 class Dashboard extends Model
 {
-    public function orders()
+    protected $orders;
+    protected $formulas;
+    protected $patients;
+
+    public function orders($roleId)
     {
         $orders = new Order;
-        $getOrders = $orders::all();
-        return $getOrders;
+        
+        switch($roleId)
+        {
+            case 2:
+            $this->orders = $orders->adminOrders();
+            break;
+
+            case 3:
+            $this->orders = $orders->practitionerOrders();
+            break;
+
+            case 4:
+            $this->orders = $orders->studentOrders();
+            break;
+        }
+        return $this->orders;
     }
 
-    public function formulas()
+    public function formulas($roleId)
     {
+        
         $formulas = new Formula;
-        $getFormulas = $formulas::all();
-        return $getFormulas;
+        
+        switch($roleId)
+        {
+            case 2:
+            $this->formulas = $formulas->adminFormulas();
+            break;
+
+            case 3:
+            $this->formulas = $formulas->practitionerFormulas();
+            break;
+
+            case 4:           
+            $this->formulas = $formulas->studentFormulas();
+            break;
+        }
+        return $this->formulas;
     }
 
-    public function patients()
+    public function patients($roleId)
     {
+        
         $patients = new Patient;
-        $getPatients = $patients::all();
-        return $getPatients;
+        
+        switch($roleId)
+        {
+            case 2:
+            $this->patients = $patients->adminPatients();
+            break;
+
+            case 3:
+            $this->patients = $patients->practitionerPatients();
+            break;
+
+            default:
+            die();
+        }
+        return $this->patients;
     } 
 }

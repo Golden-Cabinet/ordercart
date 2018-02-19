@@ -46,4 +46,24 @@ class Order extends Model
     {
         return $this->hasOne('App\Status');
     }
+
+    // user role specific
+
+    public function adminOrders()
+    {
+        $getOrders = self::all();
+        return $getOrders;
+    }
+
+    public function practitionerOrders()
+    {
+        $getOrders = self::where('users_id',\Auth::user()->id);
+        return $getOrders;
+    }
+    
+    public function studentOrders()
+    {
+        $getOrders = self::where('users_id',\Auth::user()->id);
+        return $getOrders;
+    }
 }

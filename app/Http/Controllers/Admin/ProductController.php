@@ -15,6 +15,11 @@ class ProductController extends Controller
      */
     public function index()
     {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $products = new Product;
         $getProducts = $products::all();
 
@@ -32,6 +37,11 @@ class ProductController extends Controller
      */
     public function create()
     {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         return view('dashboard.products.create'); 
     }
 
@@ -43,6 +53,11 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $products = new Product;        
         
         return redirect()->route('productsindex')->with('status', 'Product Created!'); 
@@ -56,7 +71,10 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
     }
 
     /**
@@ -67,6 +85,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $product = new Product;
         $getProduct = $product::find($id);
 
@@ -86,6 +109,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $product = new Product;
         $getProduct = $product::find($id);
 
@@ -100,6 +128,11 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $product = new Product;
         $getProduct = $product::find($id);
         $getProduct->delete();

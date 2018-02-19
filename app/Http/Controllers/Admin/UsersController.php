@@ -5,25 +5,34 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\UserRole;
 
 class UsersController extends Controller
 {
+    
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
-    {
+    {      
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
         $users = new User;
-        $getUsers = $users::all();
+        $getUsers = $users->adminUsers();
 
         $results = [
             'users' => $getUsers
         ];
 
         return view('dashboard.users.index',$results);
-    }
+    }    
 
     /**
      * Show the form for creating a new resource.
@@ -32,6 +41,11 @@ class UsersController extends Controller
      */
     public function create()
     {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         return view('dashboard.users.create'); 
     }
 
@@ -43,6 +57,11 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $users = new User;        
         
         return redirect()->route('usersindex')->with('status', 'User Created!'); 
@@ -56,6 +75,11 @@ class UsersController extends Controller
      */
     public function show($id)
     {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         $user = new User;
         $getUser = $user::find($id);
 
@@ -73,6 +97,11 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+
         $user = new User;
         $getUser = $user::find($id);
 
@@ -92,6 +121,11 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+
         $user = new User;
         $getUser = $user::find($id);
 
@@ -106,9 +140,12 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $user = new User;
-        $getUser = $user::find($id);
-        $getUser->delete();
-        return redirect()->route('usersindex')->with('status', 'User Was Deleted!');; 
+        
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+        return redirect()->route('usersindex')->with('status', 'User Was Deleted!'); 
     }
+
 }

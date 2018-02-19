@@ -33,6 +33,11 @@ class CategoriesController extends Controller
      */
     public function create()
     {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
+        
         return view('dashboard.categories.create'); 
     }
 
@@ -44,7 +49,10 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
     }
 
     /**
@@ -55,7 +63,10 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
     }
 
     /**
@@ -66,7 +77,10 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
     }
 
     /**
@@ -78,7 +92,10 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
     }
 
     /**
@@ -89,6 +106,9 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        }
     }
 }

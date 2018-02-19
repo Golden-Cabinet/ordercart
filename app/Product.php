@@ -12,4 +12,17 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Brand');
     }
+
+    // user role specific
+
+    public function adminProducts()
+    {
+        if(\Auth::user()->user_roles_id != 2)
+        {
+            return redirect()->route('dashboardindex');
+        } else {
+            return self::all();
+        }
+
+    }
 }

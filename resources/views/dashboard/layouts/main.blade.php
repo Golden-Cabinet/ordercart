@@ -2,7 +2,17 @@
   
 
       <div class="container-fluid no-gutters mb-4">
-          @include('dashboard.layouts.partials.topnav')
+        @if(\Auth::user()->user_roles_id == 2)
+          @include('dashboard.layouts.partials.admintopnav')
+        @endif
+        
+        @if(\Auth::user()->user_roles_id == 3)
+          @include('dashboard.layouts.partials.practitionertopnav')
+        @endif
+
+        @if(\Auth::user()->user_roles_id == 4)
+          @include('dashboard.layouts.partials.studenttopnav')
+        @endif
       </div> 
 
 

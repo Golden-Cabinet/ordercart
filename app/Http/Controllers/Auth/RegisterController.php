@@ -27,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/next-steps';
 
     /**
      * Create a new controller instance.
@@ -50,7 +50,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            //'password' => 'required|string|min:6|confirmed',
         ]);
     }
 
@@ -62,10 +62,33 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $tempPassword = str_random(12);
+        $tempLink = str_random(32);
+
+        switch ($data['registrar']) {
+
+            case 'Practitioner':
+            $user_role = 3;
+            break;
+
+            case 'Student':
+            $user_role = 4;
+            break;
+
+            default:
+            //TODO - send them to 404
+        }          
+        
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => bcrypt($tempPassword),
+            'registration_token' => $tempLink,
+            'is_registered' => 0,
+            'is_approved' => 0,
+            'user_roles_id' => $user_role,
         ]);
+
+        
     }
 }

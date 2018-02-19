@@ -1,4 +1,4 @@
-<h2>Second Step</h2>
+<h2>Additional Settings</h2>
 <section>
     <p>Donec mi sapien, hendrerit nec egestas a, rutrum vitae dolor. Nullam venenatis diam ac ligula elementum pellentesque. 
         In lobortis sollicitudin felis non eleifend. Morbi tristique tellus est, sed tempor elit. Morbi varius, nulla quis condimentum 

@@ -21,6 +21,12 @@ class PageController extends Controller
 
     public function page($page)
     {
+        if($page == 'next-steps')
+        {
+            \Auth::logout();
+            \Session::flush();;
+        }
+        
         return view('store.'.$page);
     }
 }

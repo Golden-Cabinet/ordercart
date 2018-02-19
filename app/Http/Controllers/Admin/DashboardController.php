@@ -8,95 +8,40 @@ use App\Dashboard;
 
 class DashboardController extends Controller
 {
+    protected $roleArray = ['2','3'];
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() 
     {
         // use Dashboard model
 
         $dashboard = new Dashboard;
+        $roleId = \Auth::user()->user_roles_id;        
+        
+        $orders = $dashboard->orders($roleId);             
+        $formulas = $dashboard->formulas($roleId);
+        if(in_array(\Auth::user()->user_roles_id,$this->roleArray))
+        {
+            $patients = $dashboard->patients($roleId);
+            $results = [
+                'orders' => $orders,
+                'patients' => $patients,
+                'formulas' => $formulas
+            ]; 
+        } else {
+            $results = [
+                'orders' => $orders,
+                'formulas' => $formulas
+            ];
+        }
 
 
-        $orders = $dashboard->orders();
-        $patients = $dashboard->patients();
-        $formulas = $dashboard->formulas();
-
-        $results = [
-            'orders' => $orders,
-            'patients' => $patients,
-            'formulas' => $formulas
-        ];
+        
 
         return view('dashboard.home.index', $results);      
         
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    }    
 }
