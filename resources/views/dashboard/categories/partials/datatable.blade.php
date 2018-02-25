@@ -8,7 +8,7 @@
         var dataSet = [                
             @foreach($categories as $category)
                 ['{{ $category->name }}',
-                'Edit'],            
+                '<a class="btn btn-warning btn-sm text-dark" href="/dashboard/categories/edit/{{$category->id}}">Edit</a> <a class="btn btn-danger btn-sm text-white" href="/dashboard/categories/delete/{{$category->id}}">Delete</a>'],            
             @endforeach                
         ];
 

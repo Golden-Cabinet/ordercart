@@ -75,7 +75,7 @@ Route::group(['prefix' => 'dashboard',  'middleware' => 'auth'], function()
         Route::get('delete/{id}','Admin\ProductController@destroy');
      });
 
-     // PRODUCTS //
+     // CATEGORIES //
     Route::prefix('categories')->group(function () {
         Route::get('/','Admin\CategoriesController@index')->name('categoriesindex');
         Route::get('create','Admin\CategoriesController@create');

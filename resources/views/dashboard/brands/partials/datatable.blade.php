@@ -9,7 +9,7 @@
         var dataSet = [                
             @foreach($brands as $brand)
                 ['{{ $brand->name }}',
-                'Edit'],            
+                '<a class="btn btn-warning btn-sm text-dark" href="/dashboard/brands/edit/{{$brand->id}}">Edit</a> <a class="btn btn-danger btn-sm text-white" href="/dashboard/brands/delete/{{$brand->id}}">Delete</a>'],            
             @endforeach                
         ];
 
@@ -27,7 +27,7 @@
 
                 columns: [
                     { title: "Brand" },
-                    { title: "Edit"}
+                    { title: "Actions"}
                 ],
 
             } );

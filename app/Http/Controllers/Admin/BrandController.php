@@ -48,7 +48,9 @@ class BrandController extends Controller
             return redirect()->route('dashboardindex');
         }
         
-        $brands = new Brand;        
+        $brand = new Brand;
+        $brand->name = $request->name;
+        $brand->save();        
         
         return redirect()->route('brandsindex')->with('status', 'Brand Created!'); 
     }
@@ -81,10 +83,9 @@ class BrandController extends Controller
         }
         
         $brand = new Brand;
-        $getBrand = $brand::get($id);
-
+        $getBrand = $brand::find($id);
         $result = [
-            'result' => $getBrand,
+            'brand' => $getBrand,
         ];
         
         return view('dashboard.brands.edit', $result); 
@@ -97,7 +98,7 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         if(\Auth::user()->user_roles_id != 2)
         {
@@ -105,9 +106,11 @@ class BrandController extends Controller
         }
         
         $brand = new Brand;
-        $getBrand = $brand::get($id);
+        $getBrand = $brand::find($request->bid);
+        $getBrand->name = $request->name;
+        $getBrand->save();  
 
-        return redirect()->route('brandsindex')->with('status', 'Brand Was Updated!');; 
+        return redirect()->route('brandsindex')->with('status', $request->name.' Was Updated!');; 
     }
 
     /**
@@ -122,7 +125,12 @@ class BrandController extends Controller
         {
             return redirect()->route('dashboardindex');
         }
+
+        $brand = new Brand;
+        $getBrand = $brand::find($id);
+        $getBrand->delete();  
+
         
-        return redirect()->route('brandsindex')->with('status', 'Brand Was Deleted!');; 
+        return redirect()->route('brandsindex')->with('status', $getBrand->name.'Was Deleted!');; 
     }
 }

@@ -53,6 +53,12 @@ class CategoriesController extends Controller
         {
             return redirect()->route('dashboardindex');
         }
+        $category = new Category;
+        $category->name = $request->name;
+        $category->save();
+
+        return redirect()->route('categoriesindex')->with('status', $request->name.' Was Created!'); 
+
     }
 
     /**
@@ -81,6 +87,16 @@ class CategoriesController extends Controller
         {
             return redirect()->route('dashboardindex');
         }
+
+        $category = new Category;
+        $getCategory = $category::find($id);
+
+        $results = [
+            'category' => $getCategory
+        ];
+
+        return view('dashboard.categories.edit', $results); 
+        
     }
 
     /**
@@ -90,12 +106,18 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         if(\Auth::user()->user_roles_id != 2)
         {
             return redirect()->route('dashboardindex');
         }
+        $category = new Category;
+        $getCategory = $category::find($request->cid);
+        $getCategory->name = $request->name;
+        $getCategory->save();
+
+        return redirect()->route('categoriesindex')->with('status', $request->name.' Was Updated!');
     }
 
     /**
@@ -110,5 +132,12 @@ class CategoriesController extends Controller
         {
             return redirect()->route('dashboardindex');
         }
+
+        $category = new Category;
+        $getCategory = $category::find($id);
+        $getCategory->delete();
+
+        return redirect()->route('categoriesindex')->with('status', $getCategory->name.' Was Deleted!');
+
     }
 }
