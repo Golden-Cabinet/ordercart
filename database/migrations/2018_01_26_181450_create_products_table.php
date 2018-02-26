@@ -18,9 +18,10 @@ class CreateProductsTable extends Migration
             $table->string('pinyin')->nullable();
             $table->string('latin_name')->nullable();
             $table->string('common_name')->nullable();
-            $table->integer('brand_id')->nullable();
+            $table->integer('brands_id')->nullable();
+            $table->integer('types_id')->nullable();
             $table->string('concentration')->nullable();
-            $table->string('costPerGram')->nullable();
+            $table->decimal('costPerGram', 8,2)->nullable();
             $table->integer('deleted')->default('0');;
             $table->timestamps();
         });

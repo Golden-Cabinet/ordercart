@@ -10,10 +10,9 @@
             @foreach($products as $product)
                 ['{{ $product->pinyin }}',
                 '{{ $product->common_name }}',
-                '{{ $product->brand_id }}',
+                '{{ \App\Brand::getBrandName($product->brands_id) }}',
                 '{{ $product->concentration }}',
-                '{{ $product->costPerGram }}',
-                'Edit'],
+                '<a class="btn btn-warning btn-sm text-dark" href="/dashboard/products/edit/{{$product->id}}">Edit</a> <a class="btn btn-danger btn-sm text-white" href="/dashboard/products/delete/{{$product->id}}">Delete</a>'],
             
             @endforeach                
         ];
@@ -35,8 +34,7 @@
                     { title: "Common Name" },
                     { title: "Brand" },
                     { title: "Concentration" },
-                    { title: "Cost Per Gram" },
-                    { title: "&nbsp;"}
+                    { title: "Actions"}
                 ],
 
             } );

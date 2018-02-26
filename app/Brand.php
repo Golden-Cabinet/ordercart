@@ -13,6 +13,12 @@ class Brand extends Model
         return $this->hasMany('App\Product');
     }
 
+    public static function getBrandName($id)
+    {
+        $brand = self::where('id', $id)->first();
+        return $brand['name'];
+    }
+
     // user role specific
 
     public function adminBrands()

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\Brand;
 
 class ProductController extends Controller
 {
@@ -21,7 +22,7 @@ class ProductController extends Controller
         }
         
         $products = new Product;
-        $getProducts = $products::all();
+        $getProducts = $products::where('deleted',0)->get();
 
         $results = [
             'products' => $getProducts
@@ -41,8 +42,15 @@ class ProductController extends Controller
         {
             return redirect()->route('dashboardindex');
         }
+
+        $brands = new Brand;
+        $getBrands = $brands::all();
+
+        $results = [
+            'brands' =>  $getBrands
+        ];
         
-        return view('dashboard.products.create'); 
+        return view('dashboard.products.create',$results); 
     }
 
     /**
