@@ -66,7 +66,16 @@ class ProductController extends Controller
             return redirect()->route('dashboardindex');
         }
         
-        $products = new Product;        
+        $product = new Product;
+        $product->pinyin = $request->pinyin;
+        $product->latin_name = $request->latin_name;
+        $product->common_name = $request->common_name;
+        $product->brands_id = $request->brands_id;
+        $product->types_id = $request->types_id;
+        $product->concentration = $request->concentration;
+        $product->costPerGram = $request->costPerGram;
+        $product->deleted = 0;
+        $product->save();
         
         return redirect()->route('productsindex')->with('status', 'Product Created!'); 
     }
@@ -101,8 +110,12 @@ class ProductController extends Controller
         $product = new Product;
         $getProduct = $product::find($id);
 
+        $brands = new Brand;
+        $getBrands = $brands::all();
+
         $result = [
             'result' => $getProduct,
+            'brands' => $getBrands,
         ];
         
         return view('dashboard.products.edit', $result); 
@@ -115,15 +128,24 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         if(\Auth::user()->user_roles_id != 2)
         {
             return redirect()->route('dashboardindex');
         }
         
-        $product = new Product;
-        $getProduct = $product::find($id);
+        $getProduct = new Product;
+        $product = $getProduct::find($request->prid);
+        $product->pinyin = $request->pinyin;
+        $product->latin_name = $request->latin_name;
+        $product->common_name = $request->common_name;
+        $product->brands_id = $request->brands_id;
+        $product->types_id = $request->types_id;
+        $product->concentration = $request->concentration;
+        $product->costPerGram = $request->costPerGram;
+        $product->deleted = 0;
+        $product->save();
 
         return redirect()->route('productsindex')->with('status', 'Product Was Updated!');; 
     }

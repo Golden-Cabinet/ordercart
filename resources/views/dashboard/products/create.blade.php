@@ -25,7 +25,7 @@
             <select class="form-control" name="brands_id">
                 <option>Please Select</option>
                 @foreach($brands as $brand)
-                <option value="$brand->id">{{$brand->name}}</option>
+                <option value="{{$brand->id}}">{{$brand->name}}</option>
                 @endforeach
             </select>
         </div>
@@ -37,7 +37,7 @@
 
         <label for="productCostGram" class="col-sm-2 col-form-label">Cost Per Gram</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="productCostGram" name="costpergram" placeholder="">
+          <input type="text" class="form-control" id="productCostGram" name="costPerGram" placeholder="">
         </div>
 
 

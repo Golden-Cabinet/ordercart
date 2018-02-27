@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\UserRole;
+use App\AddressState;
 
 class UsersController extends Controller
 {
@@ -45,8 +46,19 @@ class UsersController extends Controller
         {
             return redirect()->route('dashboardindex');
         }
+
+        $getStates = new AddressState;
+        $states = $getStates::where('name','!=',null)->orderBy('name', 'asc')->get();
+
+        $getUserRoles = new UserRole;
+        $roles = $getUserRoles::where('name','!=','Patient')->orderBy('name', 'asc')->get();
+
+        $results = [
+            'roles' => $roles,
+            'states' => $states
+        ];
         
-        return view('dashboard.users.create'); 
+        return view('dashboard.users.create',$results); 
     }
 
     /**
