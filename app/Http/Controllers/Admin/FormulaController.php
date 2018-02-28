@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Formula;
+use App\Product;
+use App\Brand;
 
 class FormulaController extends Controller
 {
@@ -56,8 +58,29 @@ class FormulaController extends Controller
         {
             return redirect()->route('dashboardindex');
         }
+
+        $getProducts = new Product;
+        $products = $getProducts::where('deleted','!=',1)->orderBy('pinyin','asc')->get();
+
+
+        $brand = new Brand;
         
-        return view('dashboard.formulas.create'); 
+        foreach($products as $product)
+        {
+            $ingredient[] = [
+                'id' => $product->id,
+                'pinyin' => $product->pinyin,
+                'concentration' => $product->concentration,
+                'brand' => $brand::getBrandName($product->brands_id),
+            ];
+
+        }
+
+        $results = [
+            'ingredients' => $ingredient
+        ];
+
+        return view('dashboard.formulas.create',$results); 
     }
 
     /**
@@ -105,7 +128,7 @@ class FormulaController extends Controller
             return redirect()->route('dashboardindex');
         }
         
-        $formula = new Formula;
+        $ingredients = new Formula;
         $getFormula = $formula::find($id);
 
         $result = [
@@ -401,7 +424,7 @@ class FormulaController extends Controller
     public function unshare_get($formula)
     {
         if (!$this->authentication->is_logged_in() || !$this->authentication->is_admin()) {
-            redirect('login');
+            redirect('login'); 
         }
         
         // delete the associated referenced formulas and ingredients when this
