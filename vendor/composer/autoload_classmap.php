@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddressStatesTableSeeder' => $baseDir . '/database/seeds/AddressStatesTableSeeder.php',
+    'AddressTypeTableSeeder' => $baseDir . '/database/seeds/AddressTypeTableSeeder.php',
     'App\\Address' => $baseDir . '/app/Address.php',
     'App\\AddressState' => $baseDir . '/app/AddressState.php',
     'App\\AddressType' => $baseDir . '/app/AddressType.php',
@@ -2362,6 +2363,7 @@ return array(
     'Prophecy\\Doubler\\Generator\\Node\\ClassNode' => $vendorDir . '/phpspec/prophecy/src/Prophecy/Doubler/Generator/Node/ClassNode.php',
     'Prophecy\\Doubler\\Generator\\Node\\MethodNode' => $vendorDir . '/phpspec/prophecy/src/Prophecy/Doubler/Generator/Node/MethodNode.php',
     'Prophecy\\Doubler\\Generator\\ReflectionInterface' => $vendorDir . '/phpspec/prophecy/src/Prophecy/Doubler/Generator/ReflectionInterface.php',
+    'Prophecy\\Doubler\\Generator\\TypeHintReference' => $vendorDir . '/phpspec/prophecy/src/Prophecy/Doubler/Generator/TypeHintReference.php',
     'Prophecy\\Doubler\\LazyDouble' => $vendorDir . '/phpspec/prophecy/src/Prophecy/Doubler/LazyDouble.php',
     'Prophecy\\Doubler\\NameGenerator' => $vendorDir . '/phpspec/prophecy/src/Prophecy/Doubler/NameGenerator.php',
     'Prophecy\\Exception\\Call\\UnexpectedCallException' => $vendorDir . '/phpspec/prophecy/src/Prophecy/Exception/Call/UnexpectedCallException.php',

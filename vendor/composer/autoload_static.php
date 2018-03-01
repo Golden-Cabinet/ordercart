@@ -312,6 +312,7 @@ class ComposerStaticInit5879fdf9f3ecc75f7f93c4e70143b434
 
     public static $classMap = array (
         'AddressStatesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/AddressStatesTableSeeder.php',
+        'AddressTypeTableSeeder' => __DIR__ . '/../..' . '/database/seeds/AddressTypeTableSeeder.php',
         'App\\Address' => __DIR__ . '/../..' . '/app/Address.php',
         'App\\AddressState' => __DIR__ . '/../..' . '/app/AddressState.php',
         'App\\AddressType' => __DIR__ . '/../..' . '/app/AddressType.php',
@@ -2667,6 +2668,7 @@ class ComposerStaticInit5879fdf9f3ecc75f7f93c4e70143b434
         'Prophecy\\Doubler\\Generator\\Node\\ClassNode' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Doubler/Generator/Node/ClassNode.php',
         'Prophecy\\Doubler\\Generator\\Node\\MethodNode' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Doubler/Generator/Node/MethodNode.php',
         'Prophecy\\Doubler\\Generator\\ReflectionInterface' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Doubler/Generator/ReflectionInterface.php',
+        'Prophecy\\Doubler\\Generator\\TypeHintReference' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Doubler/Generator/TypeHintReference.php',
         'Prophecy\\Doubler\\LazyDouble' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Doubler/LazyDouble.php',
         'Prophecy\\Doubler\\NameGenerator' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Doubler/NameGenerator.php',
         'Prophecy\\Exception\\Call\\UnexpectedCallException' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Exception/Call/UnexpectedCallException.php',

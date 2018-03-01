@@ -11,7 +11,7 @@ class AddressTypeTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('brands')->insert(
+        DB::table('address_types')->insert(
             [
                 [
                     'name' => 'Billing',

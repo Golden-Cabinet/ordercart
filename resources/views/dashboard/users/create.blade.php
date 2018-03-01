@@ -104,6 +104,46 @@
         </div>
 
         <h5 class="w-100 pb-2 pt-2">Additional Settings</h5>
+                
+                <label for="license_state" class="col-sm-2 col-form-label">State of Licensure or School</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="license_state" name="license_state" placeholder="">
+                </div>
+        
+                <label for="user_role" class="col-sm-2 col-form-label">User Role</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="user_role" name="user_role" placeholder="">
+                </div>
+        
+                <label for="user_status" class="col-sm-2 col-form-label">Status</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="user_status" name="user_status">
+                        <option>Please Select</option>
+                        @foreach($states as $state)
+                        <option value="{{$state->id}}">{{$state->name}}</option>
+                        @endforeach
+                    </select>  
+                </div>
+        
+                <label for="updated_password" class="col-sm-2 col-form-label">Update Password</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="updated_password" name="updated_password" placeholder="">
+                </div>
+
+                <label for="updated_password_confirmation" class="col-sm-2 col-form-label">Confirm New Password</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="updated_password_confirmation" name="updated_password_confirmation" placeholder="">
+                </div>
+
+                <h5>Notify User Via Email Of Password Change?</h5>
+                <div class="form-check form-check-inline ml-3 mr-4">
+                    <input class="form-check-input" type="radio" name="passwordUpdateNotify" id="inlineNotify1" value="Yes">
+                    <label class="form-check-label" for="inlineNotify1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="passwordUpdateNotify" id="inlineNotify2" value="No">
+                <label class="form-check-label" for="inlineNotify2">No</label>
+            </div>
 
     </div>
     {{ csrf_field() }}
