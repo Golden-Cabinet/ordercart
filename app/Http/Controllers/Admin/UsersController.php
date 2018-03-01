@@ -73,8 +73,25 @@ class UsersController extends Controller
         {
             return redirect()->route('dashboardindex');
         }
-        
-        $users = new User;        
+
+        $user = new User;
+        $address = new Address;
+                
+        $request->first_name;
+        $request->last_name;
+        $request->email;
+
+
+        $request->billing_street;
+        $request->billing_city;
+        $request->billing_state;
+        $request->billing_zip;
+        $request->inlineRadioOptions;
+        $request->shipping_address;
+        $request->shipping_city;
+        $request->shipping_state;
+        $request->shipping_zip;
+        $request->area_code;
         
         return redirect()->route('usersindex')->with('status', 'User Created!'); 
     }

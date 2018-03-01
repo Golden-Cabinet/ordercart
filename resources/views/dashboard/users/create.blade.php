@@ -60,7 +60,7 @@
             <label class="form-check-label" for="inlineRadio2">No</label>
         </div>
 
-        <div style="display: none;">
+        <div id="shippinginfo" class="w-100" style="display: none;">
 
                 <h5 class="w-100 pb-2 pt-2">Shipping Address</h5>
                 
@@ -111,6 +111,19 @@
 </form>
 
 @push('js')
+<script>
 
+    $('#inlineRadio2').on('click',function(){
+        $('#shippinginfo').show('slow');
+    });
+
+    $('#inlineRadio1').on('click',function(){       
+        $('#shippinginfo').hide('slow');
+    });
+
+
+
+    
+</script>
 @endpush
 @endsection
