@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\UserRole;
 use App\AddressState;
+use App\Address;
 
 class UsersController extends Controller
 {
@@ -75,25 +76,58 @@ class UsersController extends Controller
         }
 
         $user = new User;
-        $address = new Address;
+        $billingAddress = new Address;
+        $shippingAddress = new Address;
+
+        // check that updated password first
+        if($request->updated_password != $request->updated_password_confirmation)
+        {
+            return back()->withInput()->with('error', 'Passwords Do Not Match'); 
+        }
                 
-        $request->first_name;
-        $request->last_name;
-        $request->email;
+        $user->name = $request->first_name.' '.$request->last_name;
+        $user->email = $request->email;
+        $user->phonePre = $request->area_code;
+        $user->phonePost = $request->phone;
+        $user->license_state = $request->license_state;
+        $user->user_roles_id = $request->user_role;
+        $user->is_approved = $request->user_status;
+        $user->password = bcrypt($request->updated_password);
+        $user->save();
 
-
-        $request->billing_street;
-        $request->billing_city;
-        $request->billing_state;
-        $request->billing_zip;
-        $request->inlineRadioOptions;
-        $request->shipping_address;
-        $request->shipping_city;
-        $request->shipping_state;
-        $request->shipping_zip;
-        $request->area_code;
+        $billingAddress->users_id = $user->id;
+        $billingAddress->street = $request->billing_street;
+        $billingAddress->city = $request->billing_city;
+        $billingAddress->address_states_id = $request->billing_state;
+        $billingAddress->zip = $request->billing_zip;
+        $billingAddress->address_types_id = 1;
+        $billingAddress->save();
         
-        return redirect()->route('usersindex')->with('status', 'User Created!'); 
+        if($request->inlineRadioOptions == "No")
+        {            
+            $shippingAddress->users_id = $user->id;
+            $shippingAddress->street = $request->shipping_address;
+            $shippingAddress->city = $request->shipping_city;
+            $shippingAddress->address_states_id = $request->shipping_state;
+            $shippingAddress->zip = $request->shipping_zip;
+            $shippingAddress->address_types_id = 2;
+        } else {
+            $shippingAddress->users_id = $user->id;
+            $shippingAddress->street = $request->billing_street;
+            $shippingAddress->city = $request->billing_city;
+            $shippingAddress->address_states_id = $request->billing_state;
+            $shippingAddress->zip = $request->billing_zip;
+            $shippingAddress->address_types_id = 2;
+        }
+        $shippingAddress->save();
+        
+
+        
+        if($request->passwordUpdateNotify == "Yes") {
+            // function to send email out about the update
+        }
+        
+        return redirect()->route('usersindex')->with('success', $request->first_name.' '.$request->last_name.' Has Been Created!'); 
     }
 
     /**
@@ -131,13 +165,35 @@ class UsersController extends Controller
             return redirect()->route('dashboardindex');
         }
 
-        $user = new User;
-        $getUser = $user::find($id);
+        $getUser = new User;
+        $user = $getUser::find($id);
 
+        $getBillingAddress = new Address;
+        $billingAddress = $getBillingAddress::where('users_id',$id)
+        ->where('address_types_id',1)
+        ->first();
+
+        $getShippingAddress = new Address;
+        $shippingAddress = $getShippingAddress::where('users_id',$id)
+        ->where('address_types_id',2)
+        ->first();
+
+        $getStates = new AddressState;
+        $states = $getStates::where('name','!=',null)->orderBy('name', 'asc')->get();
+
+        $getUserRoles = new UserRole;
+        $roles = $getUserRoles::where('name','!=','Patient')->orderBy('name', 'asc')->get();
+
+        $split_name = explode(' ', $user->name);
         $result = [
-            'result' => $getUser,
+            'first_name' => $split_name[0],
+            'last_name' => $split_name[1],
+            'result' => $user,
+            'shipping' => $shippingAddress,
+            'billing' => $billingAddress,
+            'roles' => $roles,
+            'states' => $states
         ];
-        
         return view('dashboard.users.edit', $result); 
     }
 
@@ -155,10 +211,62 @@ class UsersController extends Controller
             return redirect()->route('dashboardindex');
         }
 
-        $user = new User;
-        $getUser = $user::find($id);
+        $getUser = new User;
+        $user = $getUser::find($id);
 
-        return redirect()->route('usersindex')->with('status', 'User Was Updated!');; 
+        $getBillingAddress = new Address;
+        $billingAddress = $getBillingAddress::find($request->bid);
+        $getShippingAddress = new Address;
+        $shippingAddress = $getShippingAddress::find($request->sid);
+
+        // check that updated password first
+        if($request->updated_password != $request->updated_password_confirmation)
+        {
+            return back()->withInput()->with('error', 'Passwords Do Not Match'); 
+        }        
+                
+        $user->name = $request->first_name.' '.$request->last_name;
+        $user->email = $request->email;
+        $user->phonePre = $request->area_code;
+        $user->phonePost = $request->phone;
+        $user->license_state = $request->license_state;
+        $user->user_roles_id = $request->user_role;
+        $user->is_approved = $request->user_status;
+        if($request->updated_password != ''){
+            $user->password = bcrypt($request->updated_password);
+        }
+        $user->save();
+
+        $billingAddress->users_id = $user->id;
+        $billingAddress->street = $request->billing_street;
+        $billingAddress->city = $request->billing_city;
+        $billingAddress->address_states_id = $request->billing_state;
+        $billingAddress->zip = $request->billing_zip;
+        $billingAddress->address_types_id = 1;
+        
+        if($request->inlineRadioOptions == "No")
+        {            
+            $shippingAddress->users_id = $user->id;
+            $shippingAddress->street = $request->shipping_address;
+            $shippingAddress->city = $request->shipping_city;
+            $shippingAddress->address_states_id = $request->shipping_state;
+            $shippingAddress->zip = $request->shipping_zip;
+            $shippingAddress->address_types_id = 2;
+        } else {
+            $shippingAddress->users_id = $user->id;
+            $shippingAddress->street = $request->billing_street;
+            $shippingAddress->city = $request->billing_city;
+            $shippingAddress->address_states_id = $request->billing_state;
+            $shippingAddress->zip = $request->billing_zip;
+            $shippingAddress->address_types_id = 2;
+        }
+        $shippingAddress->save();
+        
+        if($request->passwordUpdateNotify == "Yes") {
+            // function to send email out about the update
+        }
+
+        return redirect()->route('usersindex')->with('success', $request->first_name.' '.$request->last_name.' Was Updated!');; 
     }
 
     /**
@@ -174,7 +282,10 @@ class UsersController extends Controller
         {
             return redirect()->route('dashboardindex');
         }
-        return redirect()->route('usersindex')->with('status', 'User Was Deleted!'); 
+        
+
+
+        return redirect()->route('usersindex')->with('warning', 'User Was Deleted!'); 
     }
 
 }

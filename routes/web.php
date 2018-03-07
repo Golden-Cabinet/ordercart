@@ -27,8 +27,8 @@ Route::group(['prefix' => 'dashboard',  'middleware' => 'auth'], function()
        Route::post('store','Admin\UsersController@store');
        Route::get('edit/{id}','Admin\UsersController@edit');
        Route::get('show/{id}','Admin\UsersController@show'); 
-       Route::post('update','Admin\UsersController@update');
-       Route::get('delete/{id}','Admin\UsersController@destroy');
+       Route::post('update/{id}','Admin\UsersController@update');
+       //Route::get('delete/{id}','Admin\UsersController@destroy');
     });
 
     // PATIENTS //
@@ -37,7 +37,7 @@ Route::group(['prefix' => 'dashboard',  'middleware' => 'auth'], function()
         Route::get('create','Admin\PatientsController@create');
         Route::post('store','Admin\PatientsController@store');
         Route::get('edit/{id}','Admin\PatientsController@edit');
-        Route::post('update','Admin\PatientsController@update');
+        Route::post('update/{id}','Admin\PatientsController@update');
         Route::get('delete/{id}','Admin\PatientsController@destroy');
      });
 

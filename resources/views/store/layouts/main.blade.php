@@ -1,6 +1,5 @@
 @include('store.layouts.partials.header')
-
-
+  
     <div class="container-fluid no-gutters mb-4">
         @include('store.layouts.partials.topnav')
     </div> 

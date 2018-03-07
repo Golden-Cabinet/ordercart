@@ -11,12 +11,12 @@
                 '{{ \App\AddressState::getStateName($user->license_state) }}',
                 '{{ \App\UserRole::getRole($user->user_roles_id) }}',
                 @if( $user->is_approved == 1)
-                'Approved',
+                'Activated',
                 @else 
-                'Not Approved',
+                'Deactivated',
                 @endif                
                 '{{ $user->email }}',
-                'Edit'],            
+                '<a class="btn btn-warning btn-sm text-dark" href="/dashboard/users/edit/{{$user->id}}">Edit</a>'],            
             @endforeach                
         ];
 
@@ -29,14 +29,14 @@
                 "pagingType": "numbers",
                 language: {
                     search: "_INPUT_",
-                    searchPlaceholder: "Search Brands"
+                    searchPlaceholder: "Search Users"
                 }, 
 
                 columns: [
                     { title: "Name" },
                     { title: "State" },
                     { title: "Role" },
-                    { title: "Approved" },
+                    { title: "Active" },
                     { title: "Email" },
                     { title: "Actions"}
                 ],

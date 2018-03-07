@@ -8,10 +8,10 @@
 <script>
         var dataSet = [                
             @foreach($patients as $patient)
-                ['{{ $patient->user()->name }}',
-                '{{ $patient->user()->email }}',
+                ['{{ $patient->name }}',
+                '{{ $patient->email }}',
                 'get the practitioner',
-                'Edit'],
+                '<a class="btn btn-warning btn-sm text-dark" href="/dashboard/patients/edit/{{$patient->id}}">Edit</a>'],
             
             @endforeach                
         ];
