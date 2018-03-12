@@ -7,18 +7,18 @@
 </div>
 @push('dataSet')
 <script>
-        var dataSet = [                
+        var patientDataSet = [                
             @foreach($patients as $patient)
-                ['{{ $patient->user()->name }}',
-                '{{ $patient->user()->email }}',
-                'Edit'],
+                ['{{ $patient->name }}', 
+                '{{ $patient->email }}',
+                '<a class="btn btn-warning btn-sm text-dark" href="/dashboard/patients/edit/{{$patient->id}}">Edit</a>'],
             
             @endforeach                
         ];
 
         $(document).ready(function() {
             $('#dashboardPatientsTable').DataTable( {
-                data: dataSet, 
+                data: patientDataSet, 
                 "bLengthChange": false,
                 "pageLength": 10,
                 "bInfo" : false,

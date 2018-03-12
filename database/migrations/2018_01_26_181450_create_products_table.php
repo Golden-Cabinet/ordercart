@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->integer('brands_id')->nullable();
             $table->integer('types_id')->nullable();
             $table->string('concentration')->nullable();
-            $table->decimal('costPerGram', 8,2)->nullable();
+            $table->string('costPerGram')->nullable();
             $table->integer('deleted')->default('0');;
             $table->timestamps();
         });

@@ -63,7 +63,33 @@ class FormulaController extends Controller
         $products = $getProducts::where('deleted','!=',1)->orderBy('pinyin','asc')->get();
 
 
-        $brand = new Brand;
+        $brand = new Brand; 
+        
+        foreach($products as $product)
+        {
+            $ingredient[] = [
+                'id' => $product->id,
+                'name' => $product->pinyin,
+                'concentration' => $product->concentration,
+                'brand' => $brand::getBrandName($product->brands_id),
+                'costPerGram' =>$product->costPerGram
+            ];
+        }
+
+            $results = [
+                'formulas' => $ingredient
+            ];
+        
+        return view('dashboard.formulas.create',$results); 
+    }
+
+    public function autocomplete()
+    {
+        $getProducts = new Product;
+        $products = $getProducts::where('deleted','!=',1)->orderBy('pinyin','asc')->get();
+
+
+        $brand = new Brand; 
         
         foreach($products as $product)
         {
@@ -72,15 +98,16 @@ class FormulaController extends Controller
                 'pinyin' => $product->pinyin,
                 'concentration' => $product->concentration,
                 'brand' => $brand::getBrandName($product->brands_id),
+                'costPerGram' =>$product->costPerGram
             ];
 
+            $results = [
+                'ingredients' => $ingredient
+            ];
+
+            return response()->json($products);
+
         }
-
-        $results = [
-            'ingredients' => $ingredient
-        ];
-
-        return view('dashboard.formulas.create',$results); 
     }
 
     /**
@@ -95,7 +122,7 @@ class FormulaController extends Controller
         {
             return redirect()->route('dashboardindex');
         }
-        
+        dd($request);
         $formulas = new Formula;        
         
         return redirect()->route('formulasindex')->with('status', 'Formula Created!'); 

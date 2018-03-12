@@ -38,7 +38,6 @@ class DashboardController extends Controller
             ];
         }
 
-
         
 
         return view('dashboard.home.index', $results);      

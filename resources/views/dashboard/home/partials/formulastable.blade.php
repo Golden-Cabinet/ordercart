@@ -7,7 +7,7 @@
 </div>
 @push('dataSet')
 <script>
-        var dataSet = [                
+        var formulasDataSet = [                
             @foreach($formulas as $formula)
                 ['{{ $formula->name }}',
                 
@@ -18,7 +18,7 @@
 
         $(document).ready(function() {
             $('#dashboardFormulasTable').DataTable( {
-                data: dataSet,  
+                data: formulasDataSet,  
                 "bLengthChange": false,
                 "pageLength": 10,
                 "bInfo" : false,

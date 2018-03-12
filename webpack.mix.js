@@ -22,9 +22,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
     'public/json2.js',
     'public/order_functions.js',
     'public/page_functions.js',
-    'node_modules/jquery-ui/ui/core.js',
-    'node_modules/jquery-ui/ui/widget.js', 
-    'node_modules/jquery-ui/ui/widgets/autocomplete.js', 
    ],'public/js/site.js');
 
    mix.styles([
@@ -34,5 +31,4 @@ mix.js('resources/assets/js/app.js', 'public/js')
        'node_modules/typeface-josefin-sans/index.css',
        'node_modules/typeface-im-fell-english-sc/index.css',
        'node_modules/jquery-steps/demo/css/jquery.steps.css',
-       'node_modules/jquery-ui/themes/base/all.css',   
    ], 'public/css/site.css')   

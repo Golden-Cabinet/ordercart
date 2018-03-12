@@ -24,6 +24,7 @@ if (location.hostname.substr(-6) != ".local") {
 
 <script src="/js/app.js"></script>
 <script src="/js/site.js"></script>
+
 <script>
 	$(document).ready(function(){
 		$('input[type=search]').addClass('form-control');
@@ -31,7 +32,7 @@ if (location.hostname.substr(-6) != ".local") {
 	
 </script>	
 
-
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 @stack('js') 
 
 @stack('dataSet')

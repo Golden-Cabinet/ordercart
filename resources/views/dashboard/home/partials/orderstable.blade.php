@@ -7,7 +7,7 @@
 </div>
 @push('dataSet')
 <script>
-        var dataSet = [                
+        var ordersDataSet = [                
             @foreach($orders as $order)
                 ['{{ $order->id }}','{{ $order->patient()->name }}','{{ $order->created_date }}','{{ $order->status }}','View'],
             
@@ -16,7 +16,7 @@
 
         $(document).ready(function() {
             $('#dashboardOrdersTable').DataTable( {
-                data: dataSet,  
+                data: ordersDataSet,  
                 "bLengthChange": false,
                 "pageLength": 10,
                 "bInfo" : false,

@@ -56,6 +56,7 @@ Route::group(['prefix' => 'dashboard',  'middleware' => 'auth'], function()
     Route::prefix('formulas')->group(function () {
         Route::get('/','Admin\FormulaController@index')->name('formulasindex');
         Route::get('view','Admin\FormulaController@show');
+        Route::get('list','Admin\FormulaController@autocomplete')->name('formulalist');
         Route::get('duplicate/{id}','Admin\FormulaController@duplicate');
         Route::get('share/{id}','Admin\FormulaController@share');
         Route::get('create','Admin\FormulaController@create');
