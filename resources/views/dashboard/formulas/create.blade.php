@@ -26,12 +26,14 @@
                     <tbody></tbody>
                 </table>
             </div>
-            <input type="hidden" id="formulaData" name="formulaData">
+            <input type="hidden" id="formulaData" name="formulaData[]">
             {{ csrf_field() }}
-            <div class="col-md-6"> 
-            <button href="#" type="submit" class="btn btn-primary">Save This Formula</button>
-            </div>
-            <div id="grandTotal" class="col-md-6 text-bold"></div>    
+            <hr />
+            <div class="col-md-9 float-left text-bold" style="font-size: 1.2rem;"><p>Grand Total: $<span id="grandTotal">0.00</span></p> </div> 
+            
+            <div class="col-md-3 float-left"> 
+                <button href="#" id="saveFormula" type="submit" style="width: 100%; display: none" class="btn btn-primary btn-sm text-center">Create</button>
+                </div>
         </form>
         </div>
     </div>
@@ -78,7 +80,11 @@
                 
             } );
             
-            $(document).ready(function() {  
+            $(document).ready(function() { 
+                
+                
+
+                
                 $('.btn-success').prop('disabled',true); 
                 $('.dataTables_scroll').hide();
                 var searchBox = $('input[type="search"]');
@@ -108,10 +114,27 @@
                         // add to overview
 
                         $('.btn-success').unbind().click(function(){
-                            var newRow = '<tr id="row_' + prid + '"><td>' + ingredient +'</td><td>'+ grams +'</td><td>$' + parseFloat(sub).toFixed(2) +'</td><td><a href="#" data-ingredientid="' + prid + '" id="removeIngredient_' + prid + '" class="removeIngredient btn btn-sm btn-danger">Remove</a></td>';
+                            var newRow = '<tr id="row_' + prid + '"><td>' + ingredient +'</td><td>'+ grams +'</td><td>$' + parseFloat(sub).toFixed(2) +'</td><td><a href="#" data-subtotal="'+ parseFloat(sub).toFixed(2) +'" data-ingredientid="' + prid + '" id="removeIngredient_' + prid + '" class="removeIngredient btn btn-sm btn-danger">Remove</a></td>';
                             $('#ingredientslist > tbody:last-child').append(newRow);
-                            $('.passformula_' + prid).prop('disabled',true);                                                        
-                            return false;
+                            $('.passformula_' + prid).prop('disabled',true);
+                            
+                            // update the total in the formula overview
+                            var currentTotal = $('#grandTotal').text();
+                            var newSum = parseFloat(sub).toFixed(2);
+                            
+                           if(currentTotal == '0.00')
+                           {
+                            var grandTotal = parseFloat(newSum).toFixed(2);  
+                            
+                           } else {
+                            var addedTotals = parseFloat(currentTotal) + parseFloat(newSum);
+                            var grandTotal = parseFloat(addedTotals).toFixed(2);
+                           }
+                            $('#grandTotal').html(grandTotal);
+
+                            $('#saveFormula').show();
+                           
+                             return false;
                         });
 
                     } else {                        
@@ -125,13 +148,27 @@
             
             $(document).on('click','.removeIngredient', function() {
                 var remove = $(this);
+                var subTotal = $(this).attr('data-subtotal');
                 var rprid = $(this).attr('data-ingredientid');
                 var tr = $(this).closest('tr');
-                $('.passformula_' + rprid).prop('disabled',false);
-                $('#row_'+rprid).remove();                    
-                return false;
-            });
+                var currentTotal = $('#grandTotal').text();
 
+                var subtractedTotals = parseFloat(currentTotal) - parseFloat(subTotal);
+                var finalSubtracted = parseFloat(subtractedTotals).toFixed(2);
+
+                $('.passformula_' + rprid).prop('disabled',false);
+                $('#row_'+rprid).remove();  
+                
+                if(subtractedTotals < 0.01 )
+                {
+                    var newTotal = $('#grandTotal').html('0.00');
+                    $('#saveFormula').hide();
+                } else {
+                    var newTotal = $('#grandTotal').html(finalSubtracted);
+                }
+                var grandTotal = parseFloat(newTotal).toFixed(2);
+                return false;
+            });        
             
         </script>
     @endpush
