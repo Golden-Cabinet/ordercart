@@ -25,4 +25,11 @@ class Product extends Model
         }
 
     }
+
+    public static function getProductName($id)
+    {
+        $getProduct = new Product;
+        $product = $getProduct::find($id);
+        return $product->pinyin;
+    }
 }

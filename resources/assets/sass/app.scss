@@ -17,6 +17,60 @@ $fa-font-path: "../../../node_modules/font-awesome/fonts" !default;
 @import "~bootstrap/scss/bootstrap";
 
 
+.dataTables_scroll {
+    animation: fadeIn ease 2s;
+    -webkit-animation: fadeIn ease 2s;
+    -moz-animation: fadeIn ease 2s;
+    -o-animation: fadeIn ease 2s;
+    -ms-animation: fadeIn ease 2s;
+  }
+  
+  
+  @keyframes fadeIn{
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-moz-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-webkit-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-o-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-ms-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+
 ////SITE WIDE STYLE////
 
 .ui-autocomplete {
@@ -124,6 +178,11 @@ $fa-font-path: "../../../node_modules/font-awesome/fonts" !default;
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }
   
+body, html {
+    opacity: 1;
+    transition: 1s opacity;
+}
+
   html {
       min-height: 100%;
       position: relative;
@@ -131,14 +190,18 @@ $fa-font-path: "../../../node_modules/font-awesome/fonts" !default;
   body {
   /*  font-family: 'Helvetica Neue', Arial, sans-serif;*/
       font-family: 'Roboto Slab', serif;
-      background: #FFFFFF;
       margin: 0;
       padding: 0;
       min-height: 720px;
       height: inherit !important;
       max-height: auto !important;
-      margin-bottom: 105px; /* Margin bottom by footer height */
+      margin-bottom: 105px; /* Margin bottom by footer height */      
   }
+
+  body.dofade {
+    opacity: 0;
+    transition: none;
+}
 
   .homeBG {
   min-height: 720px;

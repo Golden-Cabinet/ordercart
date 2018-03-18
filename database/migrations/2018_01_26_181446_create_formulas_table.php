@@ -16,6 +16,7 @@ class CreateFormulasTable extends Migration
         Schema::create('formulas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->text('data');
             $table->integer('users_id');
             $table->integer('deleted')->default('0');;
             $table->timestamps();

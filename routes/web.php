@@ -62,7 +62,7 @@ Route::group(['prefix' => 'dashboard',  'middleware' => 'auth'], function()
         Route::get('create','Admin\FormulaController@create');
         Route::post('store','Admin\FormulaController@store');
         Route::get('edit/{id}','Admin\FormulaController@edit');
-        Route::post('update','Admin\FormulaController@update');
+        Route::post('update/{id}','Admin\FormulaController@update');
         Route::get('delete/{id}','Admin\FormulaController@destroy');
      });
 

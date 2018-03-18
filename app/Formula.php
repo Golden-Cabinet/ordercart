@@ -28,13 +28,17 @@ class Formula extends Model
 
     public function practitionerFormulas()
     {
-        $getFormulas = self::where('users_id',\Auth::user()->id);
+        $getFormulas = self::where('users_id',\Auth::user()->id)
+        ->where('deleted',0)
+        ->get();
         return $getFormulas;
     }
     
     public function studentFormulas()
     {        
-        $getFormulas = self::where('users_id',\Auth::user()->id);
+        $getFormulas = self::where('users_id',\Auth::user()->id)
+        ->where('deleted',0)
+        ->get();
         return $getFormulas;
     }
 }

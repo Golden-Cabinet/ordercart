@@ -4,7 +4,7 @@
 <hr />
 
 
-<div class="table-responsive col-md-7 float-left">
+<div class="table-responsive col-md-7 float-left fade-in">
     <table id="dashboardFormulasTable" class="ca-dt-bootstrap table" style="width: 100%;"></table>
 </div>
 <div class="col-md-5 float-right">
@@ -13,8 +13,8 @@
     <div class="card-body">
         <h5 class="card-title">Select from the ingredients table, then create a formula name below.</h5>
         <hr />
-        <form method="POST" enctype="application/x-www-form-urlencoded" action="/dashboard/formulas/store">
-        <input type="text" class="form-control" name="formula_name" placeholder="Enter Your New Formula Name">
+        <form method="POST" id="newFormula" enctype="application/x-www-form-urlencoded" action="/dashboard/formulas/store">
+        <input type="text" class="form-control" id="formulaName" name="formula_name" placeholder="Enter Your New Formula Name">
             <div class="table-responsive" style="width: 100%;">
                 <table class="ca-dt-bootstrap table" id="ingredientslist">
                     <tr>
@@ -25,8 +25,7 @@
                     </tr>                
                     <tbody></tbody>
                 </table>
-            </div>
-            <input type="hidden" id="formulaData" name="formulaData[]">
+            </div>            
             {{ csrf_field() }}
             <hr />
             <div class="col-md-9 float-left text-bold" style="font-size: 1.2rem;"><p>Grand Total: $<span id="grandTotal">0.00</span></p> </div> 
@@ -46,10 +45,10 @@
                 @foreach($formulas as $formula)
                     [                      
                     "<strong>{{ $formula['name'] }}</strong> <br /><em class='text-secondary'>{{ $formula['brand'] }}</em>",
-                    "<input type='number' step='.01' min='0' class='userGrams form-control' data-ingredient='{{ $formula['name'] }}' data-cpg='{{$formula['costPerGram']}}' data-prid='{{ $formula['id'] }}' name='grams_{{ $formula['id'] }}'>",
+                    "<input type='number' step='.01' min='0' id='{{ $formula['id'] }}' class='userGrams form-control' data-ingredient='{{ $formula['name'] }}' data-cpg='{{$formula['costPerGram']}}' data-prid='{{ $formula['id'] }}' name='grams_{{ $formula['id'] }}'>",
                     "<span>{{ $formula['costPerGram'] }}</span>",
                     "<span id='subtotal_{{ $formula['id'] }}'></span>",
-                    "<button href='#' data-selected_ingredient='{{ $formula['name'] }}'data-id='{{ $formula['id'] }}' data-cpg='{{ $formula['costPerGram'] }}' class='passformula_{{ $formula['id'] }} btn btn-success btn-sm'>Add</button>",                    
+                    "<button href='#' data-selected_ingredient='{{ $formula['name'] }}' id='{{ $formula['id'] }}' data-cpg='{{ $formula['costPerGram'] }}' class='passformula_{{ $formula['id'] }} btn btn-success btn-sm'>Add</button>",                    
                     ],
                
                 @endforeach                
@@ -63,6 +62,7 @@
                     "scrollY": "600px",
                     "bInfo" : false,
                     "paging": false,
+                    
                     language: {
                         search: "_INPUT_",
                         searchPlaceholder: "Search The Ingredients Table"
@@ -80,17 +80,26 @@
                 
             } );
             
+
+            var prodArray = [];
+
             $(document).ready(function() { 
-                
-                
 
-                
+                $('.dataTables_scroll').css('display','none');  
                 $('.btn-success').prop('disabled',true); 
-                $('.dataTables_scroll').hide();
-                var searchBox = $('input[type="search"]');
-                $(searchBox).bind('keyup change', function() {
 
-                    if($(searchBox).val().length > 0) {                    
+                $('#dashboardFormulasTable').on('shown.bs.modal', function(e){
+                    $($.fn.dataTable.tables(true)).DataTable()
+                       .columns.adjust();
+                 });
+                              
+                 $('#formulaName').prop('disabled', true);
+                 $('#formulaName').val('');
+                 var searchBox = $('input[type="search"]');
+                var $buttons = $('input[type=button]');
+                $(searchBox).bind('keyup change', function() {                    
+
+                    if($(searchBox).val().length > 1) {                    
                         $('.dataTables_scroll').slideDown('slow');
                     } else {                        
                         $('.dataTables_scroll').slideUp('slow');
@@ -100,11 +109,16 @@
 
                 var userGrams = $('.userGrams');
                 $(userGrams).bind('keyup change', function() {
+                    $(this).siblings(':button').prop('disabled', true);
                     var current = $(this); 
-                    var prid = $(this).attr('data-prid');                   
+                    var prid = $(this).attr('data-prid'); 
+                    var currentButton = $('.passformula_' + prid);                  
                                      
-                    if($(current).val().length > 0) {                                                    
-                        $('.passformula_' + prid).prop('disabled',false);
+                    if( $(current).val().length > 0) {                      
+                        
+                        hideTr(prid);
+                        $('.passformula_' + prid).prop('disabled',false);                        
+
                         var ingredient = $(current).attr('data-ingredient');
                         var grams = parseFloat($(current).val());
                         var cpg = parseFloat($(current).attr('data-cpg'));
@@ -124,7 +138,8 @@
                             
                            if(currentTotal == '0.00')
                            {
-                            var grandTotal = parseFloat(newSum).toFixed(2);  
+                            var grandTotal = parseFloat(newSum).toFixed(2);
+                            showTr(prid);  
                             
                            } else {
                             var addedTotals = parseFloat(currentTotal) + parseFloat(newSum);
@@ -132,8 +147,27 @@
                            }
                             $('#grandTotal').html(grandTotal);
 
+                            $('#formulaName').prop('disabled', false);
                             $('#saveFormula').show();
-                           
+
+                            showTr(prid);
+                            
+                            //create new hidden field with values
+                            var values = {
+                                product_id: parseInt(prid),
+                                grams: parseInt(grams),
+                                subtotal: parseFloat(sub).toFixed(2)
+                            };
+                            
+                            $('<input>').attr({
+                                type: 'hidden',
+                                id: "formulaDataString",
+                                class: prid,
+                                name: "formulaData_"+prid+"",
+                                value: JSON.stringify(values)
+                            }).appendTo('#newFormula');
+                            //var hiddenField = '<input type="hidden" id="formulaDataString_'+prid+'" name="formulaData_'+prid+'" value="'+JSON.stringify(values)+''">';
+
                              return false;
                         });
 
@@ -141,9 +175,17 @@
                         $('.passformula_' + prid).prop('disabled',true);
                         $('#subtotal_' + prid).html('');
                     };
-                });              
+                });
+                
+                function hideTr(id) {
+                    $('.userGrams').not('#' + id).prop('disabled',true);
+                }
 
+                function showTr(id) {
+                    $('.userGrams').not('#' + id).prop('disabled',false);
+                }
 
+                
             });
             
             $(document).on('click','.removeIngredient', function() {
@@ -156,13 +198,17 @@
                 var subtractedTotals = parseFloat(currentTotal) - parseFloat(subTotal);
                 var finalSubtracted = parseFloat(subtractedTotals).toFixed(2);
 
-                $('.passformula_' + rprid).prop('disabled',false);
+                $('.passformula_' + rprid).prop('disabled',true);
+                $('#'+rprid).val('');
+                $('#subtotal_'+rprid).html('');
                 $('#row_'+rprid).remove();  
                 
                 if(subtractedTotals < 0.01 )
                 {
                     var newTotal = $('#grandTotal').html('0.00');
                     $('#saveFormula').hide();
+                    $('#formulaName').val('');
+                    $('#formulaName').prop('disabled', false);
                 } else {
                     var newTotal = $('#grandTotal').html(finalSubtracted);
                 }

@@ -7,8 +7,21 @@
 <script>
         var dataSet = [                
             @foreach($formulas as $formula)
-                ['{{ $formula->name }}',
-                '{{ $formula->user()->name }}'],
+                [
+                 @if($formula->deleted == 1)
+                 '<span class="text-secondary"><em>{{ $formula->name }} - DELETED',
+                 @else
+                 '{{ $formula->name }}',
+                 @endif                
+                
+                @if($formula->deleted == 1)
+                '{{ \App\User::getUserName($formula->users_id) }}</em></span>',
+                '<a class="btn btn-warning btn-sm text-dark" href="/dashboard/formulas/edit/{{$formula->id}}">Edit</a> <a class="btn btn-info btn-sm text-white" href="/dashboard/formulas/duplicate/{{$formula->id}}">Duplicate</a>'
+                @else
+                '{{ \App\User::getUserName($formula->users_id) }}',
+                '<a class="btn btn-warning btn-sm text-dark" href="/dashboard/formulas/edit/{{$formula->id}}">Edit</a> <a class="btn btn-info btn-sm text-white" href="/dashboard/formulas/duplicate/{{$formula->id}}">Duplicate</a> <a class="btn btn-danger btn-sm text-white" href="/dashboard/formulas/delete/{{$formula->id}}">Delete</a>'
+                @endif                
+                ],
            
             @endforeach                
         ];
@@ -28,6 +41,7 @@
                 columns: [
                     { title: "Name" },
                     { title: "Creator" },
+                    { title: "Actions"}
                 ],
 
             } );

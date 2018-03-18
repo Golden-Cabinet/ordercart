@@ -70,4 +70,10 @@ class User extends Authenticatable
         return redirect()->route('patientsindex')->with('status', 'Patient Was Deleted!');;
     }
 
+    public static function getUserName($id)
+    {
+        $user = self::find($id); 
+        return $user->name;
+    }
+
 }
