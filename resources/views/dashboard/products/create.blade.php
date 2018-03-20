@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.main')
 @section('content')
-<h4>Create A New Product</h4>
+<h4><i class="fab fa-pagelines"></i> Create A New Product</h4>
 <hr />
 <form action="/dashboard/products/store" method="post" enctype="multipart/form-data">
     <div class="form-group row">
@@ -43,7 +43,7 @@
 
       </div>
     {{ csrf_field() }}
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i> Save</button>
 </form>
 
 @push('js')

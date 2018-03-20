@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.main')
 @section('content')
-<h4>Editing: {{ $category->name }}</h4>
+<h4><i class="fas fa-list"></i> Editing: {{ $category->name }}</h4>
 <hr />
 <form action="/dashboard/categories/update" method="post" enctype="multipart/form-data">
     <div class="form-group row">
@@ -11,7 +11,7 @@
       </div>
       <input type="hidden" name="cid" value="{{ $category->id }}">
     {{ csrf_field() }}
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i> Save</button>
 </form>
 @push('js')
 

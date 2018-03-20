@@ -1,13 +1,13 @@
 @extends('dashboard.layouts.main')
 @section('content')
-<h4>Editing User:</h4>
+<h4><i class="fas fa-user"></i> Editing: {{ $first_name }} {{ $last_name }}</h4>
 <hr />
 <form action="/dashboard/users/update/{{ $result->id }}" method="post" enctype="multipart/form-data" class="form-inline"> 
     <div class="form-group w-100">        
         
         <div class="col ml-0 pl-0">
                 <div class="row">
-                    <h5 class="col-xs-12 w-100 pb-2 pt-2">Basic Information</h5>
+                    <h5 class="col-xs-12 w-100 pb-2 pt-2"><i class="fas fa-info-circle"></i> Basic Information</h5>
                     <div class="col-md-2 font-weight-bold">
                         <p>First Name</p>
                     </div>
@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <h5 class="w-100 pb-2 pt-2">Billing Address</h5>
+        <h5 class="w-100 pb-2 pt-2"><i class="far fa-money-bill-alt"></i> Billing Address</h5>
 
         <div class="col ml-0 pl-0">
 
@@ -127,7 +127,7 @@
         <div id="shippinginfo" class="w-100" style="display: none;">
         @endif
 
-            <h5 class="w-100 pb-2 pt-2">Shipping Address</h5>
+            <h5 class="w-100 pb-2 pt-2"><i class="fas fa-shipping-fast"></i> Shipping Address</h5>
 
             <div class="col">
                 <div class="row">
@@ -208,7 +208,7 @@
                    
         </div>
         
-        <h5 class="w-100 pb-2 pt-2">Additional Settings</h5>
+        <h5 class="w-100 pb-2 pt-2"><i class="fas fa-cogs"></i> Additional Settings</h5>
 
         <div class="col">
             <div class="row">
@@ -297,7 +297,7 @@
                 <div class="alert alert-info text-center" style="width: 47%; margin: auto" role="alert">                
 
                 <div style="margin: 0 auto 0 auto; padding: 0;">
-                    <p class="font-weight-bold">Notify User Via Email Of Password Change?</p>
+                    <p class="font-weight-bold"><i class="fas fa-exclamation-circle"></i> Notify User Via Email Of Password Change?</p>
                     <div class="col form-check form-check-inline float-left mb-2">
                         <input class="form-check-input" type="radio" name="passwordUpdateNotify" id="inlineNotify1" value="Yes">
                         <label class="form-check-label font-weight-bold" for="inlineNotify1">Yes</label>
@@ -318,7 +318,7 @@
     <input type="hidden" name="bid" value="{{ $billing->id }}">
     {{ csrf_field() }}
     <div class="col">
-            <button type="submit" class="btn btn-primary">Save This New User</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i> Save This New User</button>
     </div>
     
 </form>

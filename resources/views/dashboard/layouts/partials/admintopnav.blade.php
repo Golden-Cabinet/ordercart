@@ -35,13 +35,13 @@
             <a class="nav-link mr-2" href="/dashboard/users">Users</a>
           </li> 
           <li class="nav-item">
-            <a class="nav-link mr-2" href="/dashboard/users/show/{{ \Auth::id() }}">Profile</a>
+            <a class="nav-link mr-2 btn btn-outline-success"  href="/dashboard/users/show/{{ \Auth::id() }}"><i class="fas fa-user-circle"></i> Profile</a>
           </li>
           <li class="nav-item">
             <a class="nav-link btn btn-outline-secondary mr-2" href="{{ route('logout') }}"
             onclick="event.preventDefault();
                      document.getElementById('logout-form').submit();">
-            Logout
+                     Logout <i class="fas fa-sign-out-alt"></i>
         </a>
 
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.main')
 @section('content')
 
-<h4>Editing: {{ $brand->name }}</h4>
+<h4><i class="fas fa-box"></i> Editing: {{ $brand->name }}</h4>
 <hr />
 <form action="/dashboard/brands/update" method="post" enctype="multipart/form-data">
 
@@ -13,7 +13,7 @@
       </div>
       <input type="hidden" name="bid" value="{{ $brand->id }}">
     {{ csrf_field() }}
-    <button type="submit" class="btn btn-success">Update This Brand</button>
+    <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i> Update This Brand</button>
 </form>
 
 @push('js')

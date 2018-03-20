@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.main')
 @section('content')
-<h4>Create A New Brand</h4>
+<h4><i class="fas fa-box"></i> Create A New Brand</h4>
 <hr />
 <form action="/dashboard/brands/store" method="post" enctype="multipart/form-data">
 
@@ -12,7 +12,7 @@
       </div>
       
     {{ csrf_field() }}
-    <button type="submit" class="btn btn-success">Save This Brand</button>
+    <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i> Save This Brand</button>
 </form>
 
 @push('js')

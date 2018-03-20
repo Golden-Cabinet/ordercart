@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.main')
 @section('content')
-<h4>Create A New Category</h4>
+<h4><i class="fas fa-list"></i> Create A New Category</h4>
 <hr />
 <form action="/dashboard/categories/store" method="post" enctype="multipart/form-data">
     <div class="form-group row">
@@ -10,7 +10,7 @@
         </div>
       </div>
     {{ csrf_field() }}
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i> Save</button>
 </form>
 
 @push('js')

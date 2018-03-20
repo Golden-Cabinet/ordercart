@@ -4,7 +4,7 @@
 	<img src="/images/golden-cabinet-logo.svg" class='logo-small'>
 	<div id="footer_info_container">
 		(503) 233-4102<br />
-		<a href="https://www.google.com/maps/preview?q=4203+SE+Hawthorne+Suite+A,+Portland+OR+97215&hnear=4203+SE+Hawthorne+Blvd,+Portland,+Multnomah,+Oregon+97215&gl=us&t=m&z=16">4203 SE Hawthorne Blvd Ste A, Portland OR 97215</a><br />
+		<i class="fas fa-map-marker-alt"></i> <a href="https://www.google.com/maps/preview?q=4203+SE+Hawthorne+Suite+A,+Portland+OR+97215&hnear=4203+SE+Hawthorne+Blvd,+Portland,+Multnomah,+Oregon+97215&gl=us&t=m&z=16">4203 SE Hawthorne Blvd Ste A, Portland OR 97215</a><br />
 		Open Monday-Friday 9-6, Saturday 9-12, closed on Sunday
 	</div>
 </footer>

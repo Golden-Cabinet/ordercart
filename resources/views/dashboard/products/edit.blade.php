@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.main')
 @section('content')
-<h4>Updating Product: {{ $result->pinyin }} ({{ $result->common_name }})</h4>
+<h4><i class="fab fa-pagelines"></i> Editing: {{ $result->pinyin }} ({{ $result->common_name }})</h4>
 <hr />
 <form action="/dashboard/products/update" method="post" enctype="multipart/form-data">
     <div class="form-group row">
@@ -47,7 +47,7 @@
         <input type="hidden" name="prid" value="{{$result->id}}">
       </div>
     {{ csrf_field() }}
-    <button type="submit" class="btn btn-primary">Update</button>
+    <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i> Update</button>
 </form>
 
 @push('js')

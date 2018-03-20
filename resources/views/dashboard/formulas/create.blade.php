@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.main')
 @section('content')
-<h4>Create A New Formula</h4>
+<h4><i class="far fa-plus-square"></i> Create A New Formula</h4>
 <hr />
 
 
@@ -9,7 +9,7 @@
 </div>
 <div class="col-md-5 float-right">
     <div class="card">
-    <h5 class="card-header bg-info text-white">Formula Overview</h5>
+    <h5 class="card-header bg-info text-white"><i class="fas fa-flask"></i>  Formula Overview</h5>
     <div class="card-body">
         <h5 class="card-title">Select from the ingredients table, then create a formula name below.</h5>
         <hr />
@@ -28,10 +28,10 @@
             </div>            
             {{ csrf_field() }}
             <hr />
-            <div class="col-md-9 float-left text-bold" style="font-size: 1.2rem;"><p>Grand Total: $<span id="grandTotal">0.00</span></p> </div> 
+            <div class="col-md-8 float-left text-bold" style="font-size: 1.2rem;"><p>Grand Total: $<span id="grandTotal">0.00</span></p> </div> 
             
-            <div class="col-md-3 float-left"> 
-                <button href="#" id="saveFormula" type="submit" style="width: 100%; display: none" class="btn btn-primary btn-sm text-center">Create</button>
+            <div class="col-md-4 float-left"> 
+                <button href="#" id="saveFormula" type="submit" style="width: 100%; display: none" class="btn btn-primary btn-sm text-center"><i class="fas fa-check-circle"></i> Create</button>
                 </div>
         </form>
         </div>
@@ -128,7 +128,7 @@
                         // add to overview
 
                         $('.btn-success').unbind().click(function(){
-                            var newRow = '<tr id="row_' + prid + '"><td>' + ingredient +'</td><td>'+ grams +'</td><td>$' + parseFloat(sub).toFixed(2) +'</td><td><a href="#" data-subtotal="'+ parseFloat(sub).toFixed(2) +'" data-ingredientid="' + prid + '" id="removeIngredient_' + prid + '" class="removeIngredient btn btn-sm btn-danger">Remove</a></td>';
+                            var newRow = '<tr id="row_' + prid + '"><td>' + ingredient +'</td><td>'+ grams +'</td><td>$' + parseFloat(sub).toFixed(2) +'</td><td><a href="#" data-subtotal="'+ parseFloat(sub).toFixed(2) +'" data-ingredientid="' + prid + '" id="removeIngredient_' + prid + '" class="removeIngredient btn btn-sm btn-danger"><i class="fas fa-minus-circle"></i> Remove</a></td>';
                             $('#ingredientslist > tbody:last-child').append(newRow);
                             $('.passformula_' + prid).prop('disabled',true);
                             

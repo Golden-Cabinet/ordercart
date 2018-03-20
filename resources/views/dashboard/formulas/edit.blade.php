@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.main')
 @section('content')
-<h4>Editing Formula: {{ $formulaName }}</h4>
+<h4><i class="fas fa-pencil-alt"></i> Editing: {{ $formulaName }}</h4>
 <hr />
 
 
@@ -9,7 +9,7 @@
 </div>
 <div class="col-md-5 float-right">
     <div class="card">
-    <h5 class="card-header bg-info text-white">Overview: {{ $formulaName }}</h5>
+    <h5 class="card-header bg-info text-white"><i class="fas fa-flask"></i> Overview: {{ $formulaName }}</h5>
     <div class="card-body">
         <h5 class="card-title">Select from the ingredients table, then create a formula name below.</h5>
         <hr />
@@ -28,7 +28,7 @@
                         <tr id="row_{{$val->product_id }}">
                             <td>{{ \App\Product::getProductName($val->product_id) }}</td>
                             <td>{{$val->grams }}</td><td>${{$val->subtotal }}</td>
-                            <td><a href="#" data-subtotal="{{$val->subtotal }}" data-ingredientid="{{$val->product_id }}" id="removeIngredient_{{$val->product_id }}" class="removeIngredient btn btn-sm btn-danger">Remove</a></td>                        
+                            <td><a href="#" data-subtotal="{{$val->subtotal }}" data-ingredientid="{{$val->product_id }}" id="removeIngredient_{{$val->product_id }}" class="removeIngredient btn btn-sm btn-danger"><i class="fas fa-minus-circle"></i> Remove</a></td>                        
                             <input type="hidden" id="formulaDataString_{{$val->product_id }}" name="formulaData_{{$val->product_id }}" value="{{ json_encode(['product_id' => $val->product_id, 'grams' => $val->grams, 'subtotal' => $val->subtotal]) }}">
                         </tr>
                         @endforeach
@@ -38,10 +38,10 @@
             </div>            
             {{ csrf_field() }}
             <hr />
-            <div class="col-md-9 float-left text-bold" style="font-size: 1.2rem;"><p>Grand Total: $<span id="grandTotal">{{ $formulaSum }}</span></p> </div> 
+            <div class="col-md-8 float-left text-bold" style="font-size: 1.2rem;"><p>Grand Total: $<span id="grandTotal">{{ $formulaSum }}</span></p> </div> 
             
-            <div class="col-md-3 float-left"> 
-                <button href="#" id="saveFormula" type="submit" style="width: 100%;" class="btn btn-primary btn-sm text-center">Update</button>
+            <div class="col-md-4 float-left"> 
+                <button href="#" id="saveFormula" type="submit" style="width: 100%;" class="btn btn-primary btn-sm text-center"><i class="fas fa-check-circle"></i> Update</button>
                 </div>
         </form>
         </div>

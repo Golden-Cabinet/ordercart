@@ -11,7 +11,7 @@
     <!-- Bootstrap core CSS -->
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/site.css" rel="stylesheet">    
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro&amp;subset=latin-ext" rel="stylesheet"> 
 
     <!-- Custom styles for this template -->
     <style>

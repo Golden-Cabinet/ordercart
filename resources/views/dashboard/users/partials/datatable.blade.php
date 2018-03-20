@@ -1,5 +1,5 @@
-<h4 class="float-left w-90">Users</h4>
-<a href="/dashboard/users/create" class="btn btn-sm btn-primary float-right">Add New User</a>
+<h4 class="float-left w-90"><i class="fas fa-users"></i> Users</h4>
+<a href="/dashboard/users/create" class="btn btn-sm btn-primary float-right"><i class="far fa-plus-square"></i> Add New User</a>
 <div class="table-responsive">
 <table id="dashboardUsersTable" class="ca-dt-bootstrap table" style="width: 100%;"></table>
 </div>
@@ -16,7 +16,7 @@
                 'Deactivated',
                 @endif                
                 '{{ $user->email }}',
-                '<a class="btn btn-warning btn-sm text-dark" href="/dashboard/users/edit/{{$user->id}}">Edit</a>'],            
+                '<a class="btn btn-warning btn-sm text-dark" href="/dashboard/users/edit/{{$user->id}}"><i class="fas fa-pencil-alt"></i> Edit</a>'],            
             @endforeach                
         ];
 

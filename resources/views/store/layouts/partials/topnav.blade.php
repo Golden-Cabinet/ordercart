@@ -36,7 +36,7 @@
               <a class="nav-link btn btn-outline-secondary mr-2" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                          document.getElementById('logout-form').submit();">
-                Logout
+                Logout <i class="fas fa-sign-out-alt"></i>
             </a>
   
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -45,10 +45,10 @@
             </li>
           @else
           <li class="nav-item navtextright1">
-            <p class="mr-3 pt-2"><strong>Practitioners: </strong></p>
+            <p class="mr-3 pt-2"><strong><i class="fas fa-medkit"></i> Practitioners: </strong></p>
           </li>  
           <li class="nav-item navtextright2">
-            <a class="nav-link mr-2" href="/register">Register</a>
+            <a class="nav-link mr-2 btn btn-outline-success" href="/register">Register</a>
           </li>
           <li class="nav-item navtextright3">
             <a class="nav-link btn btn-outline-secondary" href="/login">Login</a>

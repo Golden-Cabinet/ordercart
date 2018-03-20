@@ -1,5 +1,5 @@
-<h4 class="float-left w-90">Orders</h4>
-<a href="/dashboard/orders/create" class="btn btn-sm btn-primary float-right">Add New Order</a>
+<h4 class="float-left w-90"><i class="fas fa-clipboard-check"></i>  Orders</h4>
+<a href="/dashboard/orders/create" class="btn btn-sm btn-primary float-right"><i class="far fa-plus-square"></i> Add New Order</a>
 <div class="table-responsive">
 <table id="dashboardOrdersTable" class="ca-dt-bootstrap table" style="width: 100%;"></table>
 </div>

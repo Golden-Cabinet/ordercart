@@ -181,6 +181,8 @@ $fa-font-path: "../../../node_modules/font-awesome/fonts" !default;
 body, html {
     opacity: 1;
     transition: 1s opacity;
+    font-family: 'Source Serif Pro', serif;
+    font-size: 1.03rem !important;
 }
 
   html {
@@ -189,7 +191,6 @@ body, html {
   }
   body {
   /*  font-family: 'Helvetica Neue', Arial, sans-serif;*/
-      font-family: 'Roboto Slab', serif;
       margin: 0;
       padding: 0;
       min-height: 720px;
@@ -244,7 +245,6 @@ body, html {
       position: relative;
       border-left: 1px solid #f5f5f5;
       border-right: 1px solid #f5f5f5;
-      font-family: 'Roboto Slab', serif;
   }
   #backend_content_wrapper {
       overflow-y: hidden;
@@ -318,7 +318,6 @@ body, html {
       background: #f5f5f5;
       width: 100%;
       margin: 0;
-      font-family: 'Montserrat', sans-serif;
       color: #3d3d3d;
       -moz-box-sizing: border-box; 
       -webkit-box-sizing: border-box; 
@@ -494,7 +493,6 @@ body, html {
   #footer_info_container {
     padding:10px 2em;
       line-height: 25px;
-      font-family: 'Josefin Sans', sans-serif;
       font-weight: bold;
     text-align:center;
   }
@@ -1017,7 +1015,6 @@ body, html {
       margin-bottom: 20px;
   }
   #confirmOrder h4 {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       margin-top: 10px;
       margin-bottom: 5px;
       border-bottom: solid 1px #D0D0D0;
@@ -1229,7 +1226,6 @@ body, html {
   /* @group jQueryUI Overrides */
   .ui-widget {
       font-size: .9em !important;
-      font-family: 'Helvetica Neue', Arial, sans-serif !important;
   }
   .ui-state-hover {
       background: #e0e0e0 !important;
@@ -1270,7 +1266,6 @@ body, html {
   }
   .error h1 {
       font-size: 8em;
-      font-family: 'IM Fell English', serif;
       color: #c21130;
       text-align: center;
   }

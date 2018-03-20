@@ -1,5 +1,5 @@
-<h4 class="float-left w-90">Products</h4>
-<a href="/dashboard/products/create" class="btn btn-sm btn-primary float-right">Add New Product</a>
+<h4 class="float-left w-90"><i class="fab fa-pagelines"></i> Products</h4>
+<a href="/dashboard/products/create" class="btn btn-sm btn-primary float-right"><i class="far fa-plus-square"></i> Add New Product</a>
 <div class="table-responsive">
 <table id="dashboardProductsTable" class="ca-dt-bootstrap table"></table>
 </div>
@@ -11,8 +11,7 @@
                 ['{{ $product->pinyin }}',
                 '{{ $product->common_name }}',
                 '{{ \App\Brand::getBrandName($product->brands_id) }}',
-                '{{ $product->concentration }}',
-                '<a class="btn btn-warning btn-sm text-dark" href="/dashboard/products/edit/{{$product->id}}">Edit</a> <a class="btn btn-danger btn-sm text-white" href="/dashboard/products/delete/{{$product->id}}">Delete</a>'],
+                '<a class="btn btn-warning btn-sm text-dark" href="/dashboard/products/edit/{{$product->id}}"><i class="fas fa-pencil-alt"></i> Edit</a> <a class="btn btn-danger btn-sm text-white" href="/dashboard/products/delete/{{$product->id}}"><i class="fas fa-trash"></i> Delete</a>'],
             
             @endforeach                
         ];
@@ -26,14 +25,13 @@
                 "pagingType": "numbers",
                 language: {
                     search: "_INPUT_",
-                    searchPlaceholder: "Search Orders"
+                    searchPlaceholder: "Search Products"
                 }, 
 
                 columns: [
                     { title: "Pinyin" },
                     { title: "Common Name" },
                     { title: "Brand" },
-                    { title: "Concentration" },
                     { title: "Actions"}
                 ],
 

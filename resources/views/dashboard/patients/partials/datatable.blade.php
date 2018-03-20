@@ -1,5 +1,5 @@
-<h4 class="float-left w-90">Patients</h4>
-<a href="/dashboard/patients/create" class="btn btn-sm btn-primary float-right">Add New Patient</a>
+<h4 class="float-left w-90"><i class="fas fa-address-card"></i> Patients</h4>
+<a href="/dashboard/patients/create" class="btn btn-sm btn-primary float-right"><i class="far fa-plus-square"></i> Add New Patient</a>
 <div class="table-responsive">
 <table id="dashboardPatientsTable" class="ca-dt-bootstrap table" style="width: 100%;"></table>
 </div>
