@@ -4,10 +4,10 @@
 <hr />
 
 
-<div class="table-responsive col-md-7 float-left fade-in">
+<div class="table-responsive col-md-6 float-left fade-in">
     <table id="dashboardFormulasTable" class="ca-dt-bootstrap table" style="width: 100%;"></table>
 </div>
-<div class="col-md-5 float-right">
+<div class="col-md-6 float-right">
     <div class="card">
     <h5 class="card-header bg-info text-white"><i class="fas fa-flask"></i>  Formula Overview</h5>
     <div class="card-body">
@@ -45,10 +45,8 @@
                 @foreach($formulas as $formula)
                     [                      
                     "<strong>{{ $formula['name'] }}</strong> <br /><em class='text-secondary'>{{ $formula['brand'] }}</em>",
-                    "<input type='number' step='.01' min='0' id='{{ $formula['id'] }}' class='userGrams form-control' data-ingredient='{{ $formula['name'] }}' data-cpg='{{$formula['costPerGram']}}' data-prid='{{ $formula['id'] }}' name='grams_{{ $formula['id'] }}'>",
                     "<span>{{ $formula['costPerGram'] }}</span>",
-                    "<span id='subtotal_{{ $formula['id'] }}'></span>",
-                    "<button href='#' data-selected_ingredient='{{ $formula['name'] }}' id='{{ $formula['id'] }}' data-cpg='{{ $formula['costPerGram'] }}' class='passformula_{{ $formula['id'] }} btn btn-success btn-sm'>Add</button>",                    
+                    "<button href='#' data-selected_ingredient='{{ $formula['name'] }}' data-prid='{{ $formula['id'] }}' id='{{ $formula['id'] }}' data-cpg='{{ $formula['costPerGram'] }}' class='passformula_{{ $formula['id'] }} btn btn-success btn-sm'>Add</button>",                    
                     ],
                
                 @endforeach                
@@ -70,9 +68,7 @@
     
                     columns: [                        
                         { title: "Pinyin" },
-                        { title: "Grams" },
                         { title: "$/gram" },
-                        { title: "Subtotal" },
                         { title: "Add" }
                     ],
     
@@ -84,9 +80,9 @@
             var prodArray = [];
 
             $(document).ready(function() { 
-
+                $('div.dataTables_filter input').focus();
                 $('.dataTables_scroll').css('display','none');  
-                $('.btn-success').prop('disabled',true); 
+                $('.btn-success').prop('disabled',false); 
 
                 $('#dashboardFormulasTable').on('shown.bs.modal', function(e){
                     $($.fn.dataTable.tables(true)).DataTable()
@@ -128,7 +124,10 @@
                         // add to overview
 
                         $('.btn-success').unbind().click(function(){
-                            var newRow = '<tr id="row_' + prid + '"><td>' + ingredient +'</td><td>'+ grams +'</td><td>$' + parseFloat(sub).toFixed(2) +'</td><td><a href="#" data-subtotal="'+ parseFloat(sub).toFixed(2) +'" data-ingredientid="' + prid + '" id="removeIngredient_' + prid + '" class="removeIngredient btn btn-sm btn-danger"><i class="fas fa-minus-circle"></i> Remove</a></td>';
+                            $('div.dataTables_filter input').val('');
+                            $('.dataTables_scroll').slideUp('slow');
+                            $('div.dataTables_filter input').focus();
+                            var newRow = '<tr id="row_' + prid + '"><td>' + ingredient +'</td><td><input type="number" step=".1" min="0" id="" class="userGrams form-control" data-ingredient="'+prid+'" data-cpg="" data-prid="'+prid+'" name="grams_'+prid+'"></td><td>$' + parseFloat(sub).toFixed(2) +'</td><td><a href="#" data-subtotal="'+ parseFloat(sub).toFixed(2) +'" data-ingredientid="' + prid + '" id="removeIngredient_' + prid + '" class="removeIngredient btn btn-sm btn-danger"><i class="fas fa-minus-circle"></i> Remove</a></td>';
                             $('#ingredientslist > tbody:last-child').append(newRow);
                             $('.passformula_' + prid).prop('disabled',true);
                             
@@ -189,6 +188,8 @@
             });
             
             $(document).on('click','.removeIngredient', function() {
+                $('div.dataTables_filter input').val('');
+                $('div.dataTables_filter input').focus();
                 var remove = $(this);
                 var subTotal = $(this).attr('data-subtotal');
                 var rprid = $(this).attr('data-ingredientid');
