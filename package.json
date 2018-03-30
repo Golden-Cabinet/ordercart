@@ -14,7 +14,7 @@
         "bootstrap-sass": "^3.3.7",
         "cross-env": "^5.0.1",
         "jquery": "^3.2.1",
-        "jquery-ui": "^1.12.1",
+        "jquery-ui-bundle": "^1.12.1-migrate",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
         "vue": "^2.1.10"
@@ -35,6 +35,7 @@
         "foundation-icon-fonts": "^0.1.1",
         "froala-editor": "^2.7.2",
         "fullcalendar": "^3.7.0",
+        "jquery-autocomplete": "^1.2.8",
         "jquery-datetimepicker": "^2.5.14",
         "jquery-simple-datetimepicker": "^1.12.0",
         "jquery-steps": "^1.1.0",

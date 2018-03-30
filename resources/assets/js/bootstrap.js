@@ -10,6 +10,7 @@ window._ = require('lodash');
 try {
     window.$ = window.jQuery = require('jquery')
     //window.Popper = require('popper.js')
+    require('jquery-ui-bundle'); //this makes the date picker available.
     require('bootstrap')
 } catch (e) {}
 

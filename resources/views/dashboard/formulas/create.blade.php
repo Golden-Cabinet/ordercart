@@ -3,7 +3,7 @@
 <h4><i class="far fa-plus-square"></i> Create A New Formula</h4>
 <hr />
 
-
+<input id="testAuto">
 <div class="table-responsive col-md-6 float-left fade-in">
     <table id="dashboardFormulasTable" class="ca-dt-bootstrap table" style="width: 100%;"></table>
 </div>
@@ -38,6 +38,13 @@
     </div>
     </div>
 </div>
+
+@push('headscripts')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet"/>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+@endpush
+
     @push('dataSet')
     <script>
 
@@ -221,8 +228,61 @@
     @endpush
     @push('js')
     <script>
-        
-            
+        var data = [
+			{ value: "AL", label: "Alabama" },
+			{ value: "AK", label: "Alaska" },
+			{ value: "AZ", label: "Arizona" },
+			{ value: "AR", label: "Arkansas" },
+			{ value: "CA", label: "California" },
+			{ value: "CO", label: "Colorado" },
+			{ value: "CT", label: "Connecticut" },
+			{ value: "DE", label: "Delaware" },
+			{ value: "FL", label: "Florida" },
+			{ value: "GA", label: "Georgia" },
+			{ value: "HI", label: "Hawaii" },
+			{ value: "ID", label: "Idaho" },
+			{ value: "IL", label: "Illinois" },
+			{ value: "IN", label: "Indiana" },
+			{ value: "IA", label: "Iowa" },
+			{ value: "KS", label: "Kansas" },
+			{ value: "KY", label: "Kentucky" },
+			{ value: "LA", label: "Louisiana" },
+			{ value: "ME", label: "Maine" },
+			{ value: "MD", label: "Maryland" },
+			{ value: "MA", label: "Massachusetts" },
+			{ value: "MI", label: "Michigan" },
+			{ value: "MN", label: "Minnesota" },
+			{ value: "MS", label: "Mississippi" },
+			{ value: "MO", label: "Missouri" },
+			{ value: "MT", label: "Montana" },
+			{ value: "NE", label: "Nebraska" },
+			{ value: "NV", label: "Nevada" },
+			{ value: "NH", label: "New Hampshire" },
+			{ value: "NJ", label: "New Jersey" },
+			{ value: "NM", label: "New Mexico" },
+			{ value: "NY", label: "New York" },
+			{ value: "NC", label: "North Carolina" },
+			{ value: "ND", label: "North Dakota" },
+			{ value: "OH", label: "Ohio" },
+			{ value: "OK", label: "Oklahoma" },
+			{ value: "OR", label: "Oregon" },
+			{ value: "PA", label: "Pennsylvania" },
+			{ value: "RI", label: "Rhode Island" },
+			{ value: "SC", label: "South Carolina" },
+			{ value: "SD", label: "South Dakota" },
+			{ value: "TN", label: "Tennessee" },
+			{ value: "TX", label: "Texas" },
+			{ value: "UT", label: "Utah" },
+			{ value: "VT", label: "Vermont" },
+			{ value: "VA", label: "Virginia" },
+			{ value: "WA", label: "Washington" },
+			{ value: "WV", label: "West Virginia" },
+			{ value: "WI", label: "Wisconsin" },
+			{ value: "WY", label: "Wyoming" }
+		];
+            $('#testAuto').autocomplete({
+                source: data
+            });
     </script>
     @endpush
    

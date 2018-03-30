@@ -18,6 +18,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
     'node_modules/datatables.net/js/jquery.dataTables.js',
     'node_modules/ca-datatables-bs4/dist/carbonAtom-dataTables-bootstrap4.min.js',
     'node_modules/jquery-steps/build/jquery.steps.js',
+    'node_modules/jquery-ui-bundle/jquery-ui.js',
     'public/formula_functions.js',
     'public/json2.js',
     'public/order_functions.js',
@@ -31,4 +32,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
        'node_modules/typeface-josefin-sans/index.css',
        'node_modules/typeface-im-fell-english-sc/index.css',
        'node_modules/jquery-steps/demo/css/jquery.steps.css',
+       'node_modules/jquery-ui-bundle/jquery-ui.theme.css',
+       'node_modules/jquery-autocomplete/jquery.autocomplete.css',
    ], 'public/css/site.css')   
