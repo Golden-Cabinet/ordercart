@@ -82,31 +82,25 @@ class FormulaController extends Controller
         return view('dashboard.formulas.create',$results); 
     }
 
-    public function autocomplete()
-    {
-        $getProducts = new Product;
-        $products = $getProducts::where('deleted','!=',1)->orderBy('pinyin','asc')->get();
+    public function autocomplete($product,$brand)
+    {       
+               
+        $results = array();
 
+        $getBrand = new Brand;
+        $brand = $getBrand::where('name',$brand)->first();
 
-        $brand = new Brand; 
         
-        foreach($products as $product)
-        {
-            $ingredient[] = [
-                'id' => $product->id,
-                'pinyin' => $product->pinyin,
-                'concentration' => $product->concentration,
-                'brand' => $brand::getBrandName($product->brands_id),
-                'costPerGram' =>$product->costPerGram
-            ];
+        $ingredient = \DB::table('products')
+            ->where('pinyin', $product)
+            ->where('brands_id',$brand->id)
+            ->where('deleted','!=',1)
+            ->get();
 
-            $results = [
-                'ingredients' => $ingredient
-            ];
-
-            return response()->json($products);
-
-        }
+        $result = [
+            'ingredient' => $ingredient
+        ];
+        return response()->json($result);
     }
 
     /**
