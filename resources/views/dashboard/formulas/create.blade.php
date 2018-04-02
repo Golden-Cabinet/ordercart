@@ -4,26 +4,28 @@
 <hr />
 
 
-<div class="col-md-6 float-left">
+<div class="col-md-5 float-left">
+    
     <input id="ingredientsAuto" class="form-control" placeholder="Search Ingredients Table">
 </div>
-<div class="col-md-6 float-right">
+<div class="col-md-7 float-right">
     <div class="card">
     <h5 class="card-header bg-info text-white"><i class="fas fa-flask"></i>  Formula Overview</h5>
     <div class="card-body">
-        <h5 class="card-title">Select from the ingredients table, then create a formula name below.</h5>
+        
         <hr />
         <form method="POST" id="newFormula" enctype="application/x-www-form-urlencoded" action="/dashboard/formulas/store">
-        <input type="text" class="form-control" id="formulaName" name="formula_name" placeholder="Enter Your New Formula Name">
+        <input type="text" class="form-control mb-4" id="formulaName" name="formula_name" placeholder="Enter Your New Formula Name">
             <div class="table-responsive" style="width: 100%;">
+                    
                 <table class="ca-dt-bootstrap table" id="ingredientslist">
                     <tr>
-                        <th>Ingredient</th>
-                        <th>Grams</th>
-                        <th>Subtotal</th>
-                        <th>&nbsp;</th>
+                        <th style="width: 40%">Pinyin</th>
+                        <th style="width: 25%">Grams</th>
+                        <th style="width: 30%">Cost Per Gram</th>
+                        <th style="width: 5%">&nbsp;</th>
                     </tr>                
-                    <tbody></tbody>
+                    <tbody id="ingRows"></tbody>
                 </table>
             </div>            
             {{ csrf_field() }}
@@ -46,7 +48,9 @@
 @endpush    
 
     @push('js')
-    <script>        
+    <script>
+
+            $("#ingredientsAuto").focus();        
            /**~~~ AUTOCOMPLETE SEARCH - STEP 1 OF CREATING FORMULAS ~~~**/
             var dataSrc = [
                 @foreach($formulas as $formula)
@@ -61,22 +65,40 @@
                     var selectedProduct = ui.item.label;
                     var prodKey = selectedProduct.split(" - ");
                     var product = prodKey[0];
-                    var brand = prodKey[1];
+                    var brand = prodKey[1];                                        
 
                     //do an ajax get call to return this one product/brand combo for the formula overview
                     $.ajax({
                         url : '/dashboard/formulas/search/product/'+ product +'/brand/'+ brand,
                         type: 'GET',
                         success : function(data){
-                            
+                            $("#ingredientsAuto").val('');                            
+                            var productDetails = data['ingredient'][0];
+                            var addRow = '<tr><td>'+ productDetails["pinyin"] +'</td><td><input type="number" data-cpg="'+ productDetails["costPerGram"] +'" autofocus class="userGrams form-control" style="max-width: 100%" step="0.1" id="userGram_'+ productDetails["id"] +'" name="userGram_'+ productDetails["id"] +'"></td><td>$'+ productDetails["costPerGram"] +'</td><td><a href="#" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
+                            $('#ingredientslist > tbody:last').append(addRow);                           
+                            $("#userGram_"+ productDetails['id'] +"").focus();
+                            $("#ingredientsAuto").blur();                            
                         }
                     })                    
                 }
             });            
     
+            var ingredientRows = $('#ingRows').children().length;
         /**~~~ FORMULA OVERVIEW MANAGEMENT - STEP 2 OF CREATING FORMULAS ~~~**/
         
-        /** FORMULA OVERVIEW - ADD INGREDIENT TABLE ROW **/
+        if (ingredientRows > 0) {
+            // add up to subtotal
+            
+                //var addedSubTotals = parseFloat(currentTotal) + parseFloat(subTotal);
+                //var finalSubtracted = parseFloat(subtractedTotals).toFixed(2);
+
+            
+        } else {
+            
+        }
+        
+        
+
         
         
         /** FORMULA OVERVIEW - REMOVE ADDED INGREDIENT **/
