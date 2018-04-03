@@ -21,7 +21,7 @@ class BrandTableSeeder extends Seeder
             'Qualiherb', 		
             'Extract', 		
             'Golden Lotus', 		
-            'Nong\'s', 		
+            "Nong's", 		
             'NuHerbs', 		
             'Aloha Medicinals', 		
             'Root of the Matter', 		

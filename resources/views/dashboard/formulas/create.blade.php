@@ -81,7 +81,7 @@
                                 $( "#newFormula" ).fadeIn(1300);
                               });                            
                             var productDetails = data['ingredient'][0];
-                            var addRow = '<tr id="row_'+ productDetails["id"] +'"><td>'+ productDetails["pinyin"] +'</td><td><input type="number" min="0" max="100" data-cpg="'+ productDetails["costPerGram"] +'" data-prid="'+ productDetails["id"] +'" autofocus class="userGrams form-control" style="max-width: 100%" step="0.5" id="userGram_'+ productDetails["id"] +'" name="userGram_'+ productDetails["id"] +'"></td><td>$'+ productDetails["costPerGram"] +'</td><td>$<span class="subTotals" id="subTotal_'+ productDetails["id"] +'">0.00</span></td><td><a href="#" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
+                            var addRow = '<tr id="row_'+ productDetails["id"] +'"><td>'+ productDetails["pinyin"] +'</td><td><input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" data-cpg="'+ productDetails["costPerGram"] +'" data-prid="'+ productDetails["id"] +'" autofocus class="userGrams form-control" style="max-width: 100%" step="0.1" id="userGram_'+ productDetails["id"] +'" name="userGram_'+ productDetails["id"] +'"></td><td>$'+ productDetails["costPerGram"] +'</td><td>$<span class="subTotals" id="subTotal_'+ productDetails["id"] +'">0.00</span></td><td><a href="#" tabindex="-1" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
                             $('#ingredientslist > tbody:last').append(addRow);                           
                             $("#userGram_"+ productDetails['id'] +"").focus();
                             $("#ingredientsAuto").blur();                            
@@ -107,6 +107,15 @@
             $("#subTotal_"+ prid +"").html(ingredientSubTotal);
             
         });
+
+        function limit(element)
+        {
+            var max_chars = 3;
+
+            if(element.value.length > max_chars) {
+                element.value = element.value.substr(0, max_chars);
+            }
+        }
           
         /** FORMULA OVERVIEW - REMOVE ADDED INGREDIENT **/
             $(document).on('click','.removeIngredient', function() {

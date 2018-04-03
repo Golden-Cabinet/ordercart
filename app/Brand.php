@@ -16,7 +16,7 @@ class Brand extends Model
     public static function getBrandName($id)
     {
         $brand = self::where('id', $id)->first();
-        return $brand['name'];
+        return html_entity_decode($brand['name']);
     }
 
     // user role specific

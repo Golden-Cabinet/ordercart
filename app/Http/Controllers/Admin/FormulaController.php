@@ -68,13 +68,13 @@ class FormulaController extends Controller
         {
             $ingredient[] = [
                 'id' => $product->id,
-                'name' => $product->pinyin,
+                'name' => html_entity_decode($product->pinyin),
                 'concentration' => $product->concentration,
                 'brand' => $brand::getBrandName($product->brands_id),
                 'costPerGram' =>$product->costPerGram
             ];
         }
-
+        
             $results = [
                 'formulas' => $ingredient
             ];
