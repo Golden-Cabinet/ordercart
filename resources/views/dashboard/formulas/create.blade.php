@@ -4,42 +4,45 @@
 <hr />
 
 
-<div class="col-md-5 float-left">
-    
-    <input id="ingredientsAuto" class="form-control" placeholder="Search Ingredients Table">
-</div>
-<div class="col-md-7 float-right">
+
     <div class="card">
     <h5 class="card-header bg-info text-white"><i class="fas fa-flask"></i>  Formula Overview</h5>
     <div class="card-body">
+        <h5>Step 1: Search For Ingredients</h5>
+            <input id="ingredientsAuto" class="form-control mb-4" placeholder="Start Your Search Here">
         
-        <hr />
-        <form method="POST" id="newFormula" enctype="application/x-www-form-urlencoded" action="/dashboard/formulas/store">
-        <input type="text" class="form-control mb-4" id="formulaName" name="formula_name" placeholder="Enter Your New Formula Name">
-            <div class="table-responsive" style="width: 100%;">
-                    
+        <div id="stepTwo" style="display: none;">
+        <form method="POST" id="newFormula" enctype="application/x-www-form-urlencoded" action="/dashboard/formulas/store">        
+            <div class="table-responsive mb-4" style="width: 100%;">
+                    <h5>Step 2: Modify Your Selected Ingredients</h5>
                 <table class="ca-dt-bootstrap table" id="ingredientslist">
                     <tr>
                         <th style="width: 40%">Pinyin</th>
                         <th style="width: 25%">Grams</th>
-                        <th style="width: 30%">Cost Per Gram</th>
+                        <th style="width: 20%">$/Gram</th>
+                        <th style="10%">Subtotal</th>
                         <th style="width: 5%">&nbsp;</th>
                     </tr>                
                     <tbody id="ingRows"></tbody>
                 </table>
+                <hr />
+                <a href="#" id="calculateFormula" style="display:none;" class="btn btn-info btn-lg text-center float-right"><i class="fas fa-calculator"></i> Finalize Formula</a>
             </div>            
             {{ csrf_field() }}
             <hr />
-            <div class="col-md-8 float-left text-bold" style="font-size: 1.2rem;"><p>Grand Total: $<span id="grandTotal">0.00</span></p> </div> 
-            
-            <div class="col-md-4 float-left"> 
-                <button href="#" id="saveFormula" type="submit" style="width: 100%; display: none" class="btn btn-primary btn-sm text-center"><i class="fas fa-check-circle"></i> Create</button>
-                </div>
+        </div>
+            <div class="finalizeFormula" style="display: none;">
+                    <h5>Step 3: Create Your Formula Name and Save It!</h5>
+                <input type="text" style="background: #ffffe0" class="form-control mb-4" id="formulaName" name="formula_name" placeholder="Enter Your New Formula Name">
+                <div class="col-md-6 float-left text-bold" style="font-size: 1.2rem;"><p>Grand Total: $<span id="grandTotal">0.00</span></p> </div> 
+                    <button href="#" id="saveFormula" type="submit" class="btn btn-success btn-lg text-center float-right"><i class="fas fa-check"></i> Save Formula</button>
+               
+            </div>
         </form>
         </div>
     </div>
     </div>
-</div>
+
 
 @push('headscripts')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -50,7 +53,8 @@
     @push('js')
     <script>
 
-            $("#ingredientsAuto").focus();        
+            $("#ingredientsAuto").focus();
+            $('#saveFormula').prop('disabled',true);        
            /**~~~ AUTOCOMPLETE SEARCH - STEP 1 OF CREATING FORMULAS ~~~**/
             var dataSrc = [
                 @foreach($formulas as $formula)
@@ -60,7 +64,7 @@
 
             $("#ingredientsAuto").autocomplete({
                 source: dataSrc,
-                minLength: 3,
+                minLength: 2,
                 select: function( event , ui ) {
                     var selectedProduct = ui.item.label;
                     var prodKey = selectedProduct.split(" - ");
@@ -72,65 +76,81 @@
                         url : '/dashboard/formulas/search/product/'+ product +'/brand/'+ brand,
                         type: 'GET',
                         success : function(data){
-                            $("#ingredientsAuto").val('');                            
+                            $("#ingredientsAuto").val('');
+                            $('#stepTwo').slideDown( "slow", function() {
+                                $( "#newFormula" ).fadeIn(1300);
+                              });                            
                             var productDetails = data['ingredient'][0];
-                            var addRow = '<tr><td>'+ productDetails["pinyin"] +'</td><td><input type="number" data-cpg="'+ productDetails["costPerGram"] +'" autofocus class="userGrams form-control" style="max-width: 100%" step="0.1" id="userGram_'+ productDetails["id"] +'" name="userGram_'+ productDetails["id"] +'"></td><td>$'+ productDetails["costPerGram"] +'</td><td><a href="#" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
+                            var addRow = '<tr id="row_'+ productDetails["id"] +'"><td>'+ productDetails["pinyin"] +'</td><td><input type="number" min="0" max="100" data-cpg="'+ productDetails["costPerGram"] +'" data-prid="'+ productDetails["id"] +'" autofocus class="userGrams form-control" style="max-width: 100%" step="0.5" id="userGram_'+ productDetails["id"] +'" name="userGram_'+ productDetails["id"] +'"></td><td>$'+ productDetails["costPerGram"] +'</td><td>$<span class="subTotals" id="subTotal_'+ productDetails["id"] +'">0.00</span></td><td><a href="#" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
                             $('#ingredientslist > tbody:last').append(addRow);                           
                             $("#userGram_"+ productDetails['id'] +"").focus();
                             $("#ingredientsAuto").blur();                            
                         }
                     })                    
                 }
-            });            
+            });          
     
-            var ingredientRows = $('#ingRows').children().length;
+            
         /**~~~ FORMULA OVERVIEW MANAGEMENT - STEP 2 OF CREATING FORMULAS ~~~**/
-        
-        if (ingredientRows > 0) {
-            // add up to subtotal
-            
-                //var addedSubTotals = parseFloat(currentTotal) + parseFloat(subTotal);
-                //var finalSubtracted = parseFloat(subtractedTotals).toFixed(2);
 
-            
-        } else {
-            
-        }
-        
-        
+        $(document).on('keyup keydown', '.userGrams', function(){
+            $('#calculateFormula').show();            
+            var currentSubTotal = $("#subTotal_"+ prid +"").text();  
+            var grams = $(this);
+            var prid = $(grams).data('prid');
+            var cpg = $(grams).data('cpg');
+            var userGrams = $(grams).val();            
+            var subTotal = parseFloat(userGrams) * parseFloat(cpg);             
+            var ingredientSubTotal = parseFloat(subTotal).toFixed(2);
+            var grandTotal = '0.00';            
 
-        
-        
+            $("#subTotal_"+ prid +"").html(ingredientSubTotal);
+            
+        });
+          
         /** FORMULA OVERVIEW - REMOVE ADDED INGREDIENT **/
             $(document).on('click','.removeIngredient', function() {
-                $('div.dataTables_filter input').val('');
-                $('div.dataTables_filter input').focus();
                 var remove = $(this);
-                var subTotal = $(this).attr('data-subtotal');
-                var rprid = $(this).attr('data-ingredientid');
-                var tr = $(this).closest('tr');
-                var currentTotal = $('#grandTotal').text();
-
-                var subtractedTotals = parseFloat(currentTotal) - parseFloat(subTotal);
-                var finalSubtracted = parseFloat(subtractedTotals).toFixed(2);
-
-                $('.passformula_' + rprid).prop('disabled',true);
-                $('#'+rprid).val('');
-                $('#subtotal_'+rprid).html('');
-                $('#row_'+rprid).remove();  
+                var rprid = $(this).data('prid');
                 
-                if(subtractedTotals < 0.01 )
-                {
-                    var newTotal = $('#grandTotal').html('0.00');
-                    $('#saveFormula').hide();
-                    $('#formulaName').val('');
-                    $('#formulaName').prop('disabled', false);
-                } else {
-                    var newTotal = $('#grandTotal').html(finalSubtracted);
-                }
-                var grandTotal = parseFloat(newTotal).toFixed(2);
+                var tr = $(this).closest('tr');
+                $('#subtotal_'+rprid).html('');
+                $(tr).remove();
+                if ($('#ingRows > tr').length == 0){
+                    $('#calculateFormula').hide();  
+                    $('#saveFormula').prop('disabled',true);
+                    $( ".finalizeFormula" ).slideUp( "slow", function() {
+                        $( ".finalizeFormula" ).hide();
+                  });
+                    $('#stepTwo').slideUp( "slow", function() {
+                        $( "#newFormula" ).fadeOut(1300);
+                      });
+                    $("#ingredientsAuto").focus();
+                }  
                 return false;
-            });        
+            });
+            
+         /** FORMULA CALCULATION **/ 
+         $('#calculateFormula').on('click change keydown',function(){
+            $("#formulaName").focus();
+            var sum = 0;
+            $( ".subTotals" ).each(function() {
+                var value = $(this).text();
+                // add only if the value is number
+                if(!isNaN(value) && value.length != 0) {
+                    sum += parseFloat(value);
+                }
+              });
+              $('#grandTotal').html(parseFloat(sum).toFixed(2));
+              $( ".finalizeFormula" ).slideDown( "slow", function() {
+                    $( ".finalizeFormula" ).show();
+              });
+         });
+         
+         $('#formulaName').on('keydown',function(){
+            $('#saveFormula').prop('disabled',false);
+         })
+         
             
         </script>       
     @endpush
