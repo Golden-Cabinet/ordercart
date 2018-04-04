@@ -58,13 +58,21 @@
            /**~~~ AUTOCOMPLETE SEARCH - STEP 1 OF CREATING FORMULAS ~~~**/
             var dataSrc = [
                 @foreach($formulas as $formula)
-                    "{{ $formula['name'] }} - {{ $formula['brand'] }}",
+                    "{!! $formula['name'] !!} - {!! $formula['brand'] !!}",
                 @endforeach
             ];
 
             $("#ingredientsAuto").autocomplete({
                 source: dataSrc,
                 minLength: 2,
+                _renderItem: function(ul, item) {
+                    return $("<li>")
+                        .attr("data-value", item.value)
+                        //no need to unescape here
+                        //because htmlentities will get interpreted
+                        .append($("<a>").html(item.label))
+                        .appendTo(ul);
+                },
                 select: function( event , ui ) {
                     var selectedProduct = ui.item.label;
                     var prodKey = selectedProduct.split(" - ");
