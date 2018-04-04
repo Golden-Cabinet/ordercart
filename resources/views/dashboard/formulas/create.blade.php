@@ -127,16 +127,16 @@
         
         // address weird shift+tab issue to get back into grams field
         $( document ).ready(function() {
-            $('#calculateFormula').on('keydown', function(e) {    
+            $('#calculateFormula').on('keydown blur', function(e) {    
                 var keyCode = e.keyCode || e.which;     
                     if(e.shiftKey) {
                         console.log(e.keyCode);
                         if(e.keyCode == 9){
                             $("#ingredientsAuto").focus();
-                        }                 
-                    }
-  
-                                             
+                        }   else {
+                            console.log(e.keyCode);
+                        }                
+                    }                       
             });
         });
         
@@ -163,9 +163,15 @@
 
         function limit(element)
         {
-            var max_chars = 3;
+             
+            var split = element.value.toString().split('.');
+            if(split[0] < 4){
+                var max_chars = 3; 
+            } else {
+                var max_chars = 4; 
+            }
 
-            if(element.value.length > max_chars) {
+            if(split[1] > max_chars) {
                 element.value = element.value.substr(0, max_chars);
             }
         }
@@ -193,7 +199,8 @@
             });
             
          /** FORMULA CALCULATION **/ 
-         $('#calculateFormula').bind('click change',function(){
+         $('#calculateFormula').on('click',function(){
+
             $("#formulaName").focus();
             var sum = 0;
             $( ".subTotals" ).each(function() {
@@ -211,8 +218,10 @@
          });
          
          $('#formulaName').on('change',function(){
-            $('#saveFormula').prop('disabled',false);
-         })
+             if($('#formulaName').length){
+                $('#saveFormula').prop('disabled',false);
+             }            
+         });
          
             
         </script>       
