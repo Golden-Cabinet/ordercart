@@ -9,7 +9,7 @@
     <h5 class="card-header bg-info text-white"><i class="fas fa-flask"></i>  Formula Overview</h5>
     <div class="card-body">
         <h5>Step 1: Search For Ingredients</h5>
-            <input id="ingredientsAuto" class="form-control mb-4" placeholder="Start Your Search Here">
+            <input id="ingredientsAuto" class="form-control mb-4" tabindex="0" placeholder="Start Your Search Here">
         
         <div id="stepTwo" style="display: none;">
         <form method="POST" id="newFormula" enctype="application/x-www-form-urlencoded" action="/dashboard/formulas/store">        
@@ -42,6 +42,26 @@
         </div>
     </div>
     </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="dupeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Attention</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        This ingredient has already been added.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 @push('headscripts')
@@ -89,20 +109,45 @@
                                 $( "#newFormula" ).fadeIn(1300);
                               });                            
                             var productDetails = data['ingredient'][0];
-                            var addRow = '<tr id="row_'+ productDetails["id"] +'"><td>'+ productDetails["pinyin"] +'</td><td><input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" data-cpg="'+ productDetails["costPerGram"] +'" data-prid="'+ productDetails["id"] +'" autofocus class="userGrams form-control" style="max-width: 100%" step="0.1" id="userGram_'+ productDetails["id"] +'" name="userGram_'+ productDetails["id"] +'"></td><td>$'+ productDetails["costPerGram"] +'</td><td>$<span class="subTotals" id="subTotal_'+ productDetails["id"] +'">0.00</span></td><td><a href="#" tabindex="-1" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
-                            $('#ingredientslist > tbody:last').append(addRow);                           
-                            $("#userGram_"+ productDetails['id'] +"").focus();
-                            $("#ingredientsAuto").blur();                            
+
+                            //check for existing row to prevent dupe
+                            if($("#row_"+ productDetails['id'] +"").length){
+                                $('#dupeModal').modal();
+                                
+                            } else {                                
+                                var addRow = '<tr id="row_'+ productDetails["id"] +'"><td>'+ productDetails["pinyin"] +'</td><td><input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" data-cpg="'+ productDetails["costPerGram"] +'" data-prid="'+ productDetails["id"] +'" autofocus class="userGrams form-control" style="max-width: 100%" step="0.1" id="userGram_'+ productDetails["id"] +'" name="userGram_'+ productDetails["id"] +'"></td><td>$'+ productDetails["costPerGram"] +'</td><td>$<span class="subTotals" id="subTotal_'+ productDetails["id"] +'">0.00</span></td><td><a href="#" tabindex="-1" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
+                                $('#ingredientslist > tbody:last').append(addRow);
+                            }
+                            
+                            $("#userGram_"+ productDetails['id'] +"").focus();                           
                         }
                     })                    
                 }
             });          
-    
+        
+        // address weird shift+tab issue to get back into grams field
+        $( document ).ready(function() {
+            $('#calculateFormula').on('keydown', function(e) {    
+                var keyCode = e.keyCode || e.which;     
+                    if(e.shiftKey) {
+                        console.log(e.keyCode);
+                        if(e.keyCode == 9){
+                            $("#ingredientsAuto").focus();
+                        }                 
+                    }
+  
+                                             
+            });
+        });
+        
             
         /**~~~ FORMULA OVERVIEW MANAGEMENT - STEP 2 OF CREATING FORMULAS ~~~**/
 
-        $(document).on('keyup keydown', '.userGrams', function(){
-            $('#calculateFormula').show();            
+        $(document).on('change keyup keydown', '.userGrams', function(){
+            if($('.userGrams').length){
+                $('#calculateFormula').show(); 
+            }
+                       
             var currentSubTotal = $("#subTotal_"+ prid +"").text();  
             var grams = $(this);
             var prid = $(grams).data('prid');
@@ -148,7 +193,7 @@
             });
             
          /** FORMULA CALCULATION **/ 
-         $('#calculateFormula').on('click change keydown',function(){
+         $('#calculateFormula').bind('click change',function(){
             $("#formulaName").focus();
             var sum = 0;
             $( ".subTotals" ).each(function() {
@@ -161,10 +206,11 @@
               $('#grandTotal').html(parseFloat(sum).toFixed(2));
               $( ".finalizeFormula" ).slideDown( "slow", function() {
                     $( ".finalizeFormula" ).show();
+                    $("#formulaName").focus();
               });
          });
          
-         $('#formulaName').on('keydown',function(){
+         $('#formulaName').on('change',function(){
             $('#saveFormula').prop('disabled',false);
          })
          
