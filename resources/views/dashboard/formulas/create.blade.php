@@ -129,12 +129,8 @@
         $( document ).ready(function() {
             $('#calculateFormula').on('keydown blur', function(e) {    
                 var keyCode = e.keyCode || e.which;     
-                    if(e.shiftKey) {
-                        console.log(e.keyCode);
-                        if((e.keyCode == 9) || (e.keyCode == 13)){
-                            $("#ingredientsAuto").focus();
-                        } 
-
+                    if(e.shiftKey && e.keyCode == 9) {
+                        $("#ingredientsAuto").focus();
                     }                       
             });
         });
