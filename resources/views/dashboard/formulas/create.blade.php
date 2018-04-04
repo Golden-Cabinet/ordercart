@@ -112,11 +112,14 @@
 
                             //check for existing row to prevent dupe
                             if($("#row_"+ productDetails['id'] +"").length){
-                                $('#dupeModal').modal();
-                                
+                                $('#dupeModal').modal();                                
                             } else {                                
                                 var addRow = '<tr id="row_'+ productDetails["id"] +'"><td>'+ productDetails["pinyin"] +'</td><td><input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" data-cpg="'+ productDetails["costPerGram"] +'" data-prid="'+ productDetails["id"] +'" autofocus class="userGrams form-control" style="max-width: 100%" step="0.1" id="userGram_'+ productDetails["id"] +'" name="userGram_'+ productDetails["id"] +'"></td><td>$'+ productDetails["costPerGram"] +'</td><td>$<span class="subTotals" id="subTotal_'+ productDetails["id"] +'">0.00</span></td><td><a href="#" tabindex="-1" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
                                 $('#ingredientslist > tbody:last').append(addRow);
+                                // if we have any existing rows, we always wait until the new one has got a value before moving on
+                                if($('#ingRows > tr').length > 0){
+                                    $('#calculateFormula').hide();
+                                }
                             }
                             
                             $("#userGram_"+ productDetails['id'] +"").focus();                           
@@ -212,10 +215,16 @@
               });
          });
          
-         $('#formulaName').on('change',function(){
-             if($('#formulaName').length){
+         $('#formulaName').on('change keydown',function(e){
+            var keyCode = e.keyCode || e.which;     
+            if(e.shiftKey && e.keyCode == 9) {
+                $("#ingredientsAuto").focus();
+            }
+             if($('#formulaName').val().length <= 4){
+                $('#saveFormula').prop('disabled',true);
+             } else {
                 $('#saveFormula').prop('disabled',false);
-             }            
+             }           
          });
          
             
