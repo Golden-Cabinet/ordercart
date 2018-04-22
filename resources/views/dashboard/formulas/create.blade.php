@@ -8,13 +8,12 @@
     <div class="card">
     <h5 class="card-header bg-info text-white"><i class="fas fa-flask"></i>  Formula Overview</h5>
     <div class="card-body">
-        <h5>Step 1: Search For Ingredients</h5>
-            <input id="ingredientsAuto" class="form-control mb-4" tabindex="0" placeholder="Start Your Search Here">
+        
         
         <div id="stepTwo" style="display: none;">
         <form method="POST" id="newFormula" enctype="application/x-www-form-urlencoded" action="/dashboard/formulas/store">        
             <div class="table-responsive mb-4" style="width: 100%;">
-                    <h5>Step 2: Modify Your Selected Ingredients</h5>
+                    <h5>Modify Your Selected Ingredients</h5>
                 <table class="ca-dt-bootstrap table" id="ingredientslist">
                     <tr>
                         <th style="width: 40%">Pinyin</th>
@@ -25,19 +24,37 @@
                     </tr>                
                     <tbody id="ingRows"></tbody>
                 </table>
-                <hr />
-                <a href="#" id="calculateFormula" style="display:none;" class="btn btn-info btn-lg text-center float-right"><i class="fas fa-calculator"></i> Finalize Formula</a>
+                <hr />                
             </div>            
             {{ csrf_field() }}
             <hr />
+            <div class="finalizeFormula" style="display: none">
+                <h5>Create Your Formula Name and Save It!</h5>
+            <input type="text" style="background: #ffffe0" class="form-control mb-4" id="formulaName" name="formula_name" placeholder="Enter Your New Formula Name">
+            <div class="col-md-6 float-left text-bold" style="font-size: 1.2rem;"><p>Grand Total: $<span id="grandTotal">0.00</span></p> </div> 
+                <button href="#" id="saveFormula" type="submit" class="btn btn-success btn-lg text-center float-right"><i class="fas fa-check"></i> Save Formula</button>
+           
         </div>
-            <div class="finalizeFormula" style="display: none;">
-                    <h5>Step 3: Create Your Formula Name and Save It!</h5>
-                <input type="text" style="background: #ffffe0" class="form-control mb-4" id="formulaName" name="formula_name" placeholder="Enter Your New Formula Name">
-                <div class="col-md-6 float-left text-bold" style="font-size: 1.2rem;"><p>Grand Total: $<span id="grandTotal">0.00</span></p> </div> 
-                    <button href="#" id="saveFormula" type="submit" class="btn btn-success btn-lg text-center float-right"><i class="fas fa-check"></i> Save Formula</button>
-               
-            </div>
+        </div>
+        
+        <div class="col-md-5 float-left">
+                <h5>Search For Ingredients</h5>
+                <input id="ingredientsAuto" class="form-control mb-4" tabindex="0" placeholder="Start Your Search Here">  
+        </div>
+        
+        <div class="col-md-4 float-left">
+                <h5>Grams</h5>
+            <input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" id="initialgrams" class="form-control">
+        </div>
+
+        <div class="col-md-3  float-left mt-2">
+            <a href=""id="addToTopRow" class="btn btn-info mt-4 text-white">Add To Formula</a>
+            
+        </div>
+        <div style="clear: both"><a href="#" id="calculateFormula" style="display:none;" class="btn btn-info text-center float-right"><i class="fas fa-calculator"></i> Finalize Formula</a></div>
+
+
+                      
         </form>
         </div>
     </div>
