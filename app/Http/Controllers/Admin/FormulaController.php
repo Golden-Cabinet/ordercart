@@ -117,7 +117,7 @@ class FormulaController extends Controller
         }
 
         $inputs = $request->input();
-
+        dd($inputs);
         foreach($inputs as $key => $field) {
             if(!strpos($key,'formulaData_')){
                 unset($inputs[$key]);

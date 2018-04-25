@@ -3,8 +3,6 @@
 <h4><i class="far fa-plus-square"></i> Create A New Formula</h4>
 <hr />
 
-
-
     <div class="card">
     <h5 class="card-header bg-info text-white"><i class="fas fa-flask"></i>  Formula Overview</h5>
     <div class="card-body">
@@ -12,39 +10,38 @@
         
         <div id="stepTwo" style="display: none;">
         <form method="POST" id="newFormula" enctype="application/x-www-form-urlencoded" action="/dashboard/formulas/store">        
-            <div class="table-responsive mb-4" style="width: 100%;">
-                    <h5>Modify Your Selected Ingredients</h5>
-                <table class="ca-dt-bootstrap table" id="ingredientslist">
-                    <tr>
-                        <th style="width: 40%">Pinyin</th>
-                        <th style="width: 25%">Grams</th>
-                        <th style="width: 20%">$/Gram</th>
-                        <th style="10%">Subtotal</th>
-                        <th style="width: 5%">&nbsp;</th>
-                    </tr>                
-                    <tbody id="ingRows"></tbody>
-                </table>
-                <div class="col-md-8 float-right" style="border-top: 1px solid black; clear: both">
-                        <table class="table" id="ingredientsTotal">
-                            <tr>
-                                <td style="width: 40%">Total</td>
-                                <td style="width: 25%">Grams</td>
-                                <tdth style="width: 20%">&nbsp;</td>
-                                <td style="10%">&nbsp;</td>
-                                <td style="width: 5%">$<span id="runningTotal">0.00</span><td>
-                            </tr>                
-                        </table>
-                </div>    
+            <div class="table-responsive" style="width: 100%;">
+                <h5>Modify Your Selected Ingredients</h5>                    
+                    <table class="ca-dt-bootstrap table" style="width: 100%;" id="ingredientslist">
+                        <tr>
+                            <th class="col-md-5">Pinyin</th>
+                            <th class="col-md-2">Grams</th>
+                            <th class="col-md-2">$/Gram</th>
+                            <th class="col-md-2">Subtotal</th>
+                            <th class="col-md-1">&nbsp;</th>
+                        </tr>                
+                        <tbody id="ingRows" style="width: 100%"></tbody>
+                    </table>             
+            </div>
+            
+
+            <div id="ingredientsTotal" class="col-md-8 mt-1" style="float: right; margin-right: 90px; clear: both; border-top: 1px solid black; font-weight: bold">
+
+                <div class="col-md-3 float-left pt-2">Totals:</div>
+                <div class="col-md-6 float-left pt-2" style="padding-left: 0.6rem;"><span id="totalGrams"></span></div>
+                <div class="col-md-2 float-left pt-2" style="padding-left: 1.1rem;">$<span id="runningTotal">0.00</span></div>
+
+            </div>
+
                 
-                <hr />                
-            </div>            
-            {{ csrf_field() }}            
+            {{ csrf_field() }}          
         
         </div>
         
-        <div style="width: 100%">
+        <div style="width: 100%; clear: both;">
+                <hr />
             <div class="col-md-7 float-left">
-                    <h5>Search For Ingredients</h5>
+                    <h5 class="ingredientSearch">Search For Ingredients</h5>
                     <input id="ingredientsAuto" class="form-control mb-4" tabindex="0" placeholder="Start Your Search Here">  
             </div>
             
@@ -54,17 +51,16 @@
             </div>
 
             <div class="col-md-2  float-left mt-2 mb-4">
-                <p class="text-right"><a href="#" id="addToTopRow" class="btn btn-info mt-4 text-white" data-ingredientId="" data-ingredient="" data-cpg="">Add To Formula</a></p>            
+                <p class="text-right"><a href="#" style="display: none" id="addToTopRow" class="btn btn-info mt-4 text-white" data-ingredientId="" data-ingredient="" data-cpg="">Add To Formula</a></p>            
             </div>            
         </div>
 
-        <div style="clear: both; width: 100%"><span id="calculateFormula" style="display:none;" class="btn btn-info text-center float-right"><i class="fas fa-calculator"></i> Finalize Formula</span></div>
+        <div style="clear: both; width: 100%"><span id="calculateFormula" style="display:none;" class="btn btn-info text-center float-right mb-4"><i class="fas fa-calculator"></i> Finalize Formula</span></div>
         <hr style="clear: both; width: 100%" />
         <div class="finalizeFormula" style="display: none; width: 100%; clear: both;">
                 
             <h5>Create Your Formula Name and Save It!</h5>
             <input type="text" style="background: #ffffe0" class="form-control mb-4" id="formulaName" name="formula_name" placeholder="Enter Your New Formula Name">
-            <div class="col-md-6 float-left text-bold" style="font-size: 1.2rem;"><p>Grand Total: $<span id="grandTotal">0.00</span></p> </div> 
             <button href="#" id="saveFormula" type="submit" class="btn btn-success btn-lg text-center float-right"><i class="fas fa-check"></i> Save Formula</button>    
         </div>
                       
@@ -102,7 +98,7 @@
 
     @push('js')
     <script>
-
+            
             $("#ingredientsAuto").focus();
             $('#saveFormula').prop('disabled',true);        
            /**~~~ AUTOCOMPLETE SEARCH - STEP 1 OF CREATING FORMULAS ~~~**/
@@ -150,8 +146,17 @@
                 }
             });
 
+        // enable add to formula if grams field is filled in
+        $("#initialgrams").on('keydown change',function(){
+            if($(this).length){
+                $("#addToTopRow").show();
+            }
+        });
+
         // add ingredient button stuff
         $("#addToTopRow").on('click keydown', function(){
+            $("#addToTopRow").hide();
+            $("#ingredientSearch").text('Add Additional Ingredients To Formula');
             var currentGrams = $('#initialgrams').val();
             $("#ingredientsAuto").val('');
             $('#initialgrams').val('');
@@ -177,6 +182,8 @@
             } else {                
                 var addRow = '<tr id="row_'+ productId +'"><td>'+ productName +'</td><td><input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" data-cpg="'+ productCostPerGram +'" data-prid="'+ productId +'" autofocus class="userGrams form-control" style="max-width: 100%" step="0.1" id="userGram_'+ productId +'" name="userGram_'+ productId +'" value="'+currentGrams+'"></td><td>$'+ productCostPerGram +'</td><td class="subs">$<span class="subTotals" id="subTotal_'+ productId +'">'+ingredientSubTotal+'</span></td><td><a href="#" tabindex="-1" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
                 $('#ingredientslist > tbody:last').append(addRow);
+                var addHidden = '<input type="hidden" name="formulaID_'+productId+'" value="'+productId+'">';
+                $("#newFormula").append(addHidden);
                 // if we have any existing rows, we always wait until the new one has got a value before moving on
                 $("#addToTopRow").attr('data-ingredientId','');
                 $("#addToTopRow").attr('data-ingredient','');
@@ -184,7 +191,8 @@
                 if($('#ingRows > tr').length > 0){
                     $('#calculateFormula').hide();
                 }
-                $("#userGram_"+ productId +"").focus();
+                $("#ingredientsAuto").focus();
+                //$("#userGram_"+ productId +"").focus();
             }
             
         })    
@@ -216,7 +224,7 @@
             var ingredientSubTotal = parseFloat(subTotal).toFixed(2);
             var currentGrandTotal = $('#runningTotal').text();
             var parsedGrandTotal = parseFloat(currentGrandTotal);
-            
+            update_gram_amounts();
             update_amounts();
        
 
@@ -229,13 +237,25 @@
             {
                 var sum = 0;
                 $('.subTotals').each(function () {
-                    var prodprice = Number($(this).text());
+                    var prodprice = parseFloat($(this).text());
+                    console.log(prodprice);
+                    sum = sum + prodprice;
+                });
+                $("#runningTotal").text(sum.toFixed(2));
+            }
+
+        // dynamically adjust gram totals
+        function update_gram_amounts()
+            {
+                var sum = 0;
+                $('.userGrams').each(function () {
+                    var prodprice = parseFloat($(this).val());
                     console.log(prodprice);
                     sum = sum + prodprice;
                 });
 
-                $("#runningTotal").text(sum.toFixed(2));
-            }
+                $("#totalGrams").text(sum.toFixed(1));
+            }    
 
         function limit(element)
         {
@@ -272,6 +292,7 @@
                       });
                     $("#ingredientsAuto").focus();
                 }
+                update_gram_amounts();
                 update_amounts();  
                 return false;
             });
@@ -288,7 +309,6 @@
                     sum += parseFloat(value);
                 }
               });
-              $('#grandTotal').html(parseFloat(sum).toFixed(2));
               $( ".finalizeFormula" ).slideDown( "slow", function() {
                     $( ".finalizeFormula" ).show();
                     $("#formulaName").focus();
