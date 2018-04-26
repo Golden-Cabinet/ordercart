@@ -220,7 +220,7 @@
             
         /**~~~ FORMULA OVERVIEW MANAGEMENT - STEP 2 OF CREATING FORMULAS ~~~**/
 
-        $(document).on('change keyup keydown', '.userGrams', function(){
+        $(document).on('change keyup keydown click', '.userGrams', function(){
             if($('.userGrams').length){
                 $('#calculateFormula').show(); 
             }
