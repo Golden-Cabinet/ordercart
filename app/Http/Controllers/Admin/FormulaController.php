@@ -116,27 +116,10 @@ class FormulaController extends Controller
             return redirect()->route('dashboardindex');
         }
 
-        $inputs = $request->input();
-        dd($inputs);
-        foreach($inputs as $key => $field) {
-            if(!strpos($key,'formulaData_')){
-                unset($inputs[$key]);
-            }            
-            $ingredients[] = json_decode($field); 
-        }
-
-        $ingredientList = array_filter($ingredients);
-        $formulaArr = [];
-        foreach($ingredientList as $list)
-        {
-            $formulaArr[] = ['product_id' => $list->product_id,'grams' => $list->grams, 'subtotal' => $list->subtotal];
-            $grams[] = $list->grams;
-            $sums[] = $list->subtotal;
-        }
 
         $formula = new Formula;
         $formula->name = $request->formula_name;
-        $formula->data = json_encode($formulaArr);
+        $formula->data = json_encode($request->formulaData);
         $formula->users_id = \Auth::user()->id;
         $formula->save();
        

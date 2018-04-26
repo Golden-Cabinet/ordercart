@@ -63,7 +63,7 @@
             <input type="text" style="background: #ffffe0" class="form-control mb-4" id="formulaName" name="formula_name" placeholder="Enter Your New Formula Name">
             <button href="#" id="saveFormula" type="submit" class="btn btn-success btn-lg text-center float-right"><i class="fas fa-check"></i> Save Formula</button>    
         </div>
-                      
+        <input type="hidden" name="formulaData" id="formulaData" value="">        
         </form>
         </div>
     </div>
@@ -123,7 +123,8 @@
                     var selectedProduct = ui.item.label;
                     var prodKey = selectedProduct.split(" - ");
                     var product = prodKey[0];
-                    var brand = prodKey[1];                                        
+                    var brand = prodKey[1];
+                    $("#ingredientsAuto").focus();                                        
 
                     //do an ajax get call to return this one product/brand combo for the formula overview
                     $.ajax({
@@ -147,16 +148,21 @@
             });
 
         // enable add to formula if grams field is filled in
-        $("#initialgrams").on('keydown change',function(){
-            if($(this).length){
+        $("#initialgrams").on('keyup keydown', function(){
+            var igVal = $("#initialgrams").val();
+            if(igVal.length > 0){
                 $("#addToTopRow").show();
+            } else {
+                $("#addToTopRow").hide();
             }
         });
 
+                
+
         // add ingredient button stuff
         $("#addToTopRow").on('click keydown', function(){
-            $("#addToTopRow").hide();
-            $("#ingredientSearch").text('Add Additional Ingredients To Formula');
+            
+            $(".ingredientSearch").text('Add Additional Ingredients To Formula');
             var currentGrams = $('#initialgrams').val();
             $("#ingredientsAuto").val('');
             $('#initialgrams').val('');
@@ -173,6 +179,9 @@
             var currentGrandTotal = $('#runningTotal').text();
             var newGrandTotal = parseFloat(currentGrandTotal) + parseFloat(subTotal);
             
+            // add to the elems object at beginning of script
+
+            
             var addedTotal = newGrandTotal;
             $('#runningTotal').html(parseFloat(newGrandTotal).toFixed(2));            
 
@@ -180,20 +189,21 @@
             if($("#row_"+productId +"").length){
                 $('#dupeModal').modal();                                
             } else {                
-                var addRow = '<tr id="row_'+ productId +'"><td>'+ productName +'</td><td><input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" data-cpg="'+ productCostPerGram +'" data-prid="'+ productId +'" autofocus class="userGrams form-control" style="max-width: 100%" step="0.1" id="userGram_'+ productId +'" name="userGram_'+ productId +'" value="'+currentGrams+'"></td><td>$'+ productCostPerGram +'</td><td class="subs">$<span class="subTotals" id="subTotal_'+ productId +'">'+ingredientSubTotal+'</span></td><td><a href="#" tabindex="-1" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
+                var addRow = '<tr id="row_'+ productId +'"><td>'+ productName +'</td><td><input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" data-cpg="'+ productCostPerGram +'" data-prid="'+ productId +'" autofocus class="userGrams form-control" style="max-width: 100%" step="0.1" id="userGram_'+ productId +'" value="'+currentGrams+'"></td><td>$'+ productCostPerGram +'</td><td class="subs">$<span class="subTotals" id="subTotal_'+ productId +'">'+ingredientSubTotal+'</span></td><td><a href="#" tabindex="-1" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
                 $('#ingredientslist > tbody:last').append(addRow);
-                var addHidden = '<input type="hidden" name="formulaID_'+productId+'" value="'+productId+'">';
-                $("#newFormula").append(addHidden);
                 // if we have any existing rows, we always wait until the new one has got a value before moving on
                 $("#addToTopRow").attr('data-ingredientId','');
                 $("#addToTopRow").attr('data-ingredient','');
                 $("#addToTopRow").attr('data-cpg','');
                 if($('#ingRows > tr').length > 0){
-                    $('#calculateFormula').hide();
+                    //$('#calculateFormula').hide();
+
+                    update_gram_amounts()
                 }
                 $("#ingredientsAuto").focus();
                 //$("#userGram_"+ productId +"").focus();
             }
+            $("#addToTopRow").hide();
             
         })    
         
@@ -298,7 +308,7 @@
             });
             
          /** FORMULA CALCULATION **/
-         $('#calculateFormula').on('click',function(){
+         $('#calculateFormula').on('click',function(){            
 
             $("#formulaName").focus();
             var sum = 0;
@@ -313,6 +323,16 @@
                     $( ".finalizeFormula" ).show();
                     $("#formulaName").focus();
               });
+              var obj = {};
+              var elements = []; // create object for hidden form field
+            $('.userGrams').each(function(){
+                var productID = $(this).attr('data-prid');
+                var productGrams = $(this).val();
+                var data = {"product_id":productID,"product_grams":productGrams};
+                elements.push(data);
+            });
+            console.log(elements);
+            $('#formulaData').val(JSON.stringify(elements));
          });
          
          $('#formulaName').on('change keydown',function(e){
