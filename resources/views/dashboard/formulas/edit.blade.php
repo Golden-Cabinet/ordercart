@@ -25,13 +25,14 @@
             </div>
             
 
-            <div id="ingredientsTotal" class="col-md-8 mt-1" style="float: right; margin-right: 150px; clear: both; border-top: 1px solid black; font-weight: bold">
-
-                <div class="col-md-3 float-left pt-2">Totals:</div>
-                <div class="col-md-5 float-left pt-2" style="padding-left: 1.3rem;">&nbsp;&nbsp;<span id="totalGrams"></span></div>
-                <div class="col-md-2 float-left pt-2" style="padding-left: 3rem; margin-left: 0;">$<span id="runningTotal">0.00</span></div>
-
-            </div>
+            <div id="ingredientsTotal" class="table-responsive mt-1" style="clear: both; border-top: 1px solid black; font-weight: bold">
+                    <table class="ca-dt-bootstrap table" style="width: 100%;" id="ingredientslist">
+                        <tr>
+                            <td class="col-md-3 col-xs-1 text-right">Totals:</td>
+                            <td class="col-md-3 col-xs-3" style="padding-left: 2.9rem;">&nbsp;&nbsp;<span id="totalGrams"></span></td>
+                            <td class="col-md-3 col-xs-3" style="padding-left: 1rem;">$<span id="runningTotal">0.00</span></td>
+                        </tr>    
+                    </table> 
 
                 
             {{ csrf_field() }}          
