@@ -70,7 +70,7 @@
         <input type="hidden" name="formulaData" id="formulaData" value="">        
         </form>
         </div>
-    </div>
+    
     </div>
 
     <!-- Modal -->

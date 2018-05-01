@@ -260,11 +260,15 @@ class FormulaController extends Controller
             return redirect()->route('dashboardindex');
         }      
 
+        
         $formulas = new Formula;
         $formula = $formulas::find($id);
         $formula->name = $request->formula_name;
         $formula->data = $request->formulaData;
         $formula->users_id = \Auth::user()->id;
+        if($request->undelete){
+            $formula->deleted = 0;
+        }
         $formula->save();
              
         return redirect()->route('formulasindex')->with('success', $request->formula_name.' Was Updated!'); 
