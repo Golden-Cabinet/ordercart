@@ -1,10 +1,10 @@
 @extends('dashboard.layouts.main')
 @section('content')
-<h4><i class="far fa-plus-square"></i> Create A New Formula</h4>
+<h4><i class="fas fa-flask"></i> Create A New Formula</h4>
 <hr />
 
     <div class="card">
-    <h5 class="card-header bg-info text-white"><i class="fas fa-flask"></i>  Formula Overview</h5>
+    <h5 class="card-header bg-info text-white"> Formula Overview</h5>
     <div class="card-body">
         
         
@@ -14,22 +14,22 @@
                 <h5>Modify Your Selected Ingredients</h5>                    
                     <table class="ca-dt-bootstrap table" style="width: 100%;" id="ingredientslist">
                         <tr>
-                            <th class="col-md-5">Pinyin</th>
-                            <th class="col-md-2">Grams</th>
-                            <th class="col-md-2">$/Gram</th>
-                            <th class="col-md-2">Subtotal</th>
-                            <th class="col-md-1">&nbsp;</th>
+                            <th style="width: 37%">Pinyin</th>
+                            <th style="width: 2%">Grams</th>
+                            <th style="width: 20%">$/Gram</th>
+                            <th style="width: 20%;">Subtotal</th>
+                            <thstyle="width: 20%">&nbsp;</th>
                         </tr>                
                         <tbody id="ingRows" style="width: 100%"></tbody>
                     </table>             
             </div>
             
 
-            <div id="ingredientsTotal" class="col-md-8 mt-1" style="float: right; margin-right: 90px; clear: both; border-top: 1px solid black; font-weight: bold">
+            <div id="ingredientsTotal" class="col-md-8 mt-1" style="float: right; margin-right: 150px; clear: both; border-top: 1px solid black; font-weight: bold">
 
                 <div class="col-md-3 float-left pt-2">Totals:</div>
-                <div class="col-md-6 float-left pt-2" style="padding-left: 0.6rem;"><span id="totalGrams"></span></div>
-                <div class="col-md-2 float-left pt-2" style="padding-left: 1.1rem;">$<span id="runningTotal">0.00</span></div>
+                <div class="col-md-5 float-left pt-2" style="padding-left: 1.3rem;">&nbsp;&nbsp;<span id="totalGrams"></span></div>
+                <div class="col-md-2 float-left pt-2" style="padding-left: 3rem; margin-left: 0;">$<span id="runningTotal">0.00</span></div>
 
             </div>
 
@@ -189,7 +189,7 @@
             if($("#row_"+productId +"").length){
                 $('#dupeModal').modal();                                
             } else {                
-                var addRow = '<tr id="row_'+ productId +'"><td>'+ productName +'</td><td><input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" data-cpg="'+ productCostPerGram +'" data-prid="'+ productId +'" autofocus class="userGrams form-control" style="max-width: 100%" step="0.1" id="userGram_'+ productId +'" value="'+currentGrams+'"></td><td>$'+ productCostPerGram +'</td><td class="subs">$<span class="subTotals" id="subTotal_'+ productId +'">'+ingredientSubTotal+'</span></td><td><a href="#" tabindex="-1" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
+                var addRow = '<tr id="row_'+ productId +'"><td>'+ productName +'</td><td><input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" data-cpg="'+ productCostPerGram +'" data-prid="'+ productId +'" autofocus class="userGrams form-control" style="width: 80px" step="0.1" id="userGram_'+ productId +'" value="'+currentGrams+'"></td><td>$'+ productCostPerGram +'</td><td class="subs">$<span class="subTotals" id="subTotal_'+ productId +'">'+ingredientSubTotal+'</span></td><td><a href="#" tabindex="-1" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
                 $('#ingredientslist > tbody:last').append(addRow);
                 // if we have any existing rows, we always wait until the new one has got a value before moving on
                 $("#addToTopRow").attr('data-ingredientId','');
@@ -328,7 +328,8 @@
             $('.userGrams').each(function(){
                 var productID = $(this).attr('data-prid');
                 var productGrams = $(this).val();
-                var data = {"product_id":productID,"product_grams":productGrams};
+                var cpg = $(this).attr('data-cpg');
+                var data = {"product_id":productID,"product_grams":productGrams,"product_cpg":cpg};
                 elements.push(data);
             });
             console.log(elements);
@@ -351,3 +352,4 @@
     @endpush
    
 @endsection
+

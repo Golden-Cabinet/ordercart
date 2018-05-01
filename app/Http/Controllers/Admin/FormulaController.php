@@ -116,10 +116,9 @@ class FormulaController extends Controller
             return redirect()->route('dashboardindex');
         }
 
-
         $formula = new Formula;
         $formula->name = $request->formula_name;
-        $formula->data = json_encode($request->formulaData);
+        $formula->data = $request->formulaData;
         $formula->users_id = \Auth::user()->id;
         $formula->save();
        
@@ -214,8 +213,7 @@ class FormulaController extends Controller
         //overview stuff
         $getFormulas = new Formula;
         $formula = $getFormulas::find($id);
-
-
+      
         $brand = new Brand; 
         
         foreach($products as $product)
@@ -228,21 +226,23 @@ class FormulaController extends Controller
                 'costPerGram' =>$product->costPerGram
             ];
         }
+        
+        $currentFormulaIngredients = json_decode($formula->data);
 
-        $currentFormula = json_decode($formula->data);
-        foreach($currentFormula as $current)
+        foreach($currentFormulaIngredients as $key)
         {
-            $subtotals[] = $current->subtotal;
+            $getInfo = $getProducts::find($key->product_id);
+            $currentFormula[] = ['id' => $getInfo->id,'name' => $getInfo->pinyin,'cpg' => $getInfo->costPerGram,'current_grams' => $key->product_grams,'subtotal' => round($getInfo->costPerGram * $key->product_grams, 2)];
         }
+
             $results = [
                 'formulaId' => $formula->id,
                 'formulaName' => $formula->name,
+                'formulaDeleted' => $formula->deleted,
                 'formulaIngredients' => $currentFormula,
                 'formulas' => $ingredient,
-                'formulaSum' => array_sum($subtotals)
             ];
 
-            //dd($results);
         return view('dashboard.formulas.edit', $results); 
     }
 
@@ -259,7 +259,7 @@ class FormulaController extends Controller
         {
             return redirect()->route('dashboardindex');
         }      
-
+        dd($request);
         $inputs = $request->input();
 
         foreach($inputs as $key => $field) {

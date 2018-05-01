@@ -13049,6 +13049,11 @@ a.text-dark:focus {
   }
 }
 
+ul.ui-autocomplete {
+  max-height: 200px !important;
+  overflow: auto !important;
+}
+
 .dataTables_scroll {
   animation: fadeIn ease 2s;
   -webkit-animation: fadeIn ease 2s;

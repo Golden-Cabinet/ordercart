@@ -15,7 +15,7 @@ $fa-font-path: "../../../node_modules/font-awesome/fonts" !default;
 @import 'node_modules/font-awesome/scss/font-awesome.scss';
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
-
+ul.ui-autocomplete { max-height: 200px !important; overflow: auto !important; }
 
 .dataTables_scroll {
     animation: fadeIn ease 2s;

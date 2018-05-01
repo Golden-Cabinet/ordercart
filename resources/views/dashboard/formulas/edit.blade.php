@@ -1,231 +1,390 @@
 @extends('dashboard.layouts.main')
 @section('content')
-<h4><i class="fas fa-pencil-alt"></i> Editing: {{ $formulaName }}</h4>
+<h4><i class="fas fa-flask"></i> Editing Formula: {{ $formulaName }}</h4>
 <hr />
 
-
-<div class="table-responsive col-md-7 float-left fade-in">
-    <table id="dashboardFormulasTable" class="ca-dt-bootstrap table" style="width: 100%;"></table>
-</div>
-<div class="col-md-5 float-right">
     <div class="card">
-    <h5 class="card-header bg-info text-white"><i class="fas fa-flask"></i> Overview: {{ $formulaName }}</h5>
+    <h5 class="card-header bg-info text-white">  Formula Overview</h5>
     <div class="card-body">
-        <h5 class="card-title">Select from the ingredients table, then create a formula name below.</h5>
-        <hr />
-        <form method="POST" id="newFormula" enctype="application/x-www-form-urlencoded" action="/dashboard/formulas/update/{{ $formulaId }}">
-        <input type="text" class="form-control" name="formula_name" value="{{ $formulaName }}" />
+        
+        
+        <div id="stepTwo">
+        <form method="POST" id="newFormula" enctype="application/x-www-form-urlencoded" action="/dashboard/formulas/update/{{ $formulaId }}">        
             <div class="table-responsive" style="width: 100%;">
-                <table class="ca-dt-bootstrap table" id="ingredientslist">
-                    <tr>
-                        <th>Ingredient</th>
-                        <th>Grams</th>
-                        <th>Subtotal</th>
-                        <th>&nbsp;</th>
-                    </tr>                
-                    <tbody>
-                        @foreach($formulaIngredients as $key => $val)
-                        <tr id="row_{{$val->product_id }}">
-                            <td>{{ \App\Product::getProductName($val->product_id) }}</td>
-                            <td>{{$val->grams }}</td><td>${{$val->subtotal }}</td>
-                            <td><a href="#" data-subtotal="{{$val->subtotal }}" data-ingredientid="{{$val->product_id }}" id="removeIngredient_{{$val->product_id }}" class="removeIngredient btn btn-sm btn-danger"><i class="fas fa-minus-circle"></i> Remove</a></td>                        
-                            <input type="hidden" id="formulaDataString_{{$val->product_id }}" name="formulaData_{{$val->product_id }}" value="{{ json_encode(['product_id' => $val->product_id, 'grams' => $val->grams, 'subtotal' => $val->subtotal]) }}">
-                        </tr>
-                        @endforeach
-
-                    </tbody>
-                </table>
-            </div>            
-            {{ csrf_field() }}
-            <hr />
-            <div class="col-md-8 float-left text-bold" style="font-size: 1.2rem;"><p>Grand Total: $<span id="grandTotal">{{ $formulaSum }}</span></p> </div> 
+                <h5>Modify Your Selected Ingredients</h5>                    
+                    <table class="ca-dt-bootstrap table" style="width: 100%;" id="ingredientslist">
+                        <tr>
+                            <th style="width: 37%">Pinyin</th>
+                            <th style="width: 2%">Grams</th>
+                            <th style="width: 20%">$/Gram</th>
+                            <th style="width: 20%;">Subtotal</th>
+                            <thstyle="width: 20%">&nbsp;</th>
+                        </tr>                
+                        <tbody id="ingRows" style="width: 100%"></tbody>
+                    </table>             
+            </div>
             
-            <div class="col-md-4 float-left"> 
-                <button href="#" id="saveFormula" type="submit" style="width: 100%;" class="btn btn-primary btn-sm text-center"><i class="fas fa-check-circle"></i> Update</button>
-                </div>
+
+            <div id="ingredientsTotal" class="col-md-8 mt-1" style="float: right; margin-right: 150px; clear: both; border-top: 1px solid black; font-weight: bold">
+
+                <div class="col-md-3 float-left pt-2">Totals:</div>
+                <div class="col-md-5 float-left pt-2" style="padding-left: 1.3rem;">&nbsp;&nbsp;<span id="totalGrams"></span></div>
+                <div class="col-md-2 float-left pt-2" style="padding-left: 3rem; margin-left: 0;">$<span id="runningTotal">0.00</span></div>
+
+            </div>
+
+                
+            {{ csrf_field() }}          
+        
+        </div>
+        
+        <div style="width: 100%; clear: both;">
+                <hr />
+            <div class="col-md-7 float-left">
+                    <h5 class="ingredientSearch">Add Additional Ingredients To Formula</h5>
+                    <input id="ingredientsAuto" autofocus class="form-control mb-4" tabindex="0" placeholder="Start Your Search Here">  
+            </div>
+            
+            <div class="col-md-3 float-left">
+                    <h5>Grams</h5>
+                <input type="number" step="0.1" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" id="initialgrams" class="form-control">
+            </div>
+
+            <div class="col-md-2  float-left mt-2 mb-4">
+                <p class="text-right"><a href="#" style="display: none" id="addToTopRow" class="btn btn-info mt-4 text-white" data-ingredientId="" data-ingredient="" data-cpg="">Add To Formula</a></p>            
+            </div>            
+        </div>
+
+        
+        <hr style="clear: both; width: 100%" />
+        <div class="finalizeFormula" style="width: 100%; clear: both;">
+                
+            <h5>Create Your Formula Name and Save It!</h5>
+            <input type="text" style="background: #ffffe0" class="form-control mb-4" value="{{ $formulaName }}" id="formulaName" name="formula_name" placeholder="Enter Your New Formula Name">
+            @if($formulaDeleted == 1)
+            <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="undelete" value="undelete" id="undelete">
+                    <label class="form-check-label" for="undelete">
+                      <strong class="text-danger">This formula is deleted. Click here To re-enable it as available for use.</strong>
+                    </label>
+                  </div>
+            @endif
+            <button href="#" id="saveFormula" type="submit" class="btn btn-success btn-lg text-center float-right"><i class="fas fa-check"></i> Save Formula</button>           
+                
+        </div>
+        <input type="hidden" name="formulaData" id="formulaData" value="">        
         </form>
         </div>
     </div>
     </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="dupeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Attention</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        This ingredient has already been added.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
-    @push('dataSet')
-    <script>
 
-            var dataSet = [                
-                @foreach($formulas as $formula)
-                    [                      
-                    "<strong>{{ $formula['name'] }}</strong> <br /><em class='text-secondary'>{{ $formula['brand'] }}</em>",
-                    "<input type='number' step='.01' min='0' id='{{ $formula['id'] }}' class='userGrams form-control' data-ingredient='{{ $formula['name'] }}' data-cpg='{{$formula['costPerGram']}}' data-prid='{{ $formula['id'] }}' name='grams_{{ $formula['id'] }}'>",
-                    "<span>{{ $formula['costPerGram'] }}</span>",
-                    "<span id='subtotal_{{ $formula['id'] }}'></span>",
-                    "<button href='#' data-selected_ingredient='{{ $formula['name'] }}' id='{{ $formula['id'] }}' data-cpg='{{ $formula['costPerGram'] }}' class='passformula_{{ $formula['id'] }} btn btn-success btn-sm'>Add</button>",                    
-                    ],
-               
-                @endforeach                
-            ];
-    
-            $(document).ready(function() {                
 
-                $('#dashboardFormulasTable').DataTable( {
-                    data: dataSet, 
-                    "bLengthChange": false,
-                    "scrollY": "600px",
-                    "bInfo" : false,
-                    "paging": false,
-                    
-                    language: {
-                        search: "_INPUT_",
-                        searchPlaceholder: "Search The Ingredients Table"
-                    }, 
-    
-                    columns: [                        
-                        { title: "Pinyin" },
-                        { title: "Grams" },
-                        { title: "$/gram" },
-                        { title: "Subtotal" },
-                        { title: "Add" }
-                    ],
-    
-                } );                
-                
-            } );
-            
+@push('headscripts')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet"/>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+@endpush    
 
-            var prodArray = [];
-
-            $(document).ready(function() { 
-
-                $('.dataTables_scroll').css('display','none');  
-                $('.btn-success').prop('disabled',true); 
-
-                $('#dashboardFormulasTable').on('shown.bs.modal', function(e){
-                    $($.fn.dataTable.tables(true)).DataTable()
-                       .columns.adjust();
-                 });
-
-                 var searchBox = $('input[type="search"]');
-                var $buttons = $('input[type=button]');
-                $(searchBox).bind('keyup change', function() {                    
-
-                    if($(searchBox).val().length > 1) {                    
-                        $('.dataTables_scroll').slideDown('slow');
-                    } else {                        
-                        $('.dataTables_scroll').slideUp('slow');
-                    };
-
-                });
-
-                var userGrams = $('.userGrams');
-                $(userGrams).bind('keyup change', function() {
-                    $(this).siblings(':button').prop('disabled', true);
-                    var current = $(this); 
-                    var prid = $(this).attr('data-prid'); 
-                    var currentButton = $('.passformula_' + prid);                  
-                                     
-                    if( $(current).val().length > 0) {                      
-                        
-                        hideTr(prid);
-                        $('.passformula_' + prid).prop('disabled',false);                        
-
-                        var ingredient = $(current).attr('data-ingredient');
-                        var grams = parseFloat($(current).val());
-                        var cpg = parseFloat($(current).attr('data-cpg'));
-                        var sub = grams*cpg;
-                        $('#subtotal_' + prid).html('$' + parseFloat(sub).toFixed(2));
-
-                        // add to overview
-
-                        $('.btn-success').unbind().click(function(){
-                            var newRow = '<tr id="row_' + prid + '"><td>' + ingredient +'</td><td>'+ grams +'</td><td>$' + parseFloat(sub).toFixed(2) +'</td><td><a href="#" data-subtotal="'+ parseFloat(sub).toFixed(2) +'" data-ingredientid="' + prid + '" id="removeIngredient_' + prid + '" class="removeIngredient btn btn-sm btn-danger">Remove</a></td>';
-                            $('#ingredientslist > tbody:last-child').append(newRow);
-                            $('.passformula_' + prid).prop('disabled',true);
-                            
-                            // update the total in the formula overview
-                            var currentTotal = $('#grandTotal').text();
-                            var newSum = parseFloat(sub).toFixed(2);
-                            
-                           if(currentTotal == '0.00')
-                           {
-                            var grandTotal = parseFloat(newSum).toFixed(2);
-                            showTr(prid);  
-                            
-                           } else {
-                            var addedTotals = parseFloat(currentTotal) + parseFloat(newSum);
-                            var grandTotal = parseFloat(addedTotals).toFixed(2);
-                           }
-                            $('#grandTotal').html(grandTotal);
-                            
-
-                            showTr(prid);
-                            
-                            //create new hidden field with values
-                            var values = {
-                                product_id: parseInt(prid),
-                                grams: parseInt(grams),
-                                subtotal: parseFloat(sub).toFixed(2)
-                            };
-                            
-                            $('<input>').attr({
-                                type: 'hidden',
-                                id: "formulaDataString",
-                                class: prid,
-                                name: "formulaData_"+prid+"",
-                                value: JSON.stringify(values)
-                            }).appendTo('#newFormula');
-                            //var hiddenField = '<input type="hidden" id="formulaDataString_'+prid+'" name="formulaData_'+prid+'" value="'+JSON.stringify(values)+''">';
-
-                             return false;
-                        });
-
-                    } else {                        
-                        $('.passformula_' + prid).prop('disabled',true);
-                        $('#subtotal_' + prid).html('');
-                    };
-                });
-                
-                function hideTr(id) {
-                    $('.userGrams').not('#' + id).prop('disabled',true);
-                }
-
-                function showTr(id) {
-                    $('.userGrams').not('#' + id).prop('disabled',false);
-                }
-
-                
-            });
-            
-            $(document).on('click','.removeIngredient', function() {
-                var remove = $(this);
-                var subTotal = $(this).attr('data-subtotal');
-                var rprid = $(this).attr('data-ingredientid');
-                var tr = $(this).closest('tr');
-                var currentTotal = $('#grandTotal').text();
-
-                var subtractedTotals = parseFloat(currentTotal) - parseFloat(subTotal);
-                var finalSubtracted = parseFloat(subtractedTotals).toFixed(2);
-
-                $('.passformula_' + rprid).prop('disabled',true);
-                $('#'+rprid).val('');
-                $('#subtotal_'+rprid).html('');
-                $('#row_'+rprid).remove();  
-                
-                if(subtractedTotals < 0.01 )
-                {
-                    var newTotal = $('#grandTotal').html('0.00');
-                } else {
-                    var newTotal = $('#grandTotal').html(finalSubtracted);
-                }
-                var grandTotal = parseFloat(newTotal).toFixed(2);
-                return false;
-            });        
-            
-        </script>
-    @endpush
     @push('js')
     <script>
+            $( document ).ready(function() {
+                // add in existing ingredients this way... for some stupid reason
+            @foreach($formulaIngredients as $ingredient)
+            var productId = "{{ $ingredient['id'] }}";
+            var productName = "{{ $ingredient['name'] }}";
+            var productCostPerGram = "{{ $ingredient['cpg'] }}";
+            var currentGrams = "{{ $ingredient['current_grams'] }}";
+            var subTotal = productCostPerGram * currentGrams; 
+            var ingredientSubTotal = parseFloat(subTotal).toFixed(2);
+            var currentGrandTotal = $('#runningTotal').text();
+            var newGrandTotal = parseFloat(currentGrandTotal) + parseFloat(subTotal);
+            
+            // add to the elems object at beginning of script
+            
+            var addedTotal = newGrandTotal;
+            $('#runningTotal').html(parseFloat(newGrandTotal).toFixed(2)); 
+            
+             var addRow = '<tr id="row_'+ productId +'"><td>'+ productName +'</td><td><input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" data-cpg="'+ productCostPerGram +'" data-prid="'+ productId +'" class="userGrams form-control" style="width: 80px" step="0.1" id="userGram_'+ productId +'" value="'+currentGrams+'"></td><td>$'+ productCostPerGram +'</td><td class="subs">$<span class="subTotals" id="subTotal_'+ productId +'">'+ingredientSubTotal+'</span></td><td><a href="#" tabindex="-1" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
+             $('#ingredientslist > tbody:last').append(addRow);
+
+             var obj = {};
+              var elements = []; // create object for hidden form field
+            $('.userGrams').each(function(){
+                var productID = $(this).attr('data-prid');
+                var productGrams = $(this).val();
+                var data = {"product_id":productID,"product_grams":productGrams};
+                elements.push(data);
+            });
+            $('#formulaData').val(JSON.stringify(elements));
+            @endforeach             
+        });   
+            
+
+            $("#ingredientsAuto").focus();
+            $('#saveFormula').prop('disabled',false);        
+           /**~~~ AUTOCOMPLETE SEARCH - STEP 1 OF CREATING FORMULAS ~~~**/
+            var dataSrc = [
+                @foreach($formulas as $formula)
+                    "{!! $formula['name'] !!} - {!! $formula['brand'] !!}",
+                @endforeach
+            ];
+
+            $("#ingredientsAuto").autocomplete({
+                source: dataSrc,
+                minLength: 2,
+                _renderItem: function(ul, item) {
+                    return $("<li>")
+                        .attr("data-value", item.value)
+                        //no need to unescape here
+                        //because htmlentities will get interpreted
+                        .append($("<a>").html(item.label))
+                        .appendTo(ul);
+                },
+                select: function( event , ui ) {
+                    var selectedProduct = ui.item.label;
+                    var prodKey = selectedProduct.split(" - ");
+                    var product = prodKey[0];
+                    var brand = prodKey[1];
+                    $("#ingredientsAuto").focus();                                        
+
+                    //do an ajax get call to return this one product/brand combo for the formula overview
+                    $.ajax({
+                        url : '/dashboard/formulas/search/product/'+ product +'/brand/'+ brand,
+                        type: 'GET',
+                        success : function(data){   
+                            $("#initialgrams").focus();                            
+
+                            // add data fields to button
+                            var productDetails = data['ingredient'][0];
+                            var productName= product;
+                            var productId = productDetails['id'];
+                            var productCostPerGram = productDetails['costPerGram'];
+                            $("#addToTopRow").attr('data-ingredientId',productId);
+                            $("#addToTopRow").attr('data-ingredient',productName);
+                            $("#addToTopRow").attr('data-cpg',productCostPerGram);
+
+                        }
+                    })                    
+                }
+            });
+
+        // enable add to formula if grams field is filled in
+        $("#initialgrams").on('keyup keydown', function(){
+            var igVal = $("#initialgrams").val();
+            if(igVal.length > 0){
+                $("#addToTopRow").show();
+            } else {
+                $("#addToTopRow").hide();
+            }
+        });
+
+                
+
+        // add ingredient button stuff
+        $("#addToTopRow").on('click keydown', function(){
+            
+            $(".ingredientSearch").text('Add Additional Ingredients To Formula');
+            var currentGrams = $('#initialgrams').val();
+            $("#ingredientsAuto").val('');
+            $('#initialgrams').val('');
+            $('#stepTwo').slideDown( "slow", function() {
+                $( "#newFormula" ).fadeIn(1300);
+                $("#calculateFormula").show();
+            });                           
+            
+            var productId = $(this).attr('data-ingredientId');
+            var productName = $(this).attr('data-ingredient');
+            var productCostPerGram = $(this).attr('data-cpg');
+            var subTotal = productCostPerGram * currentGrams; 
+            var ingredientSubTotal = parseFloat(subTotal).toFixed(2);
+            var currentGrandTotal = $('#runningTotal').text();
+            var newGrandTotal = parseFloat(currentGrandTotal) + parseFloat(subTotal);
+            
+            // add to the elems object at beginning of script
+
+            
+            var addedTotal = newGrandTotal;
+            $('#runningTotal').html(parseFloat(newGrandTotal).toFixed(2));            
+
+            //check for existing row to prevent dupe
+            if($("#row_"+productId +"").length){
+                $('#dupeModal').modal();                                
+            } else {                
+                var addRow = '<tr id="row_'+ productId +'"><td>'+ productName +'</td><td><input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" data-cpg="'+ productCostPerGram +'" data-prid="'+ productId +'" class="userGrams form-control" style="width: 80px" step="0.1" id="userGram_'+ productId +'" value="'+currentGrams+'"></td><td>$'+ productCostPerGram +'</td><td class="subs">$<span class="subTotals" id="subTotal_'+ productId +'">'+ingredientSubTotal+'</span></td><td><a href="#" tabindex="-1" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
+                $('#ingredientslist > tbody:last').append(addRow);
+                // if we have any existing rows, we always wait until the new one has got a value before moving on
+                $("#addToTopRow").attr('data-ingredientId','');
+                $("#addToTopRow").attr('data-ingredient','');
+                $("#addToTopRow").attr('data-cpg','');
+                if($('#ingRows > tr').length > 0){
+                    //$('#calculateFormula').hide();
+
+                    update_gram_amounts()
+                }
+                $("#ingredientsAuto").focus();
+                //$("#userGram_"+ productId +"").focus();
+            }
+            $("#addToTopRow").hide();
+            
+        })    
+
         
             
-    </script>
+        /**~~~ FORMULA OVERVIEW MANAGEMENT - STEP 2 OF CREATING FORMULAS ~~~**/
+
+        $(document).on('change keyup keydown click', '.userGrams', function(){
+                        
+            var currentSubTotal = $("#subTotal_"+ prid +"").text();            
+            var grams = $(this);
+            var prid = $(grams).data('prid');
+            var cpg = $(grams).data('cpg');
+            var userGrams = $(grams).val();            
+            var subTotal = parseFloat(userGrams) * parseFloat(cpg);                               
+            var ingredientSubTotal = parseFloat(subTotal).toFixed(2);            
+            var currentGrandTotal = $('#runningTotal').text();
+            var parsedGrandTotal = parseFloat(currentGrandTotal);
+            update_gram_amounts();
+            update_amounts();
+       
+
+            $("#subTotal_"+ prid +"").html(ingredientSubTotal);
+
+            var obj = {};
+              var elements = []; // create object for hidden form field
+            $('.userGrams').each(function(){
+                var productID = $(this).attr('data-prid');
+                var productGrams = $(this).val();
+                var data = {"product_id":productID,"product_grams":productGrams};
+                elements.push(data);
+            });
+            $('#formulaData').val(JSON.stringify(elements));
+            
+        });
+
+        // dynamically adjust the grand total
+        function update_amounts()
+            {
+                var sum = 0;
+                $('.subTotals').each(function () {
+                    var prodprice = parseFloat($(this).text());
+                    console.log(prodprice);
+                    sum = sum + prodprice;
+                });
+                $("#runningTotal").text(sum.toFixed(2));
+            }
+
+        // dynamically adjust gram totals
+        function update_gram_amounts()
+            {
+                var sum = 0;
+                $('.userGrams').each(function () {
+                    var prodprice = parseFloat($(this).val());
+                    console.log(prodprice);
+                    sum = sum + prodprice;
+                });
+
+                $("#totalGrams").text(sum.toFixed(1));
+            }    
+
+        function limit(element)
+        {
+             
+            var split = element.value.toString().split('.');
+            if(split[0] < 4){
+                var max_chars = 3; 
+            } else {
+                var max_chars = 4; 
+            }
+
+            if(split[1] > max_chars) {
+                element.value = element.value.substr(0, max_chars);
+            }
+        }
+          
+        /** FORMULA OVERVIEW - REMOVE ADDED INGREDIENT  **/
+            $(document).on('click','.removeIngredient', function() {
+                 
+                var remove = $(this);
+                var rprid = $(this).data('prid');
+                
+                var tr = $(this).closest('tr');
+                $('#subtotal_'+rprid).html('');
+                $(tr).remove();
+                if ($('#ingRows > tr').length == 0){
+                    $('#calculateFormula').hide();  
+                    $('#saveFormula').prop('disabled',true);
+                    
+                    $('#stepTwo').slideUp( "slow", function() {
+                        $( "#newFormula" ).fadeOut(1300);
+                      });
+                    $("#ingredientsAuto").focus();
+                }
+                update_gram_amounts();
+                update_amounts();  
+                return false;
+            });
+            
+         /** FORMULA CALCULATION **/
+         $('#calculateFormula').on('click',function(){            
+
+            $("#formulaName").focus();
+            var sum = 0;
+            $( ".subTotals" ).each(function() {
+                var value = $(this).text();
+                // add only if the value is number
+                if(!isNaN(value) && value.length != 0) {
+                    sum += parseFloat(value);
+                }
+              });
+              $( ".finalizeFormula" ).slideDown( "slow", function() {
+                    $( ".finalizeFormula" ).show();
+                    $("#formulaName").focus();
+              });
+              var obj = {};
+              var elements = []; // create object for hidden form field
+            $('.userGrams').each(function(){
+                var productID = $(this).attr('data-prid');
+                var productGrams = $(this).val();
+                var data = {"product_id":productID,"product_grams":productGrams};
+                elements.push(data);
+            });
+            $('#formulaData').val(JSON.stringify(elements));
+         });
+         
+         $('#formulaName').on('change keydown',function(e){
+            var keyCode = e.keyCode || e.which;     
+            if(e.shiftKey && e.keyCode == 9) {
+                $("#ingredientsAuto").focus();
+            }
+             if($('#formulaName').val().length <= 4){
+                $('#saveFormula').prop('disabled',true);
+             } else {
+                $('#saveFormula').prop('disabled',false);
+             }           
+         });
+            
+        </script>       
     @endpush
    
 @endsection
+
