@@ -159,7 +159,7 @@ class FormulaController extends Controller
         $newFormula = new Formula;
 
         // create a new record 
-        $newFormula->name = $getFormula->name.' - (Duplicate)';
+        $newFormula->name = $getFormula->name.' - '.\Auth::user()->name;
         $newFormula->data = $getFormula->data;
         $newFormula->users_id = $getFormula->users_id;
         $newFormula->save();
@@ -259,32 +259,14 @@ class FormulaController extends Controller
         {
             return redirect()->route('dashboardindex');
         }      
-        dd($request);
-        $inputs = $request->input();
 
-        foreach($inputs as $key => $field) {
-            if(!strpos($key,'formulaData_')){
-                unset($inputs[$key]);
-            }            
-            $ingredients[] = json_decode($field); 
-        }
-        
-        $ingredientList = array_filter($ingredients);        
-        $formulaArr = [];
-        foreach($ingredientList as $list)
-        {
-            $formulaArr[] = ['product_id' => $list->product_id,'grams' => $list->grams, 'subtotal' => $list->subtotal];
-            $grams[] = $list->grams;
-            $sums[] = $list->subtotal;
-        }
-        
-        $getFormula = new Formula;
-        $formula = $getFormula::find($id);
+        $formulas = new Formula;
+        $formula = $formulas::find($id);
         $formula->name = $request->formula_name;
-        $formula->data = json_encode($formulaArr);
+        $formula->data = $request->formulaData;
         $formula->users_id = \Auth::user()->id;
         $formula->save();
-
+             
         return redirect()->route('formulasindex')->with('success', $request->formula_name.' Was Updated!'); 
     }
 

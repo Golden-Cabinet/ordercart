@@ -127,6 +127,8 @@
              var addRow = '<tr id="row_'+ productId +'"><td>'+ productName +'</td><td><input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" data-cpg="'+ productCostPerGram +'" data-prid="'+ productId +'" class="userGrams form-control" style="width: 80px" step="0.1" id="userGram_'+ productId +'" value="'+currentGrams+'"></td><td>$'+ productCostPerGram +'</td><td class="subs">$<span class="subTotals" id="subTotal_'+ productId +'">'+ingredientSubTotal+'</span></td><td><a href="#" tabindex="-1" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
              $('#ingredientslist > tbody:last').append(addRow);
 
+             update_gram_amounts();
+
              var obj = {};
               var elements = []; // create object for hidden form field
             $('.userGrams').each(function(){
@@ -137,7 +139,16 @@
             });
             $('#formulaData').val(JSON.stringify(elements));
             @endforeach             
-        });   
+        });
+        
+        $(document).ready(function() {
+            $(window).keydown(function(event){
+              if(event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+              }
+            });
+          });
             
 
             $("#ingredientsAuto").focus();
