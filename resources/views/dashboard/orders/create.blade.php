@@ -15,8 +15,7 @@
         @include('dashboard.orders.partials.step4')
 
         @include('dashboard.orders.partials.step5')    
-              
-
+            
 </div>
 
 {{ csrf_field() }}
@@ -29,7 +28,8 @@
             $("#wizard").steps({
                 headerTag: "h2",
                 bodyTag: "section",
-                transitionEffect: "slideLeft"
+                transitionEffect: "slideLeft",
+                titleTemplate: "#title#" 
             });
         });
     </script>

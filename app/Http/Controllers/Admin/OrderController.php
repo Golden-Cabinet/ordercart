@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Order;
+use App\UserRole;
+use App\Patient;
+use App\Formula;
 
 class OrderController extends Controller
 {
@@ -56,8 +59,44 @@ class OrderController extends Controller
         {
             return redirect()->route('dashboardindex');
         }
+
         
-        return view('dashboard.orders.create'); 
+        // get the patients and formulas based on user role of current user
+        $currentRole = \Auth::user()->user_roles_id;
+        $userRole = new UserRole;
+        $roles = $userRole::find($currentRole);
+
+        // get the patients
+        $patients = new Patient;
+        $getPatients = $patients::where('users_id',\Auth::user()->id)
+        ->orderBy('name','asc')
+        ->get();
+
+
+        // get the formulas
+
+        $formulas = new Formula;
+
+        switch($roles->name){
+            case 'Admin':
+            $formula = $formulas->adminFormulas();
+            break;
+            case 'Practitioner':
+            $formula = $formulas->practitionerFormulas();
+            break;
+            case 'Student':
+            $formula = $formulas->patientFormulas();
+            break;
+            default: 
+            return null;
+        }
+
+        $results = [
+            'patients' => $getPatients,
+            'formulas' => $formula,
+        ];
+        
+        return view('dashboard.orders.create', $results); 
     }
 
     /**
