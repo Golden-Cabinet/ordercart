@@ -112,7 +112,8 @@
                 if($("#ingredientsAuto").val().length < 1)
                 {
                     $("#initialgrams").val('');
-                    $("#initialgrams").attr('disabled',true); 
+                    $("#initialgrams").attr('disabled',true);
+                    $("#addToTopRow").hide(); 
                 }
             });
 
