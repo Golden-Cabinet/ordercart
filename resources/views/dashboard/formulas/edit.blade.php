@@ -111,6 +111,7 @@
             $("#ingredientsAuto").on('change keyup keydown blur', function(){
                 if($("#ingredientsAuto").val().length < 1)
                 {
+                    $("#initialgrams").val('');
                     $("#initialgrams").attr('disabled',true); 
                 }
             });
