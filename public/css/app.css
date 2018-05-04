@@ -13274,14 +13274,6 @@ body.dofade {
   min-height: 78vh;
 }
 
-.content {
-  overflow: hidden;
-  overflow-x: scroll;
-  width: 100%;
-  padding: 0;
-  min-height: 80vh;
-}
-
 footer {
   border-top: 1px solid #d7d7d7;
   background: #f5f5f5;
@@ -14574,7 +14566,6 @@ ul.address li {
   background: white;
   display: block;
   margin: 0 0 2rem 0;
-  min-height: 35em;
   overflow: hidden;
   position: relative;
   width: auto;
@@ -14589,7 +14580,6 @@ ul.address li {
 
 .wizard > .content > .body {
   float: left;
-  position: absolute;
   width: 95%;
   height: 95%;
   padding: 2.5%;
@@ -14640,6 +14630,7 @@ ul.address li {
   display: block;
   text-align: right;
   width: 100%;
+  clear: both !important;
 }
 
 .wizard.vertical > .actions {

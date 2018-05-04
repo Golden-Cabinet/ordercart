@@ -108,6 +108,13 @@
 
     @push('js')
     <script>
+            $("#ingredientsAuto").on('change keyup keydown blur', function(){
+                if($("#ingredientsAuto").val().length < 1)
+                {
+                    $("#initialgrams").attr('disabled',true); 
+                }
+            });
+
             $( document ).ready(function() {
                 // add in existing ingredients this way... for some stupid reason
             @foreach($formulaIngredients as $ingredient)
@@ -177,6 +184,7 @@
                     var prodKey = selectedProduct.split(" - ");
                     var product = prodKey[0];
                     var brand = prodKey[1];
+                    $("#initialgrams").attr('disabled',false);
                     $("#ingredientsAuto").focus();                                        
 
                     //do an ajax get call to return this one product/brand combo for the formula overview
@@ -222,7 +230,8 @@
             $('#stepTwo').slideDown( "slow", function() {
                 $( "#newFormula" ).fadeIn(1300);
                 $("#calculateFormula").show();
-            });                           
+            });
+            $("#ingredientsAuto").focus();                           
             
             var productId = $(this).attr('data-ingredientId');
             var productName = $(this).attr('data-ingredient');
@@ -240,7 +249,8 @@
 
             //check for existing row to prevent dupe
             if($("#row_"+productId +"").length){
-                $('#dupeModal').modal();                                
+                $('#dupeModal').modal(); 
+                $("#ingredientsAuto").focus();                                
             } else {                
                 var addRow = '<tr id="row_'+ productId +'"><td>'+ productName +'</td><td><input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" data-cpg="'+ productCostPerGram +'" data-prid="'+ productId +'" class="userGrams form-control" style="width: 80px" step="0.1" id="userGram_'+ productId +'" value="'+currentGrams+'"></td><td>$'+ productCostPerGram +'</td><td class="subs">$<span class="subTotals" id="subTotal_'+ productId +'">'+ingredientSubTotal+'</span></td><td><a href="#" tabindex="-1" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
                 $('#ingredientslist > tbody:last').append(addRow);

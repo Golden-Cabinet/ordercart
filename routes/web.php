@@ -44,7 +44,7 @@ Route::group(['prefix' => 'dashboard',  'middleware' => 'auth'], function()
      // ORDERS //
     Route::prefix('orders')->group(function () {
         Route::get('/','Admin\OrderController@index')->name('ordersindex');
-        Route::get('view','Admin\OrderController@show');
+        Route::get('find/{id}','Admin\FormulaController@find');
         Route::get('create','Admin\OrderController@create');
         Route::post('store','Admin\OrderController@store');
         Route::get('edit/{id}','Admin\OrderController@edit');

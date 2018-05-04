@@ -132,12 +132,34 @@ class FormulaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function find($id)
     {
         if(!in_array(\Auth::user()->user_roles_id,$this->roleArray))
         {
             return redirect()->route('dashboardindex');
         }
+        $getProducts = new Product;
+        $products = $getProducts::where('deleted','!=',1)->orderBy('pinyin','asc')->get();
+
+        //overview stuff
+        $getFormulas = new Formula;
+        $formula = $getFormulas::find($id);
+      
+        $brand = new Brand;         
+          
+        $currentFormulaIngredients = json_decode($formula->data);
+        foreach($currentFormulaIngredients as $key => $val)
+        {
+            $getInfo = $getProducts::find($val->product_id);
+            $currentFormula[] = ['formulaId' => $id, 'id' => $getInfo->id,'pinyin' => $getInfo->pinyin, 'common_name' =>  $getInfo->common_name, 'cpg' => $getInfo->costPerGram,'current_grams' => $val->product_grams,'subtotal' => round($getInfo->costPerGram * $val->product_grams, 2)];
+        }
+
+            $results = [
+                'formulaId' => $formula->id,
+                'formulaName' => $formula->name,
+                'formulaIngredients' => $currentFormula,
+            ];
+            return $results;
     }
 
     /**

@@ -25,12 +25,12 @@
             </div>
             
 
-            <div id="ingredientsTotal" class="table-responsive mt-1" style="clear: both; border-top: 1px solid black; font-weight: bold">
+            <div id="ingredientsTotal" class="table-responsive mt-1 col-md-9" style="width: 78%; margin: auto;" style="clear: both; border-top: 1px solid black; font-weight: bold">
                 <table class="ca-dt-bootstrap table" style="width: 100%;" id="ingredientslist">
                     <tr>
-                        <td class="col-md-3 col-xs-1 text-right">Totals:</td>
-                        <td class="col-md-3 col-xs-3" style="padding-left: 2.9rem;">&nbsp;&nbsp;<span id="totalGrams"></span></td>
-                        <td class="col-md-3 col-xs-3" style="padding-left: 1rem;">$<span id="runningTotal">0.00</span></td>
+                        <td class="text-right" style="width: 30%; ">Totals:</td>
+                        <td style="width: 42%; padding-left: 1.8rem;">&nbsp;&nbsp;<span id="totalGrams"></span></td>
+                        <td  style="width: 30%; padding-left: 1.4rem;">$<span id="runningTotal">0.00</span></td>
                     </tr>    
                 </table>    
                 
@@ -46,12 +46,12 @@
                 <hr />
             <div class="col-md-7 float-left">
                     <h5 class="ingredientSearch">Search For Ingredients</h5>
-                    <input id="ingredientsAuto" class="form-control mb-4" tabindex="0" placeholder="Start Your Search Here">  
+                    <input id="ingredientsAuto" class="form-control mb-4" autofocus tabindex="0" placeholder="Start Your Search Here">  
             </div>
             
             <div class="col-md-3 float-left">
                     <h5>Grams</h5>
-                <input type="number" step="0.1" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" id="initialgrams" class="form-control">
+                <input type="number" step="0.1" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" id="initialgrams" class="form-control" disabled>
             </div>
 
             <div class="col-md-2  float-left mt-2 mb-4">
@@ -104,6 +104,15 @@
     <script>
             
             $("#ingredientsAuto").focus();
+            $("#ingredientsAuto").on('change keyup keydown blur', function(){
+                if($("#ingredientsAuto").val().length < 1)
+                {
+                    $("#initialgrams").attr('disabled',true); 
+                }
+            });
+
+
+            
             $('#saveFormula').prop('disabled',true);        
            /**~~~ AUTOCOMPLETE SEARCH - STEP 1 OF CREATING FORMULAS ~~~**/
             var dataSrc = [
@@ -128,7 +137,8 @@
                     var prodKey = selectedProduct.split(" - ");
                     var product = prodKey[0];
                     var brand = prodKey[1];
-                    $("#ingredientsAuto").focus();                                        
+                    $("#ingredientsAuto").focus();
+                    $("#initialgrams").attr('disabled',false);                                        
 
                     //do an ajax get call to return this one product/brand combo for the formula overview
                     $.ajax({
@@ -152,7 +162,7 @@
             });
 
         // enable add to formula if grams field is filled in
-        $("#initialgrams").on('keyup keydown', function(){
+        $("#initialgrams").on('keyup keydown click', function(){
             var igVal = $("#initialgrams").val();
             if(igVal.length > 0){
                 $("#addToTopRow").show();
@@ -174,7 +184,7 @@
                 $( "#newFormula" ).fadeIn(1300);
                 $("#calculateFormula").show();
             });                           
-            
+            $("#ingredientsAuto").focus(); 
             var productId = $(this).attr('data-ingredientId');
             var productName = $(this).attr('data-ingredient');
             var productCostPerGram = $(this).attr('data-cpg');
@@ -191,9 +201,10 @@
 
             //check for existing row to prevent dupe
             if($("#row_"+productId +"").length){
-                $('#dupeModal').modal();                                
+                $('#dupeModal').modal(); 
+                $("#ingredientsAuto").focus();                                
             } else {                
-                var addRow = '<tr id="row_'+ productId +'"><td>'+ productName +'</td><td><input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" data-cpg="'+ productCostPerGram +'" data-prid="'+ productId +'" autofocus class="userGrams form-control" style="width: 80px" step="0.1" id="userGram_'+ productId +'" value="'+currentGrams+'"></td><td>$'+ productCostPerGram +'</td><td class="subs">$<span class="subTotals" id="subTotal_'+ productId +'">'+ingredientSubTotal+'</span></td><td><a href="#" tabindex="-1" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
+                var addRow = '<tr id="row_'+ productId +'"><td>'+ productName +'</td><td><input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" data-cpg="'+ productCostPerGram +'" data-prid="'+ productId +'" class="userGrams form-control" style="width: 80px" step="0.1" id="userGram_'+ productId +'" value="'+currentGrams+'"></td><td>$'+ productCostPerGram +'</td><td class="subs">$<span class="subTotals" id="subTotal_'+ productId +'">'+ingredientSubTotal+'</span></td><td><a href="#" tabindex="-1" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
                 $('#ingredientslist > tbody:last').append(addRow);
                 // if we have any existing rows, we always wait until the new one has got a value before moving on
                 $("#addToTopRow").attr('data-ingredientId','');

@@ -3,7 +3,7 @@
 <h4><i class="fas fa-clipboard-check"></i>  Create A New Order</h4>
 <hr />
 
-<form action="/dashboard/orders/store" method="post" enctype="multipart/form-data">
+<form id="newOrder" action="/dashboard/orders/store" method="post" enctype="multipart/form-data">
 <div id="wizard">
     
         @include('dashboard.orders.partials.step1')
@@ -29,7 +29,18 @@
                 headerTag: "h2",
                 bodyTag: "section",
                 transitionEffect: "slideLeft",
-                titleTemplate: "#title#" 
+                titleTemplate: "#title#",
+                autoFocus: true,
+                enableFinishButton: true,                
+                enableKeyNavigation: true,
+
+                labels: {
+                    finish: 'Submit Order',
+                },
+                onFinished: function (event, currentIndex) {
+                    $( "#newOrder" ).submit();
+                 },
+
             });
         });
     </script>

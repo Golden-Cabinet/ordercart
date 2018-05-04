@@ -30,7 +30,7 @@ class UserRolesTableSeeder extends Seeder
 
             [
                 'name' => 'Patient'
-            ]
+            ] 
         ]);
     }
 }

@@ -8,6 +8,8 @@ use App\Order;
 use App\UserRole;
 use App\Patient;
 use App\Formula;
+use App\PatientAddress;
+use App\AddressState;
 
 class OrderController extends Controller
 {
@@ -66,11 +68,14 @@ class OrderController extends Controller
         $userRole = new UserRole;
         $roles = $userRole::find($currentRole);
 
-        // get the patients
+        // get the patients 
         $patients = new Patient;
         $getPatients = $patients::where('users_id',\Auth::user()->id)
         ->orderBy('name','asc')
         ->get();
+
+        $getStates = new AddressState;
+        $states = $getStates::where('name','!=',null)->orderBy('name', 'asc')->get();
 
 
         // get the formulas
@@ -94,6 +99,7 @@ class OrderController extends Controller
         $results = [
             'patients' => $getPatients,
             'formulas' => $formula,
+            'states' => $states
         ];
         
         return view('dashboard.orders.create', $results); 
