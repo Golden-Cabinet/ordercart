@@ -48,7 +48,7 @@
             
             <div class="col-md-3 float-left">
                     <h5>Grams</h5>
-                <input type="number" step="0.1" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" id="initialgrams" class="form-control">
+                <input type="number" step="0.1" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" id="initialgrams" class="form-control" class="form-control" disabled>
             </div>
 
             <div class="col-md-2  float-left mt-2 mb-4">

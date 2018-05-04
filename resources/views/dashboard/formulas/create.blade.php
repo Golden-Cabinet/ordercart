@@ -21,7 +21,7 @@
                             <thstyle="width: 20%">&nbsp;</th>
                         </tr>                
                         <tbody id="ingRows" style="width: 100%"></tbody>
-                    </table>             
+                    </table>              
             </div>
             
 
