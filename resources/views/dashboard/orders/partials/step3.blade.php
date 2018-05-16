@@ -44,38 +44,39 @@
     </div>
 
 
-    <div id="shippinginfo" class="w-100 mt-3" style="display: none;">
+    <div id="shippinginfo" class="col-md-12 mt-3" style="display: none;">
 
-            <h5 class="w-100 pb-2 pt-2">Shipping Address</h5>
+            <h5 class="pb-2 pt-2">Shipping Address</h5>
 
             <div class="col">
                 <div class="row">
                     <div class="col-md-2 font-weight-bold">
                         <p>Street Address</p>
                     </div>
-                    <div class="col-md-7">
-                        <input type="text" class="form-control w-100" id="shipping_address" name="shipping_address" placeholder="">
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="shipping_address" name="shipping_address" placeholder="">
                     </div>   
                 </div>                                        
                 
                 <div class="row">
 
-                    <div class="col-md-3 float-left mr-4" style="padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0;">
-                        <div class="col-md-2 float-left font-weight-bold">
+                    <div class="col-md-4 float-left" style="padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0;">
+                        
+                        <div class="col-md-3 float-left font-weight-bold">
                             <p>City</p>
                         </div>
-                        <div class="col-md-6 float-left">
+                        <div class="col-md-9 float-left">
                             <input type="text" class="form-control" id="shipping_city" name="shipping_city" placeholder="">
                         </div> 
 
                     </div>                        
                     
-                    <div class="col-md-2 float-left mr-4 pr-2" style="padding-left: 0; margin-left: 0;">
+                    <div class="col-md-4 float-left" style="padding-left: 0; margin-left: 0;">
 
-                        <div class="col-md-3 float-left mr-2 font-weight-bold">
+                        <div class="col-md-3 float-left font-weight-bold">
                             <p>State</p>
                         </div>
-                        <div class="col-md-2 float-left">
+                        <div class="col-md-9 float-left">
                             <select class="form-control" id="shipping_state" name="shipping_state">
                                 <option>Please Select</option>
                                 @foreach($states as $state)
@@ -86,12 +87,12 @@
 
                     </div>                            
     
-                    <div class="col-md-2 float-left mr-4 pr-2" style="padding-left: 0; margin-left: 0; ">
+                    <div class="col-md-4 float-left" style="padding-left: 0; margin-left: 0; ">
 
-                        <div class="col-md-2 float-left mr-2 font-weight-bold">
+                        <div class="col-md-3 float-left font-weight-bold">
                             <p>Zip</p>
                         </div>
-                        <div class="col-md-2 float-left">
+                        <div class="col-md-8 float-left">
                             <input type="number" class="form-control"  id="shipping_zip" name="shipping_zip" placeholder="">
                         </div>
 

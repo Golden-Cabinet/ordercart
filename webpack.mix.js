@@ -23,6 +23,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
     'public/json2.js',
     'public/order_functions.js',
     'public/page_functions.js',
+    'node_modules/jquery-validation/dist/jquery.validate.js'
    ],'public/js/site.js');
 
    mix.styles([

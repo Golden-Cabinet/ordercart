@@ -7,7 +7,7 @@
             <label for="dosageQuantity" class="col-sm-2 col-form-label">Dosage Quantity</label>
             <div class="col-sm-10">
                     <select id="dosageQuantity" name="dosage_quantity" class="form-control">
-                            <option>Please Select The Dosage Quantity</option>
+                            <option value="nodosage">Please Select The Dosage Quantity</option>
                             <option value='As Directed (1 level scoop is 1.5g)'>As Directed (1 level scoop is 1.5g)</option>
                             <option value='1 level scoop (1.5g)'>1 level scoop (1.5g)</option>
                             <option value='1 slightly rounded scoop (2g)'>1 slightly rounded scoop (2g)</option>
@@ -23,6 +23,7 @@
                             <option value='4 heaping scoops (10g)'>4 heaping scoops (10g)</option>
                             <option value='Other – add dosage in “Special Instructions” below'>Other – add dosage in “Special Instructions” below</option>
                     </select>
+                    <span  class="text-danger" id="errDosageLookup"></span>
             </div>
     </div>
 
@@ -30,7 +31,7 @@
             <label for="timesDay" class="col-sm-2 col-form-label">Number Of Times/Day</label>
             <div class="col-sm-10">
                     <select id="timesDay" name="times_day" class="form-control">
-                            <option>Please Select The Number of Times Per Day</option>
+                            <option value="notimes">Please Select The Number of Times Per Day</option>
                             <option value='Once per day'>Once per day</option>
                             <option value='Two times per day'>Two times per day</option>
                             <option value='Three times per day'>Three times per day</option>
@@ -39,6 +40,7 @@
                             <option value='As Needed'>As Needed</option>
                             <option value='Other – add details in "Special Instructions" below'>Other – add details in “Special Instructions” below</option>
                     </select>
+                    <span  class="text-danger" id="errTimesDay"></span>
             </div>
     </div>
 
@@ -46,7 +48,7 @@
             <label for="refillsAllowed" class="col-sm-2 col-form-label">Number of refills allowed</label>
             <div class="col-sm-10">
                     <select id="refillsAllowed" name="refills_amount" class="form-control">
-                            <option>Please Select Dividend or Discount</option>
+                            <option value="norefills">Please Select The Number of Refills Allowed</option>
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -61,6 +63,7 @@
                             <option value="unlimited">Unlimited</option>
                             <option value='Other – add details in "Special Instructions" below'>Other – add details in “Special Instructions” below</option>                
                     </select>
+                    <span class="text-danger" id="errRefills"></span>
             </div>
     </div>
 

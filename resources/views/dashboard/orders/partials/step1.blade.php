@@ -6,35 +6,37 @@
         <div class="form-group row">
                 <label for="patientLookup" class="col-sm-3 col-form-label">Patient</label>
                 <div class="col-sm-9">
-                        <select class="form-control" id="patientLookup">
-                                <option id="patient_greeting">Please Select a Patient</option>
+                        <select class="form-control" id="patientLookup" required>
+                                <option value="nopatient" id="patient_greeting">Please Select a Patient</option>
                                 <option id="add_patient">Add a New Patient</option>
                                 @foreach($patients as $patient)
                                 <option value="{{ $patient->id }}">{{ $patient->name }}</option>
                                 @endforeach
                         </select>
+                        <span class="text-danger" id="errPatientLookup"></span>
                 </div>
         </div>
 
         <div class="form-group row">
                         <label for="formulaLookup" class="col-sm-3 col-form-label">Formula</label>
                         <div class="col-sm-9">
-                                <select class="form-control" id="formulaLookup">
-                                        <option id="formula_greeting">Please Select a Formula</option>
+                                <select class="form-control" id="formulaLookup" required>
+                                        <option value="noformula" id="formula_greeting">Please Select a Formula</option>
                                         <option id="add_formula">Add a New Formula</option>
                                         @foreach($formulas as $formula)
                                         <option data-id="{{ $formula->id }}" value="{{ $formula->id }}">{{ $formula->name }}</option>
                                         @endforeach
                                 </select>
+                                <span  class="text-danger" id="errFormulaLookup"></span>
                         </div>
                 </div>
         <hr />
 
 
-        <div id="adjustFormula" style="display: none">
+        <div class="col-md-8" id="adjustFormula" style="display: none">
               <h3 style="font-size: 1.8rem;"><i class="fas fa-balance-scale"></i> Scale Formula</h3>
               <div class="table-responsive">
-                        <table class="table w-100" id="ingListInitial">
+                        <table class="table" id="ingListInitial">
                             <tr>
                                 <th>Pinyin</th>
                                 <th>Common Name</th>
@@ -49,9 +51,9 @@
                     </div>
                     
                     <div class="form-group row">
-                                <label for="formulaWeight" class="col-sm-3 col-form-label">Total Weight (grams)</label>
-                                <div class="col-sm-9">
-                                <input type="number" class="form-control" id="formulaWeight" value="">
+                                <label for="formulaWeight" class="col-sm-4 col-form-label">Total Weight (grams)</label>
+                                <div class="col-sm-4">
+                                <input type="number" class="form-control" id="formulaWeight" value="" step="0.1" onkeydown="limit(this);" onkeyup="limit(this);" min="0.1" max="99.9">
                                 </div>
                         </div>
         </div>
@@ -67,16 +69,17 @@
         <div class="form-group row">
                 <label for="formulaLookup" class="col-sm-3 col-form-label">Discount/Dividend</label>
                 <div class="col-sm-9">
-                        <select id="chooseDividend" name="dividend" class="form-control">
-                                <option>Please Select Dividend or Discount</option>
+                        <select id="chooseDividend" name="dividend" class="form-control"  required>
+                                <option value="nodividend">Please Select Dividend or Discount</option>
                                 <option id="" value="0.90">Apply 10% Discount (no dividend credit)</option>
                                 <option id="" value="0.85">No Discount (15% dividend credit)</option>
                         </select>
+                        <span  class="text-danger" id="errDividend"></span>
                 </div>
         </div>
         <hr />
         <div class="form-group row">
-                <label for="formulaLookup" class="col-sm-3 col-form-label">Total</label>
+                <label for="formulaTotal" class="col-sm-3 col-form-label">Total</label>
                 <div class="col-sm-9">
                         $<span id="formulaTotal">0.00</span>
                 </div>
@@ -151,6 +154,21 @@
                }         
        
        });
+
+       function limit(element)
+        {
+             
+            var split = element.value.toString().split('.');
+            if(split[0] < 4){
+                var max_chars = 3; 
+            } else {
+                var max_chars = 4; 
+            }
+
+            if(split[1] > max_chars) {
+                element.value = element.value.substr(0, max_chars);
+            }
+        }
 
         
         

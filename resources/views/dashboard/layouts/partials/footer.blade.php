@@ -36,6 +36,8 @@ if (location.hostname.substr(-6) != ".local") {
 @stack('js') 
 
 @stack('dataSet')
+
+@stack('jsValidation') 
 </body>
 
 </html>

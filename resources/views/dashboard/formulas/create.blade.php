@@ -164,7 +164,8 @@
             });
 
         // enable add to formula if grams field is filled in
-        $("#initialgrams").on('keyup keydown click', function(){
+        $("#initialgrams").on('keydown click', function(){
+            
             var igVal = $("#initialgrams").val();
             if(igVal.length > 0){
                 $("#addToTopRow").show();
@@ -173,10 +174,24 @@
             }
         });
 
-                
+                $(document).ready(function() {
+            $(window).keydown(function(event){
+              if(event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+              }
+            });
+          });
 
         // add ingredient button stuff
-        $("#addToTopRow").on('click keydown', function(){
+        $("#addToTopRow").on('click keyup keydown', function(){
+            $("#ingredientsAuto").focus();
+
+            $(window).keydown(function(event){
+              if(event.keyCode == 9) {
+                $("#ingredientsAuto").focus();
+              }
+            });
             
             $(".ingredientSearch").text('Add Additional Ingredients To Formula');
             var currentGrams = $('#initialgrams').val();
@@ -185,8 +200,9 @@
             $('#stepTwo').slideDown( "slow", function() {
                 $( "#newFormula" ).fadeIn(1300);
                 $("#calculateFormula").show();
+                $("#ingredientsAuto").focus();                 
             });                           
-            $("#ingredientsAuto").focus(); 
+            
             var productId = $(this).attr('data-ingredientId');
             var productName = $(this).attr('data-ingredient');
             var productCostPerGram = $(this).attr('data-cpg');
@@ -206,7 +222,7 @@
                 $('#dupeModal').modal(); 
                 $("#ingredientsAuto").focus();                                
             } else {                
-                var addRow = '<tr id="row_'+ productId +'"><td>'+ productName +'</td><td><input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0" max="99" data-cpg="'+ productCostPerGram +'" data-prid="'+ productId +'" class="userGrams form-control" style="width: 80px" step="0.1" id="userGram_'+ productId +'" value="'+currentGrams+'"></td><td>$'+ productCostPerGram +'</td><td class="subs">$<span class="subTotals" id="subTotal_'+ productId +'">'+ingredientSubTotal+'</span></td><td><a href="#" tabindex="-1" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
+                var addRow = '<tr id="row_'+ productId +'"><td>'+ productName +'</td><td><input type="number" onkeydown="limit(this);" onkeyup="limit(this);" min="0.1" max="99" data-cpg="'+ productCostPerGram +'" data-prid="'+ productId +'" class="userGrams form-control" style="width: 80px" step="0.1" id="userGram_'+ productId +'" value="'+currentGrams+'"></td><td>$'+ productCostPerGram +'</td><td class="subs">$<span class="subTotals" id="subTotal_'+ productId +'">'+ingredientSubTotal+'</span></td><td><a href="#" tabindex="-1" class="removeIngredient btn btn-sm btn-danger text-white">Remove</a></td></tr>';
                 $('#ingredientslist > tbody:last').append(addRow);
                 // if we have any existing rows, we always wait until the new one has got a value before moving on
                 $("#addToTopRow").attr('data-ingredientId','');
@@ -216,23 +232,17 @@
                     //$('#calculateFormula').hide();
 
                     update_gram_amounts()
+                    $("#ingredientsAuto").focus();
                 }
                 $("#ingredientsAuto").focus();
                 //$("#userGram_"+ productId +"").focus();
             }
             $("#addToTopRow").hide();
+            $("#ingredientsAuto").focus();
             
         })    
         
-        // address weird shift+tab issue to get back into grams field
-        $( document ).ready(function() {
-            $('#calculateFormula').on('keydown blur', function(e) {    
-                var keyCode = e.keyCode || e.which;     
-                    if(e.shiftKey && e.keyCode == 9) {
-                        $("#ingredientsAuto").focus();
-                    }                       
-            });
-        });
+        
         
             
         /**~~~ FORMULA OVERVIEW MANAGEMENT - STEP 2 OF CREATING FORMULAS ~~~**/
@@ -269,6 +279,7 @@
                     sum = sum + prodprice;
                 });
                 $("#runningTotal").text(sum.toFixed(2));
+                $("#ingredientsAuto").focus();
             }
 
         // dynamically adjust gram totals
@@ -282,6 +293,7 @@
                 });
 
                 $("#totalGrams").text(sum.toFixed(1));
+                $("#ingredientsAuto").focus();
             }    
 
         function limit(element)
@@ -354,10 +366,6 @@
          });
          
          $('#formulaName').on('change keydown',function(e){
-            var keyCode = e.keyCode || e.which;     
-            if(e.shiftKey && e.keyCode == 9) {
-                $("#ingredientsAuto").focus();
-            }
              if($('#formulaName').val().length <= 4){
                 $('#saveFormula').prop('disabled',true);
              } else {

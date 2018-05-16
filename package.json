@@ -39,6 +39,7 @@
         "jquery-datetimepicker": "^2.5.14",
         "jquery-simple-datetimepicker": "^1.12.0",
         "jquery-steps": "^1.1.0",
+        "jquery-validation": "^1.17.0",
         "moment": "^2.19.4",
         "npm-font-open-sans": "^1.1.0",
         "popper.js": "^1.12.9",

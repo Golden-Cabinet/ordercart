@@ -43,7 +43,7 @@
                 <hr />
             <div class="col-md-7 float-left">
                     <h5 class="ingredientSearch">Add Additional Ingredients To Formula</h5>
-                    <input id="ingredientsAuto" autofocus class="form-control mb-4" tabindex="0" placeholder="Start Your Search Here">  
+                    <input id="ingredientsAuto" tabindex="1" autofocus class="form-control mb-4" tabindex="0" placeholder="Start Your Search Here">  
             </div>
             
             <div class="col-md-3 float-left">
@@ -61,7 +61,7 @@
         <div class="finalizeFormula" style="width: 100%; clear: both;">
                 
             <h5>Create Your Formula Name and Save It!</h5>
-            <input type="text" style="background: #ffffe0" class="form-control mb-4" value="{{ $formulaName }}" id="formulaName" name="formula_name" placeholder="Enter Your New Formula Name">
+            <input type="text" style="background: #ffffe0" class="form-control mb-4" value="{{ $formulaName }}" tabindex="-1" id="formulaName" name="formula_name" placeholder="Enter Your New Formula Name">
             @if($formulaDeleted == 1)
             <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="undelete" value="undelete" id="undelete">
@@ -108,6 +108,8 @@
 
     @push('js')
     <script>
+            $("#ingredientsAuto").focus();
+            
             $("#ingredientsAuto").on('change keyup keydown blur', function(){
                 if($("#ingredientsAuto").val().length < 1)
                 {
@@ -186,8 +188,7 @@
                     var prodKey = selectedProduct.split(" - ");
                     var product = prodKey[0];
                     var brand = prodKey[1];
-                    $("#initialgrams").attr('disabled',false);
-                    $("#ingredientsAuto").focus();                                        
+                    $("#initialgrams").attr('disabled',false);                                       
 
                     //do an ajax get call to return this one product/brand combo for the formula overview
                     $.ajax({
@@ -211,19 +212,28 @@
             });
 
         // enable add to formula if grams field is filled in
-        $("#initialgrams").on('keyup keydown', function(){
+        $("#initialgrams").on('click keydown', function(){
             var igVal = $("#initialgrams").val();
             if(igVal.length > 0){
                 $("#addToTopRow").show();
             } else {
                 $("#addToTopRow").hide();
             }
+
         });
 
                 
 
         // add ingredient button stuff
-        $("#addToTopRow").on('click keydown', function(){
+        $("#addToTopRow").on('click keyup keydown', function(){
+            $("#initialgrams").blur();
+            $("#ingredientsAuto").focus();
+
+            $(window).keydown(function(event){
+              if(event.keyCode == 9) {
+                $("#ingredientsAuto").focus();
+              }
+            });
             
             $(".ingredientSearch").text('Add Additional Ingredients To Formula');
             var currentGrams = $('#initialgrams').val();
@@ -232,8 +242,9 @@
             $('#stepTwo').slideDown( "slow", function() {
                 $( "#newFormula" ).fadeIn(1300);
                 $("#calculateFormula").show();
+                $("#ingredientsAuto").focus();  
             });
-            $("#ingredientsAuto").focus();                           
+                                     
             
             var productId = $(this).attr('data-ingredientId');
             var productName = $(this).attr('data-ingredient');
@@ -263,12 +274,14 @@
                 if($('#ingRows > tr').length > 0){
                     //$('#calculateFormula').hide();
 
-                    update_gram_amounts()
+                    update_gram_amounts();
+                    $("#ingredientsAuto").focus();
                 }
                 $("#ingredientsAuto").focus();
                 //$("#userGram_"+ productId +"").focus();
             }
             $("#addToTopRow").hide();
+            
             
         })    
 
@@ -315,6 +328,7 @@
                     sum = sum + prodprice;
                 });
                 $("#runningTotal").text(sum.toFixed(2));
+                $("#ingredientsAuto").focus();
             }
 
         // dynamically adjust gram totals
@@ -328,6 +342,7 @@
                 });
 
                 $("#totalGrams").text(sum.toFixed(1));
+                $("#ingredientsAuto").focus();
             }    
 
         function limit(element)
@@ -371,7 +386,6 @@
          /** FORMULA CALCULATION **/
          $('#calculateFormula').on('click',function(){            
 
-            $("#formulaName").focus();
             var sum = 0;
             $( ".subTotals" ).each(function() {
                 var value = $(this).text();
@@ -382,7 +396,6 @@
               });
               $( ".finalizeFormula" ).slideDown( "slow", function() {
                     $( ".finalizeFormula" ).show();
-                    $("#formulaName").focus();
               });
               var obj = {};
               var elements = []; // create object for hidden form field
@@ -396,10 +409,7 @@
          });
          
          $('#formulaName').on('change keydown',function(e){
-            var keyCode = e.keyCode || e.which;     
-            if(e.shiftKey && e.keyCode == 9) {
-                $("#ingredientsAuto").focus();
-            }
+
              if($('#formulaName').val().length <= 4){
                 $('#saveFormula').prop('disabled',true);
              } else {
