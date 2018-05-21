@@ -6,9 +6,9 @@
         <div class="form-group row">
                 <label for="patientLookup" class="col-sm-3 col-form-label">Patient</label>
                 <div class="col-sm-9">
-                        <select class="form-control" id="patientLookup" required>
+                        <select class="form-control" id="patientLookupSelect">
                                 <option value="nopatient" id="patient_greeting">Please Select a Patient</option>
-                                <option id="add_patient">Add a New Patient</option>
+                                <option value="add_patient" data-toggle="modal" data-target=".bd-example-modal-lg">Add a New Patient</option>
                                 @foreach($patients as $patient)
                                 <option value="{{ $patient->id }}">{{ $patient->name }}</option>
                                 @endforeach
@@ -92,7 +92,12 @@
 
         @push('js')
         <script>
-        $(document).ready(function(){
+
+        
+
+        $(document).ready(function(){    
+                $('.modal-dialog').css('max-width','60%');
+
                
 
         // dynamically adjust the grand total
@@ -172,10 +177,24 @@
 
         
         
-        }); // end document ready        
-        
+        }); // end document ready   
 
-        
-        
+        $(document).on('change','#patientLookupSelect',function(){
+                if($('#patientLookupSelect').val() === 'add_patient')
+                {                
+                        $('#addPatientModal').modal('show');
+                }
+        });
+
+        $(document).on('click','#inlineRadio2',function(){
+
+                $('#patientshippinginfo').show('slow');
+        });
+
+        $(document).on('click','#inlineRadio1',function(){
+                $('#patientshippinginfo').hide('slow');
+        }); 
+
+       
         </script>
         @endpush

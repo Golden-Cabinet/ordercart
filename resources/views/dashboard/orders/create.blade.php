@@ -15,16 +15,17 @@
 
         @include('dashboard.orders.partials.step4')
 
-        @include('dashboard.orders.partials.step5')    
-            
-    </div>
+        @include('dashboard.orders.partials.step5')       
+        
+    </div>    
     </div>
 
 {{ csrf_field() }}
 </form>
-
+@include('dashboard.orders.partials.addpatient')
 @push('js')
 <script>
+    
         $(function ()
         {
             $("#wizard").steps({
